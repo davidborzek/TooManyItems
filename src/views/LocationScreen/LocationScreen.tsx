@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, FlatList, StyleSheet } from "react-native";
+import { supabase } from "../../supabase";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,14 +15,34 @@ const styles = StyleSheet.create({
   },
 });
 
+interface Location {
+  id: number
+  name: string
+  street: string
+  city: string
+  zip_code: string
+  created_at: string
+  image_id: any
+}
+
 export default function LocationScreen() {
-  let [data, setData] = useState(Array(20).fill("").map((_, i) => ({ key: `item #${i}` })))  
+  let [data, setData] = useState<Location[]>([])
+  
+  useEffect(() => {
+    supabase
+      .from('location')
+      .select("*")
+      .then(({data, error}) => {
+          setData(data as Location[])
+      })
+  }, [])
+
 
   return (
     <View style={styles.container}>
       <FlatList
         data={data}
-        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}
       />
     </View>
   );
