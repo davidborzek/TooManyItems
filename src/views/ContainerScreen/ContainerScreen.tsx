@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
-import { supabase } from '../../supabase';
+import { Container, supabase } from '../../supabase/supabase';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
-import { Container } from '../../supabase.types';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -36,7 +35,11 @@ export default function ContainerScreen({ navigation }: Props) {
       .from('container')
       .select('*')
       .then(({ data, error }) => {
-        setData(data as Container[]);
+        if (!data) {
+          return;
+        }
+
+        setData(data);
       });
   };
 
