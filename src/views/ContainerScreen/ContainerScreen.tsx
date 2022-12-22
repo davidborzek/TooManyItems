@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Text, View, FlatList, StyleSheet } from "react-native";
 import { supabase } from "../../supabase";
+import { FAB } from 'react-native-elements';
+import { Icon } from 'react-native-elements'
 
 const styles = StyleSheet.create({
   container: {
@@ -20,20 +22,26 @@ interface Container {
   name: string
   location_id: number
   created_at: string
-  image_id: any
+  image: string
 }
 
-
-export default function ContainerScreen() {
+export default function ContainerScreen({navigation}) {
   let [data, setData] = useState<Container[]>([])
-  
-  useEffect(() => {
+
+  const fetchData = () => {
     supabase
       .from('container')
       .select("*")
       .then(({data, error}) => {
           setData(data as Container[])
       })
+  }
+
+  useEffect(() => {
+    fetchData();
+    navigation.addListener('focus', () => {
+      fetchData();
+    });
   }, [])
 
 
@@ -42,6 +50,15 @@ export default function ContainerScreen() {
       <FlatList
         data={data}
         renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}
+      />
+      <FAB
+        title="" 
+        color="#32afed"
+        placement="right"
+        icon={<Icon name="add" size={24} color="white" tvParallaxProperties={undefined} />}
+        onPress={() => {
+          navigation.navigate("ContainerAdd")
+        }}
       />
     </View>
   );

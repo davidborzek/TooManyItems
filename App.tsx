@@ -1,45 +1,32 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ContainerScreen from './src/views/ContainerScreen/ContainerScreen';
-import LocationScreen from './src/views/LocationScreen/LocationScreen';
-import { View } from 'react-native';
-import SearchScreen from './src/views/SearchScreen/SearchScreen';
-import { Ionicons } from "@expo/vector-icons"
-import { MaterialIcons } from "@expo/vector-icons"
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Home from './src/views/Home/Home';
+import ContainerAdd from './src/views/ContainerAdd/ContainerAdd';
+import LocationAdd from './src/views/LocationAdd/LocationAdd';
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName: any;
-
-            if (route.name === 'Container') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
-            } else if (route.name === 'Locations') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
-            } else {
-              iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
-            }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Container" component={ContainerScreen} />
-        <Tab.Screen name="Locations" component={LocationScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-      </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home} 
+          options={{ headerShown: false }}/>
+        <Stack.Screen
+          name="ContainerAdd"
+          component={ContainerAdd}
+          options={{ headerTitle: "Container Hinzufügen" }}
+        />
+        <Stack.Screen
+          name="LocationAdd"
+          component={LocationAdd}
+          options={{ headerTitle: "Ort Hinzufügen" }}
+        />
+      </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
   );
