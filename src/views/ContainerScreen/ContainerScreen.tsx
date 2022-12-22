@@ -3,6 +3,7 @@ import { Text, View, FlatList, StyleSheet } from 'react-native';
 import { supabase } from '../../supabase';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
+import { Container } from '../../supabase.types';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,14 +17,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'light-gray',
   },
 });
-
-interface Container {
-  id: number;
-  name: string;
-  location_id: number;
-  created_at: string;
-  image: string;
-}
 
 export default function ContainerScreen({ navigation }) {
   let [data, setData] = useState<Container[]>([]);
