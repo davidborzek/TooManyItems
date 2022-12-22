@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "NODE_OPTIONS=--openssl-legacy-provider expo start --web",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",
@@ -34,8 +35,14 @@
     "@babel/core": "^7.12.9",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
-    "typescript": "^4.6.3",
-    "prettier": "^2.5.1"
+    "husky": "^8.0.2",
+    "prettier": "^2.5.1",
+    "typescript": "^4.6.3"
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "./src/**/*.{ts,tsx}": [
+      "prettier --write"
+    ]
+  }
 }
