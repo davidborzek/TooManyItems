@@ -4,6 +4,7 @@
     "slug": "mobilecomputing",
     "version": "1.0.0",
     "orientation": "portrait",
+    "entryPoint": "src/App.tsx",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
