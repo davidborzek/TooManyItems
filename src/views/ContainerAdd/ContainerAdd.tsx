@@ -8,7 +8,7 @@ import { Location } from '../../supabase.types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 
-type Props = NativeStackScreenProps<AppStackParamList, "ContainerAdd">
+type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
 export default function ContainerAdd({ navigation }: Props) {
   const [image, setImage] = useState(null);

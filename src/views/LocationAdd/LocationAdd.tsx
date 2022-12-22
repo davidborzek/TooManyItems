@@ -6,7 +6,7 @@ import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 
-type Props = NativeStackScreenProps<AppStackParamList, "LocationAdd">
+type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
 export default function LocationAdd({ navigation }: Props) {
   const [image, setImage] = useState(null);

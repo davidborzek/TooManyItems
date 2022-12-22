@@ -12,27 +12,32 @@ export type HomeTabParamList = {
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
+function icon(screen: keyof HomeTabParamList, focused: boolean) {
+  if (screen === 'Container') {
+    return focused
+      ? 'ios-information-circle'
+      : 'ios-information-circle-outline';
+  } else if (screen === 'Locations') {
+    return focused ? 'ios-list' : 'ios-list-outline';
+  } else {
+    return focused
+      ? 'ios-information-circle'
+      : 'ios-information-circle-outline';
+  }
+}
+
 export default function Home() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: any;
-
-          if (route.name === 'Container') {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
-          } else if (route.name === 'Locations') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
-          } else {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
-          }
-
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return (
+            <Ionicons
+              name={icon(route.name, focused)}
+              size={size}
+              color={color}
+            />
+          );
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
