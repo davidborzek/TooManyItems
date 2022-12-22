@@ -3,8 +3,12 @@ import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../../supabase';
 import { FAB, Icon } from 'react-native-elements';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AppStackParamList } from '../../App';
 
-export default function LocationAdd({ navigation }) {
+type Props = NativeStackScreenProps<AppStackParamList, "LocationAdd">
+
+export default function LocationAdd({ navigation }: Props) {
   const [image, setImage] = useState(null);
   const [locationName, setLocationName] = useState('');
   const [street, setStreet] = useState('');

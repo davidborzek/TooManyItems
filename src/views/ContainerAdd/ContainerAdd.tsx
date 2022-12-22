@@ -5,8 +5,12 @@ import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { supabase } from '../../supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { Location } from '../../supabase.types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AppStackParamList } from '../../App';
 
-export default function ContainerAdd({ navigation }) {
+type Props = NativeStackScreenProps<AppStackParamList, "ContainerAdd">
+
+export default function ContainerAdd({ navigation }: Props) {
   const [image, setImage] = useState(null);
   const [containerName, setContainerName] = useState('');
   const [containterTags, setContainterTags] = useState('');

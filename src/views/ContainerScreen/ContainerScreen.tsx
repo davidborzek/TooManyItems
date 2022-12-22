@@ -4,6 +4,11 @@ import { supabase } from '../../supabase';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import { Container } from '../../supabase.types';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { HomeTabParamList } from '../Home/Home';
+import { AppStackParamList } from '../../App';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +23,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ContainerScreen({ navigation }) {
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<HomeTabParamList, 'Container'>,
+  NativeStackScreenProps<AppStackParamList>
+>;
+
+export default function ContainerScreen({ navigation }: Props) {
   let [data, setData] = useState<Container[]>([]);
 
   const fetchData = () => {
