@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Text, View, FlatList, StyleSheet } from "react-native";
+import { FAB, Icon } from "react-native-elements";
 import { supabase } from "../../supabase";
 
 const styles = StyleSheet.create({
@@ -15,26 +16,33 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Location {
+export interface Location {
   id: number
   name: string
   street: string
   city: string
   zip_code: string
   created_at: string
-  image_id: any
+  image: string
 }
 
-export default function LocationScreen() {
+export default function LocationScreen({navigation}) {
   let [data, setData] = useState<Location[]>([])
   
-  useEffect(() => {
+  const fetchData = () => {
     supabase
       .from('location')
       .select("*")
       .then(({data, error}) => {
           setData(data as Location[])
       })
+  }
+
+  useEffect(() => {
+    fetchData();
+    navigation.addListener('focus', () => {
+      fetchData();
+    });
   }, [])
 
 
@@ -43,6 +51,15 @@ export default function LocationScreen() {
       <FlatList
         data={data}
         renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}
+      />
+      <FAB
+        title="" 
+        color="#32afed"
+        placement="right"
+        icon={<Icon name="add" size={24} color="white" tvParallaxProperties={undefined} />}
+        onPress={() => {
+          navigation.navigate("LocationAdd")
+        }}
       />
     </View>
   );
