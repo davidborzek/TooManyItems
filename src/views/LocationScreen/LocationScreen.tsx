@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
 import { FAB, Icon } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
-import { supabase } from '../../supabase';
-import { Location } from '../../supabase.types';
+import { Location, supabase } from '../../supabase/supabase';
 import { HomeTabParamList } from '../Home/Home';
 
 const styles = StyleSheet.create({
@@ -35,7 +34,10 @@ export default function LocationScreen({ navigation }: Props) {
       .from('location')
       .select('*')
       .then(({ data, error }) => {
-        setData(data as Location[]);
+        if (!data) {
+          return;
+        }
+        setData(data);
       });
   };
 

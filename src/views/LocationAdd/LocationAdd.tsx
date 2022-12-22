@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { supabase } from '../../supabase';
+import { supabase } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';

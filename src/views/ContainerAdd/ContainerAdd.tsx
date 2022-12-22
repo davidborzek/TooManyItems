@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
-import { supabase } from '../../supabase';
+import { supabase } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
-import { Location } from '../../supabase.types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 
@@ -24,8 +23,12 @@ export default function ContainerAdd({ navigation }: Props) {
       .from('location')
       .select('*')
       .then(({ data, error }) => {
+        if (!data) {
+          return;
+        } 
+
         setLocations(
-          (data as Location[]).map((location) => ({
+          data.map((location) => ({
             label: location.name,
             value: location.id,
           }))
