@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './views/Home/Home';
+import Home, { HomeTabParamList } from './views/Home/Home';
 import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import LocationAdd from './views/LocationAdd/LocationAdd';
 import { registerRootComponent } from 'expo';
 
-const Stack = createNativeStackNavigator();
+export type AppStackParamList = {
+  Home: NavigatorScreenParams<HomeTabParamList>;
+  ContainerAdd: undefined;
+  LocationAdd: undefined;
+};
+
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
 function App() {
   return (

@@ -4,7 +4,13 @@ import SearchScreen from '../SearchScreen/SearchScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Tab = createBottomTabNavigator();
+export type HomeTabParamList = {
+  Container: undefined;
+  Locations: undefined;
+  Search: undefined;
+};
+
+const Tab = createBottomTabNavigator<HomeTabParamList>();
 
 export default function Home() {
   return (
