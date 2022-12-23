@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
-import { supabase } from '../../supabase/supabase';
+import {
+  insertContainer,
+  fetchLocations,
+  supabase,
+} from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
@@ -14,30 +18,22 @@ export default function ContainerAdd({ navigation }: Props) {
   const [containerName, setContainerName] = useState('');
   const [containterTags, setContainterTags] = useState('');
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [isLocationSelectionOpen, setLocationSelectionOpen] = useState(false);
+  const [location, setLocation] = useState<number | null>(null);
   const [locations, setLocations] = useState<ItemType<number>[]>([]);
 
   useEffect(() => {
-    supabase
-      .from('location')
-      .select('*')
-      .then(({ data, error }) => {
-        if (!data) {
-          return;
-        } 
-
-        setLocations(
-          data.map((location) => ({
-            label: location.name,
-            value: location.id,
-          }))
-        );
-      });
+    fetchLocations().then((locations) => {
+      setLocations(
+        locations.map((location) => ({
+          label: location.name,
+          value: location.id,
+        }))
+      );
+    });
   }, []);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result: any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -48,6 +44,16 @@ export default function ContainerAdd({ navigation }: Props) {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
+  };
+
+  const handleCreateContainer = async () => {
+    await insertContainer({
+      name: containerName,
+      location_id: location,
+      image: image,
+    });
+
+    navigation.goBack();
   };
 
   return (
@@ -98,11 +104,11 @@ export default function ContainerAdd({ navigation }: Props) {
 
         <Text>Location</Text>
         <DropDownPicker
-          open={open}
-          value={value}
+          open={isLocationSelectionOpen}
+          value={location}
           items={locations}
-          setOpen={setOpen}
-          setValue={setValue}
+          setOpen={setLocationSelectionOpen}
+          setValue={setLocation}
           setItems={setLocations}
           style={{
             height: 30,
@@ -125,13 +131,8 @@ export default function ContainerAdd({ navigation }: Props) {
             tvParallaxProperties={undefined}
           />
         }
-        disabled={!containerName || !value}
-        onPress={async () => {
-          const result = await supabase
-            .from('container')
-            .insert({ name: containerName, location_id: value, image: image });
-          navigation.goBack();
-        }}
+        disabled={!containerName || !location}
+        onPress={handleCreateContainer}
       />
     </View>
   );
