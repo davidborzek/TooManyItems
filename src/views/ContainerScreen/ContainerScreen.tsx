@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
-import { Container, supabase } from '../../supabase/supabase';
+import { Container, fetchContainers, supabase } from '../../supabase/supabase';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -28,19 +28,10 @@ type Props = CompositeScreenProps<
 >;
 
 export default function ContainerScreen({ navigation }: Props) {
-  let [data, setData] = useState<Container[]>([]);
+  let [containers, setContainers] = useState<Container[]>([]);
 
   const fetchData = () => {
-    supabase
-      .from('container')
-      .select('*')
-      .then(({ data, error }) => {
-        if (!data) {
-          return;
-        }
-
-        setData(data);
-      });
+    fetchContainers().then(setContainers);
   };
 
   useEffect(() => {
@@ -53,7 +44,7 @@ export default function ContainerScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={containers}
         renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
       />
       <FAB
