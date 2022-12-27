@@ -39,10 +39,13 @@ export default function LocationScreen({ navigation }: Props) {
     return <FullSpinner />;
   }
 
-
   return (
     <View style={styles.container}>
-      <ImageList items={locations} onRefresh={refresh} refreshing={refreshing} />
+      <ImageList
+        items={locations}
+        onRefresh={refresh}
+        refreshing={refreshing}
+      />
       <FAB
         title=""
         color="#32afed"

@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
@@ -11,6 +18,25 @@ import { useImagePicker } from '../../hooks/image';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    marginVertical: 20,
+    minWidth: 250,
+    maxWidth: 250,
+    height: 250,
+  },
+  image: { width: '100%', height: '100%' },
+  form: { alignItems: 'flex-start', width: 250, marginTop: 10 },
+  input: {
+    height: 30,
+    marginVertical: 5,
+    borderWidth: 1,
+    padding: 10,
+    width: '100%',
+  },
+});
 
 export default function ContainerAdd({ navigation }: Props) {
   const { t } = useTranslation();
@@ -41,46 +67,20 @@ export default function ContainerAdd({ navigation }: Props) {
 
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity
-        onPress={pickImage}
-        style={{
-          backgroundColor: '#c1c1c1',
-          marginVertical: 20,
-          minWidth: 250,
-          maxWidth: 250,
-          height: 250,
-        }}
-      >
-        {image && (
-          <Image
-            source={{ uri: image }}
-            style={{ width: '100%', height: '100%' }}
-          />
-        )}
+      <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
+        {image && <Image source={{ uri: image }} style={styles.image} />}
       </TouchableOpacity>
-      <View style={{ alignItems: 'flex-start', width: 250, marginTop: 10 }}>
+      <View style={styles.form}>
         <Text>{t('name')}</Text>
         <TextInput
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
+          style={styles.input}
           onChangeText={setContainerName}
           value={containerName}
         />
 
         <Text>{t('tags')}</Text>
         <TextInput
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
+          style={styles.input}
           onChangeText={setContainerTags}
           value={containerTags}
         />
@@ -96,13 +96,7 @@ export default function ContainerAdd({ navigation }: Props) {
           }))}
           setOpen={setLocationSelectionOpen}
           setValue={setLocation}
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
+          style={styles.input}
         />
       </View>
       <FAB

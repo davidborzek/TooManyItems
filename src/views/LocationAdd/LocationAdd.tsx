@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
 import { insertLocation } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -31,77 +38,50 @@ export default function LocationAdd({ navigation }: Props) {
     navigation.goBack();
   };
 
+  const styles = StyleSheet.create({
+    imageContainer: {
+      backgroundColor: '#c1c1c1',
+      marginVertical: 20,
+      minWidth: 250,
+      maxWidth: 250,
+      height: 250,
+    },
+    image: { width: '100%', height: '100%' },
+    form: { alignItems: 'flex-start', width: 250, marginTop: 10 },
+    input: {
+      height: 30,
+      marginVertical: 5,
+      borderWidth: 1,
+      padding: 10,
+      width: '100%',
+    },
+  });
+
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity
-        onPress={pickImage}
-        style={{
-          backgroundColor: '#c1c1c1',
-          marginVertical: 20,
-          minWidth: 250,
-          maxWidth: 250,
-          height: 250,
-        }}
-      >
-        {image && (
-          <Image
-            source={{ uri: image }}
-            style={{ width: '100%', height: '100%' }}
-          />
-        )}
+      <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
+        {image && <Image source={{ uri: image }} style={styles.image} />}
       </TouchableOpacity>
-      <View style={{ alignItems: 'flex-start', width: 250, marginTop: 10 }}>
+      <View style={styles.form}>
         <Text>{t('name')}</Text>
         <TextInput
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
+          style={styles.input}
           onChangeText={setLocationName}
           value={locationName}
         />
 
         <Text>{t('street')}</Text>
         <TextInput
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
+          style={styles.input}
           onChangeText={setStreet}
           value={street}
         />
 
         <Text>{t('city')}</Text>
-        <TextInput
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
-          onChangeText={setCity}
-          value={city}
-        />
+        <TextInput style={styles.input} onChangeText={setCity} value={city} />
 
         <Text>{t('zip')}</Text>
-        <TextInput
-          style={{
-            height: 30,
-            marginVertical: 5,
-            borderWidth: 1,
-            padding: 10,
-            width: '100%',
-          }}
-          onChangeText={setZip}
-          value={zip}
-        />
+        <TextInput style={styles.input} onChangeText={setZip} value={zip} />
       </View>
       <FAB
         title=""
