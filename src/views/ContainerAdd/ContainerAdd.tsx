@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
@@ -12,6 +13,8 @@ import FullSpinner from '../../components/FullSpinner/FullSpinner';
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
 export default function ContainerAdd({ navigation }: Props) {
+  const { t } = useTranslation();
+
   const [containerName, setContainerName] = useState('');
   const [containerTags, setContainerTags] = useState('');
 
@@ -56,7 +59,7 @@ export default function ContainerAdd({ navigation }: Props) {
         )}
       </TouchableOpacity>
       <View style={{ alignItems: 'flex-start', width: 250, marginTop: 10 }}>
-        <Text>Name</Text>
+        <Text>{t('name')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -69,7 +72,7 @@ export default function ContainerAdd({ navigation }: Props) {
           value={containerName}
         />
 
-        <Text>Tags</Text>
+        <Text>{t('tags')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -82,8 +85,9 @@ export default function ContainerAdd({ navigation }: Props) {
           value={containerTags}
         />
 
-        <Text>Location</Text>
+        <Text>{t('location')}</Text>
         <DropDownPicker
+          placeholder={t('select_location') || ''}
           open={isLocationSelectionOpen}
           value={location}
           items={locations.map((location) => ({

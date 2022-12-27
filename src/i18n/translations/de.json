@@ -1,0 +1,15 @@
+{
+  "city": "Stadt",
+  "container": "Behälter",
+  "containers": "Behälter",
+  "location": "Ort",
+  "locations": "Orte",
+  "name": "Name",
+  "new_container": "Neuer Behälter",
+  "new_location": "Neuer Ort",
+  "search": "Suche",
+  "select_location": "Ort wählen",
+  "street": "Straße",
+  "tags": "Tags",
+  "zip": "PLZ"
+}

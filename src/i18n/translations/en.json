@@ -1,0 +1,15 @@
+{
+  "city": "City",
+  "container": "Container",
+  "containers": "Containers",
+  "location": "Location",
+  "locations": "Locations",
+  "name": "Name",
+  "new_container": "New Container",
+  "new_location": "New Location",
+  "search": "Suche",
+  "select_location": "Select location",
+  "street": "Street",
+  "tags": "Tags",
+  "zip": "ZIP"
+}
