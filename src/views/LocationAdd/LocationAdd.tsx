@@ -1,32 +1,20 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
 import { insertLocation, supabase } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
+import { useImagePicker } from '../../hooks/image';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
 export default function LocationAdd({ navigation }: Props) {
-  const [image, setImage] = useState(null);
   const [locationName, setLocationName] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
 
-  const pickImage = async () => {
-    let result: any = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
+  const { image, pickImage } = useImagePicker();
 
   const handleCreateLocation = async () => {
     await insertLocation({

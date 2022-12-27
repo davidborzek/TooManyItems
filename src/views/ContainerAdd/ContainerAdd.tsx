@@ -1,50 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
-import {
-  insertContainer,
-  fetchLocations,
-  supabase,
-} from '../../supabase/supabase';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { insertContainer } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
+import { useLocations } from '../../hooks/location';
+import { useImagePicker } from '../../hooks/image';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
 export default function ContainerAdd({ navigation }: Props) {
-  const [image, setImage] = useState(null);
   const [containerName, setContainerName] = useState('');
   const [containterTags, setContainterTags] = useState('');
 
   const [isLocationSelectionOpen, setLocationSelectionOpen] = useState(false);
   const [location, setLocation] = useState<number | null>(null);
-  const [locations, setLocations] = useState<ItemType<number>[]>([]);
 
-  useEffect(() => {
-    fetchLocations().then((locations) => {
-      setLocations(
-        locations.map((location) => ({
-          label: location.name,
-          value: location.id,
-        }))
-      );
-    });
-  }, []);
+  const { locations } = useLocations();
 
-  const pickImage = async () => {
-    let result: any = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
+  const { image, pickImage } = useImagePicker();
 
   const handleCreateContainer = async () => {
     await insertContainer({
@@ -106,10 +81,12 @@ export default function ContainerAdd({ navigation }: Props) {
         <DropDownPicker
           open={isLocationSelectionOpen}
           value={location}
-          items={locations}
+          items={locations.map((location) => ({
+            label: location.name,
+            value: location.id,
+          }))}
           setOpen={setLocationSelectionOpen}
           setValue={setLocation}
-          setItems={setLocations}
           style={{
             height: 30,
             marginVertical: 5,
