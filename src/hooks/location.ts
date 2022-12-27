@@ -2,15 +2,26 @@ import { useEffect, useState } from 'react';
 import { Location, fetchLocations } from '../supabase/supabase';
 
 export function useLocations() {
-  let [locations, setLocations] = useState<Location[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [locations, setLocations] = useState<Location[]>([]);
 
   const fetch = () => {
-    fetchLocations().then(setLocations);
+    fetchLocations()
+      .then(setLocations)
   };
+
+  const refresh = () => {
+    setRefreshing(true);
+    return fetchLocations()
+    .then(setLocations)
+    .finally(() => {
+      setRefreshing(false);
+    });
+  }
 
   useEffect(() => {
     fetch();
   }, []);
 
-  return { locations, fetch };
+  return { locations, refreshing, fetch, refresh };
 }

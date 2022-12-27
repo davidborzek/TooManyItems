@@ -1,4 +1,12 @@
-import { Image, Text, View, FlatList, StyleSheet } from 'react-native';
+import React from 'react';
+import {
+  Image,
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  RefreshControl,
+} from 'react-native';
 
 export type ImageListItem = {
   name: string;
@@ -7,6 +15,8 @@ export type ImageListItem = {
 
 type Props = {
   items: ImageListItem[];
+  refreshing?: boolean;
+  onRefresh?: () => void;
 };
 
 const styles = StyleSheet.create({
@@ -28,13 +38,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ImageList({ items }: Props) {
+export default function ImageList({ items, onRefresh, refreshing }: Props) {
   return (
     <FlatList
       data={items}
       renderItem={({ item }) => {
-        console.log(item);
-
         return (
           <View style={styles.item}>
             {item.image ? (
@@ -46,6 +54,11 @@ export default function ImageList({ items }: Props) {
           </View>
         );
       }}
+      refreshControl={
+        refreshing != undefined ? (
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        ) : undefined
+      }
     />
   );
 }

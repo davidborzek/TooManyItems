@@ -23,7 +23,7 @@ type Props = CompositeScreenProps<
 >;
 
 export default function ContainerScreen({ navigation }: Props) {
-  const { containers, fetch } = useContainers();
+  const { containers, fetch, refresh, refreshing } = useContainers();
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
@@ -33,6 +33,7 @@ export default function ContainerScreen({ navigation }: Props) {
     <View style={styles.container}>
       <ImageList
         items={containers}
+        onRefresh={refresh} refreshing={refreshing}
       />
       <FAB
         title=""

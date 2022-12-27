@@ -2,7 +2,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, RefreshControl } from 'react-native';
 import { FAB, Icon } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import ImageList from '../../components/ImageList/ImageList';
@@ -28,7 +28,7 @@ type Props = CompositeScreenProps<
 >;
 
 export default function LocationScreen({ navigation }: Props) {
-  const { locations, fetch } = useLocations();
+  const { locations, fetch, refreshing, refresh } = useLocations();
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
@@ -36,7 +36,7 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <ImageList items={locations} />
+      <ImageList items={locations} onRefresh={refresh} refreshing={refreshing} />
       <FAB
         title=""
         color="#32afed"
