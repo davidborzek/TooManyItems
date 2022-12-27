@@ -4,8 +4,8 @@ import { LanguageDetectorModule } from 'i18next';
 import { Platform, NativeModules } from 'react-native';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import de from './translations/de.json'
-import en from './translations/en.json'
+import de from './translations/de.json';
+import en from './translations/en.json';
 
 const appLanguageDetector: LanguageDetectorModule = {
   type: 'languageDetector',
