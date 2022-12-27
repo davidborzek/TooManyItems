@@ -4,6 +4,11 @@ import SearchScreen from '../SearchScreen/SearchScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
+import { TouchableOpacity } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AppStackParamList } from '../../App';
+
+type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
 export type HomeTabParamList = {
   Container: undefined;
@@ -27,7 +32,15 @@ function icon(screen: keyof HomeTabParamList, focused: boolean) {
   }
 }
 
-export default function Home() {
+function QRCameraButton({ onPress }: { onPress: () => void }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Ionicons name={'camera'} size={24} />
+    </TouchableOpacity>
+  );
+}
+
+export default function Home({ navigation }: Props) {
   const { t } = useTranslation();
 
   return (
@@ -44,6 +57,16 @@ export default function Home() {
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
+        headerRight: () => {
+          return (
+            <QRCameraButton
+              onPress={() => navigation.navigate('QRCodeScanner')}
+            />
+          );
+        },
+        headerRightContainerStyle: {
+          marginRight: 16,
+        },
       })}
     >
       <Tab.Screen

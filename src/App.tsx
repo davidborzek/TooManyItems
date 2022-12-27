@@ -12,11 +12,13 @@ import LocationAdd from './views/LocationAdd/LocationAdd';
 import { registerRootComponent } from 'expo';
 
 import './i18n/i18n';
+import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
   ContainerAdd: undefined;
   LocationAdd: undefined;
+  QRCodeScanner: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -41,6 +43,11 @@ function App() {
           name="LocationAdd"
           component={LocationAdd}
           options={{ title: t('new_location') || '' }}
+        />
+        <Stack.Screen
+          name="QRCodeScanner"
+          component={QRCodeScanner}
+          options={{ title: t('scan_container_qr_code') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />
