@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { HomeTabParamList } from '../Home/Home';
 import { AppStackParamList } from '../../App';
 import { useContainers } from '../../hooks/container';
 import ImageList from '../../components/ImageList/ImageList';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,17 +24,22 @@ type Props = CompositeScreenProps<
 >;
 
 export default function ContainerScreen({ navigation }: Props) {
-  const { containers, fetch, refresh, refreshing } = useContainers();
+  const { loading, containers, fetch, refresh, refreshing } = useContainers();
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
   }, []);
 
+  if (loading) {
+    return <FullSpinner />;
+  }
+
   return (
     <View style={styles.container}>
       <ImageList
         items={containers}
-        onRefresh={refresh} refreshing={refreshing}
+        onRefresh={refresh}
+        refreshing={refreshing}
       />
       <FAB
         title=""
