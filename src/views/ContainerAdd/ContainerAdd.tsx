@@ -7,17 +7,18 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useLocations } from '../../hooks/location';
 import { useImagePicker } from '../../hooks/image';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
 export default function ContainerAdd({ navigation }: Props) {
   const [containerName, setContainerName] = useState('');
-  const [containterTags, setContainterTags] = useState('');
+  const [containerTags, setContainerTags] = useState('');
 
   const [isLocationSelectionOpen, setLocationSelectionOpen] = useState(false);
   const [location, setLocation] = useState<number | null>(null);
 
-  const { locations } = useLocations();
+  const { loading, locations } = useLocations();
 
   const { image, pickImage } = useImagePicker();
 
@@ -30,6 +31,10 @@ export default function ContainerAdd({ navigation }: Props) {
 
     navigation.goBack();
   };
+
+  if (loading) {
+    return <FullSpinner />;
+  }
 
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
@@ -73,8 +78,8 @@ export default function ContainerAdd({ navigation }: Props) {
             padding: 10,
             width: '100%',
           }}
-          onChangeText={setContainterTags}
-          value={containterTags}
+          onChangeText={setContainerTags}
+          value={containerTags}
         />
 
         <Text>Location</Text>
