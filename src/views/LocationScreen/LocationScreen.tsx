@@ -1,12 +1,12 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect } from 'react';
-import { Text, View, FlatList, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { FAB, Icon } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
+import ImageList from '../../components/ImageList/ImageList';
 import { useLocations } from '../../hooks/location';
-import { fetchLocations, Location, supabase } from '../../supabase/supabase';
 import { HomeTabParamList } from '../Home/Home';
 
 const styles = StyleSheet.create({
@@ -36,10 +36,7 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={locations}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
-      />
+      <ImageList items={locations} />
       <FAB
         title=""
         color="#32afed"
