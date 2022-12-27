@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
+import { useTranslation } from 'react-i18next';
 import {
   NavigationContainer,
   NavigatorScreenParams,
@@ -10,6 +11,8 @@ import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import LocationAdd from './views/LocationAdd/LocationAdd';
 import { registerRootComponent } from 'expo';
 
+import './i18n/i18n';
+
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
   ContainerAdd: undefined;
@@ -19,6 +22,8 @@ export type AppStackParamList = {
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -30,12 +35,12 @@ function App() {
         <Stack.Screen
           name="ContainerAdd"
           component={ContainerAdd}
-          options={{ headerTitle: 'Container Hinzufügen' }}
+          options={{ title: t('new_container') || '' }}
         />
         <Stack.Screen
           name="LocationAdd"
           component={LocationAdd}
-          options={{ headerTitle: 'Ort Hinzufügen' }}
+          options={{ title: t('new_location') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

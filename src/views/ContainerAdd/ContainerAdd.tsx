@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
@@ -7,17 +8,20 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useLocations } from '../../hooks/location';
 import { useImagePicker } from '../../hooks/image';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
 export default function ContainerAdd({ navigation }: Props) {
+  const { t } = useTranslation();
+
   const [containerName, setContainerName] = useState('');
-  const [containterTags, setContainterTags] = useState('');
+  const [containerTags, setContainerTags] = useState('');
 
   const [isLocationSelectionOpen, setLocationSelectionOpen] = useState(false);
   const [location, setLocation] = useState<number | null>(null);
 
-  const { locations } = useLocations();
+  const { loading, locations } = useLocations();
 
   const { image, pickImage } = useImagePicker();
 
@@ -30,6 +34,10 @@ export default function ContainerAdd({ navigation }: Props) {
 
     navigation.goBack();
   };
+
+  if (loading) {
+    return <FullSpinner />;
+  }
 
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
@@ -51,7 +59,7 @@ export default function ContainerAdd({ navigation }: Props) {
         )}
       </TouchableOpacity>
       <View style={{ alignItems: 'flex-start', width: 250, marginTop: 10 }}>
-        <Text>Name</Text>
+        <Text>{t('name')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -64,7 +72,7 @@ export default function ContainerAdd({ navigation }: Props) {
           value={containerName}
         />
 
-        <Text>Tags</Text>
+        <Text>{t('tags')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -73,12 +81,13 @@ export default function ContainerAdd({ navigation }: Props) {
             padding: 10,
             width: '100%',
           }}
-          onChangeText={setContainterTags}
-          value={containterTags}
+          onChangeText={setContainerTags}
+          value={containerTags}
         />
 
-        <Text>Location</Text>
+        <Text>{t('location')}</Text>
         <DropDownPicker
+          placeholder={t('select_location') || ''}
           open={isLocationSelectionOpen}
           value={location}
           items={locations.map((location) => ({

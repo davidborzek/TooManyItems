@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import { FAB, Icon } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { useLocations } from '../../hooks/location';
 import { HomeTabParamList } from '../Home/Home';
@@ -28,11 +29,16 @@ type Props = CompositeScreenProps<
 >;
 
 export default function LocationScreen({ navigation }: Props) {
-  const { locations, fetch, refreshing, refresh } = useLocations();
+  const { loading, locations, fetch, refreshing, refresh } = useLocations();
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
   }, []);
+
+  if (loading) {
+    return <FullSpinner />;
+  }
+
 
   return (
     <View style={styles.container}>
