@@ -3,6 +3,7 @@ import LocationScreen from '../LocationScreen/LocationScreen';
 import SearchScreen from '../SearchScreen/SearchScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
 
 export type HomeTabParamList = {
   Container: undefined;
@@ -27,6 +28,8 @@ function icon(screen: keyof HomeTabParamList, focused: boolean) {
 }
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -43,9 +46,21 @@ export default function Home() {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name="Container" component={ContainerScreen} />
-      <Tab.Screen name="Locations" component={LocationScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen
+        name="Container"
+        component={ContainerScreen}
+        options={{ title: t('containers') || '' }}
+      />
+      <Tab.Screen
+        name="Locations"
+        component={LocationScreen}
+        options={{ title: t('locations') || '' }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{ title: t('search') || '' }}
+      />
     </Tab.Navigator>
   );
 }

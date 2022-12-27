@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
-import { insertLocation, supabase } from '../../supabase/supabase';
+import { insertLocation } from '../../supabase/supabase';
 import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useImagePicker } from '../../hooks/image';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
 export default function LocationAdd({ navigation }: Props) {
+  const { t } = useTranslation();
+
   const [locationName, setLocationName] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
@@ -48,7 +51,7 @@ export default function LocationAdd({ navigation }: Props) {
         )}
       </TouchableOpacity>
       <View style={{ alignItems: 'flex-start', width: 250, marginTop: 10 }}>
-        <Text>Name</Text>
+        <Text>{t('name')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -61,7 +64,7 @@ export default function LocationAdd({ navigation }: Props) {
           value={locationName}
         />
 
-        <Text>Straße</Text>
+        <Text>{t('street')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -74,7 +77,7 @@ export default function LocationAdd({ navigation }: Props) {
           value={street}
         />
 
-        <Text>Stadt</Text>
+        <Text>{t('city')}</Text>
         <TextInput
           style={{
             height: 30,
@@ -87,7 +90,7 @@ export default function LocationAdd({ navigation }: Props) {
           value={city}
         />
 
-        <Text>PLZ</Text>
+        <Text>{t('zip')}</Text>
         <TextInput
           style={{
             height: 30,
