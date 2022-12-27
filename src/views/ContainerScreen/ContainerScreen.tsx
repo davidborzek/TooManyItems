@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Text, View, FlatList, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -8,17 +8,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeTabParamList } from '../Home/Home';
 import { AppStackParamList } from '../../App';
 import { useContainers } from '../../hooks/container';
+import ImageList from '../../components/ImageList/ImageList';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    backgroundColor: 'light-gray',
   },
 });
 
@@ -36,9 +31,8 @@ export default function ContainerScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={containers}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
+      <ImageList
+        items={containers}
       />
       <FAB
         title=""
