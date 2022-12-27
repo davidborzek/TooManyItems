@@ -4,6 +4,7 @@
   "containers": "Containers",
   "location": "Location",
   "locations": "Locations",
+  "scan_container_qr_code": "QR-Code Scanner",
   "name": "Name",
   "new_container": "New Container",
   "new_location": "New Location",
