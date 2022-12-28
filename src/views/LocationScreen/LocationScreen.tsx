@@ -8,6 +8,7 @@ import { AppStackParamList } from '../../App';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { useLocations } from '../../hooks/location';
+import { Location } from '../../supabase/supabase';
 import { HomeTabParamList } from '../Home/Home';
 
 const styles = StyleSheet.create({
@@ -41,10 +42,11 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <ImageList
-        items={locations}
-        onRefresh={refresh}
-        refreshing={refreshing}
+      <ImageList 
+        items={locations} 
+        onRefresh={refresh} 
+        refreshing={refreshing} 
+        onPress={(item: Location) => { navigation.navigate("LocationView", {location: item})}}
       />
       <FAB
         title=""

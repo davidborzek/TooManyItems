@@ -14,6 +14,7 @@ import { registerRootComponent } from 'expo';
 
 import './i18n/i18n';
 import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
+import LocationView, { LocationViewParamList } from './views/LocationView/LocationView';
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
@@ -21,6 +22,7 @@ export type AppStackParamList = {
   LocationAdd: undefined;
   QRCodeScanner: undefined;
   ContainerView: ContainerViewParamList;
+  LocationView: LocationViewParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -55,6 +57,11 @@ function App() {
           name="ContainerView"
           component={ContainerView}
           options={{ title: t('view_container') || '' }}
+        />
+        <Stack.Screen
+          name="LocationView"
+          component={LocationView}
+          options={{ title: t('view_location') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

@@ -1,51 +1,37 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { TouchableOpacity, View, Image } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-elements";
 import { AppStackParamList } from "../../App";
-import { Container, fetchLocation, insertContainer, Item, Location, updateContainer } from "../../supabase/supabase";
-import { useEffect, useState } from 'react';
-import { useItemsForContainer } from "../../hooks/item";
 import FullSpinner from "../../components/FullSpinner/FullSpinner";
 import ImageList from "../../components/ImageList/ImageList";
+import { useContainersForLocation } from "../../hooks/container";
 import { useImagePicker } from "../../hooks/image";
+import { Location, updateLocation } from "../../supabase/supabase";
 
-type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
+type Props = NativeStackScreenProps<AppStackParamList, 'LocationView'>;
 
-export type ContainerViewParamList = {
-  container: Container;
+export type LocationViewParamList = {
+  location: Location;
 };
 
-export default function ContainerView({ route, navigation }: Props) {
-  const [ location, setLocation ] = useState<Location>()
-  const { container } = route.params;
-  const { loading, items, refreshing, fetch, refresh } = useItemsForContainer(container.id);
+export default function LocationView({ route, navigation }: Props) {
+  const { location } = route.params;
+  const { containers, fetch, refresh, refreshing, loading } = useContainersForLocation(location.id);
   const { image, pickImage } = useImagePicker();
-
-  const fetchContainer = () => {
-    if (container && container.location_id != null) {
-      fetchLocation(container.location_id).then((location) => {
-        setLocation(location);
-      })
-    }
-  };
-
-  useEffect(() => {
-    fetchContainer();
-  }, []);
 
   if (loading) {
     return <FullSpinner />;
   }
 
-  const realImage = image ? image : container.image;
+  const realImage = image ? image : location.image;
 
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={ () => {
           pickImage().then((image) => {
-            container.image = image.assets![0].uri;
-            updateContainer(container);
+            location.image = image.assets![0].uri;
+            updateLocation(location);
           })
         }}
         style={{
@@ -67,12 +53,12 @@ export default function ContainerView({ route, navigation }: Props) {
           marginLeft: 10,
           marginBottom: 10
         }}>
-          <Text style={{fontSize: 20}} >{container.name}</Text>
-          <Text>Location: {location?.street}</Text>
+          <Text style={{fontSize: 20}} >{location?.name}</Text>
+          <Text>{location.street}</Text>
         </View>
       </TouchableOpacity>
       <ImageList
-        items={items}
+        items={containers}
         onRefresh={refresh}
         refreshing={refreshing}
       />
