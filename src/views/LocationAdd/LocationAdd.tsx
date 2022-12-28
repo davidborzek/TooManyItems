@@ -13,6 +13,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
@@ -24,7 +25,13 @@ export default function LocationAdd({ navigation }: Props) {
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
 
-  const { image, pickImage } = useImagePicker();
+  const { image, pickImage, takeImage, removeImage } = useImagePicker();
+
+  const [imageUploadVisible, setImageUploadVisible] = useState(false);
+
+  const toggleImageUpload = () => {
+    setImageUploadVisible((visible) => !visible);
+  };
 
   const handleCreateLocation = async () => {
     await insertLocation({
@@ -59,7 +66,30 @@ export default function LocationAdd({ navigation }: Props) {
 
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
+      <BottomSheet
+        items={[
+          {
+            text: 'Pick photo',
+            onPress: pickImage,
+          },
+          {
+            text: 'Take photo',
+            onPress: takeImage,
+          },
+          {
+            text: 'Remove photo',
+            onPress: removeImage,
+            disabled: !image,
+            color: 'red',
+          },
+        ]}
+        visible={imageUploadVisible}
+        onClose={toggleImageUpload}
+      />
+      <TouchableOpacity
+        onPress={toggleImageUpload}
+        style={styles.imageContainer}
+      >
         {image && <Image source={{ uri: image }} style={styles.image} />}
       </TouchableOpacity>
       <View style={styles.form}>
