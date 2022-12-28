@@ -12,17 +12,19 @@ import {
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
-import { FAB, Icon } from 'react-native-elements';
+import { Button, FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useLocations } from '../../hooks/location';
 import { useImagePicker } from '../../hooks/image';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
 const styles = StyleSheet.create({
+  view: { alignItems: 'center', flex: 1 },
   imageContainer: {
     backgroundColor: '#c1c1c1',
     marginVertical: 20,
@@ -76,77 +78,80 @@ export default function ContainerAdd({ navigation }: Props) {
   }
 
   return (
-    <View style={{ alignItems: 'center', flex: 1 }}>
-      <BottomSheet
-        items={[
-          {
-            text: 'Pick photo',
-            onPress: pickImage,
-          },
-          {
-            text: 'Take photo',
-            onPress: takeImage,
-          },
-          {
-            text: 'Remove photo',
-            onPress: removeImage,
-            disabled: !image,
-            color: 'red',
-          },
-        ]}
-        visible={imageUploadVisible}
-        onClose={toggleImageUpload}
-      />
-      <TouchableOpacity
-        onPress={toggleImageUpload}
-        style={styles.imageContainer}
-      >
-        {image && <Image source={{ uri: image }} style={styles.image} />}
-      </TouchableOpacity>
-      <View style={styles.form}>
-        <Text>{t('name')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setContainerName}
-          value={containerName}
+    <KeyboardAwareScrollView>
+      <View style={styles.view}>
+        <BottomSheet
+          items={[
+            {
+              text: 'Pick photo',
+              onPress: pickImage,
+            },
+            {
+              text: 'Take photo',
+              onPress: takeImage,
+            },
+            {
+              text: 'Remove photo',
+              onPress: removeImage,
+              disabled: !image,
+              color: 'red',
+            },
+          ]}
+          visible={imageUploadVisible}
+          onClose={toggleImageUpload}
         />
+        <TouchableOpacity
+          onPress={toggleImageUpload}
+          style={styles.imageContainer}
+        >
+          {image && <Image source={{ uri: image }} style={styles.image} />}
+        </TouchableOpacity>
+        <View style={styles.form}>
+          <Text>{t('name')}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setContainerName}
+            value={containerName}
+          />
 
-        <Text>{t('tags')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setContainerTags}
-          value={containerTags}
-        />
+          <Text>{t('tags')}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setContainerTags}
+            value={containerTags}
+          />
 
-        <Text>{t('location')}</Text>
-        <DropDownPicker
-          placeholder={t('select_location') || ''}
-          open={isLocationSelectionOpen}
-          value={location}
-          items={locations.map((location) => ({
-            label: location.name,
-            value: location.id,
-          }))}
-          setOpen={setLocationSelectionOpen}
-          setValue={setLocation}
-          style={styles.input}
-        />
+          <Text>{t('location')}</Text>
+          <DropDownPicker
+            placeholder={t('select_location') || ''}
+            open={isLocationSelectionOpen}
+            value={location}
+            items={locations.map((location) => ({
+              label: location.name,
+              value: location.id,
+            }))}
+            setOpen={setLocationSelectionOpen}
+            setValue={setLocation}
+            style={styles.input}
+            listMode={"SCROLLVIEW"}
+          />
+        </View>
       </View>
       <FAB
-        title=""
-        color="#137b11"
-        placement="right"
-        icon={
-          <Icon
-            name="check"
-            size={24}
-            color="white"
-            tvParallaxProperties={undefined}
-          />
-        }
-        disabled={!containerName || !location}
-        onPress={handleCreateContainer}
-      />
-    </View>
+          title=""
+          color="#137b11"
+          placement="right"
+          icon={
+            <Icon
+              name="check"
+              size={24}
+              color="white"
+              tvParallaxProperties={undefined}
+            />
+          }
+          disabled={!containerName || !location}
+          onPress={handleCreateContainer}
+        />
+    </KeyboardAwareScrollView>
   );
 }

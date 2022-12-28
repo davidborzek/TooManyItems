@@ -14,6 +14,7 @@ import { AppStackParamList } from '../../App';
 import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
@@ -46,6 +47,9 @@ export default function LocationAdd({ navigation }: Props) {
   };
 
   const styles = StyleSheet.create({
+    view: {
+      alignItems: 'center', flex: 1 
+    },
     imageContainer: {
       backgroundColor: '#c1c1c1',
       marginVertical: 20,
@@ -65,69 +69,71 @@ export default function LocationAdd({ navigation }: Props) {
   });
 
   return (
-    <View style={{ alignItems: 'center', flex: 1 }}>
-      <BottomSheet
-        items={[
-          {
-            text: 'Pick photo',
-            onPress: pickImage,
-          },
-          {
-            text: 'Take photo',
-            onPress: takeImage,
-          },
-          {
-            text: 'Remove photo',
-            onPress: removeImage,
-            disabled: !image,
-            color: 'red',
-          },
-        ]}
-        visible={imageUploadVisible}
-        onClose={toggleImageUpload}
-      />
-      <TouchableOpacity
-        onPress={toggleImageUpload}
-        style={styles.imageContainer}
-      >
-        {image && <Image source={{ uri: image }} style={styles.image} />}
-      </TouchableOpacity>
-      <View style={styles.form}>
-        <Text>{t('name')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setLocationName}
-          value={locationName}
+    <KeyboardAwareScrollView>
+      <View style={styles.view}>
+        <BottomSheet
+          items={[
+            {
+              text: 'Pick photo',
+              onPress: pickImage,
+            },
+            {
+              text: 'Take photo',
+              onPress: takeImage,
+            },
+            {
+              text: 'Remove photo',
+              onPress: removeImage,
+              disabled: !image,
+              color: 'red',
+            },
+          ]}
+          visible={imageUploadVisible}
+          onClose={toggleImageUpload}
         />
-
-        <Text>{t('street')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setStreet}
-          value={street}
-        />
-
-        <Text>{t('city')}</Text>
-        <TextInput style={styles.input} onChangeText={setCity} value={city} />
-
-        <Text>{t('zip')}</Text>
-        <TextInput style={styles.input} onChangeText={setZip} value={zip} />
-      </View>
-      <FAB
-        title=""
-        color="#137b11"
-        placement="right"
-        icon={
-          <Icon
-            name="check"
-            size={24}
-            color="white"
-            tvParallaxProperties={undefined}
+        <TouchableOpacity
+          onPress={toggleImageUpload}
+          style={styles.imageContainer}
+        >
+          {image && <Image source={{ uri: image }} style={styles.image} />}
+        </TouchableOpacity>
+        <View style={styles.form}>
+          <Text>{t('name')}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setLocationName}
+            value={locationName}
           />
-        }
-        disabled={!locationName}
-        onPress={handleCreateLocation}
-      />
-    </View>
+
+          <Text>{t('street')}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setStreet}
+            value={street}
+          />
+
+          <Text>{t('city')}</Text>
+          <TextInput style={styles.input} onChangeText={setCity} value={city} />
+
+          <Text>{t('zip')}</Text>
+          <TextInput style={styles.input} onChangeText={setZip} value={zip} />
+        </View>
+        <FAB
+          title=""
+          color="#137b11"
+          placement="right"
+          icon={
+            <Icon
+              name="check"
+              size={24}
+              color="white"
+              tvParallaxProperties={undefined}
+            />
+          }
+          disabled={!locationName}
+          onPress={handleCreateLocation}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
