@@ -8,6 +8,8 @@
   "name": "Name",
   "new_container": "Neuer Behälter",
   "new_location": "Neuer Ort",
+  "view_container": "Container Anzeigen",
+  "view_location": "Ort Anzeigen",
   "search": "Suche",
   "select_location": "Ort wählen",
   "street": "Straße",

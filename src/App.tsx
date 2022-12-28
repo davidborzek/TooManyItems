@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home, { HomeTabParamList } from './views/Home/Home';
 import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import LocationAdd from './views/LocationAdd/LocationAdd';
+import ContainerView, { ContainerViewParamList } from './views/ContainerView/ContainerView';
 import { registerRootComponent } from 'expo';
 
 import './i18n/i18n';
@@ -19,6 +20,7 @@ export type AppStackParamList = {
   ContainerAdd: undefined;
   LocationAdd: undefined;
   QRCodeScanner: undefined;
+  ContainerView: ContainerViewParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -48,6 +50,11 @@ function App() {
           name="QRCodeScanner"
           component={QRCodeScanner}
           options={{ title: t('scan_container_qr_code') || '' }}
+        />
+        <Stack.Screen
+          name="ContainerView"
+          component={ContainerView}
+          options={{ title: t('view_container') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

@@ -8,6 +8,8 @@
   "name": "Name",
   "new_container": "New Container",
   "new_location": "New Location",
+  "view_container": "View Container",
+  "view_location": "View Location",
   "search": "Suche",
   "select_location": "Select location",
   "street": "Street",

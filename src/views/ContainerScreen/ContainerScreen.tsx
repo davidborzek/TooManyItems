@@ -10,6 +10,7 @@ import { AppStackParamList } from '../../App';
 import { useContainers } from '../../hooks/container';
 import ImageList from '../../components/ImageList/ImageList';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
+import { Container } from '../../supabase/supabase';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +41,7 @@ export default function ContainerScreen({ navigation }: Props) {
         items={containers}
         onRefresh={refresh}
         refreshing={refreshing}
+        onPress={(item: Container) => { navigation.navigate("ContainerView", {container: item})}}
       />
       <FAB
         title=""
