@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   View,
@@ -7,12 +7,9 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Modal,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
-import { Button, FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useLocations } from '../../hooks/location';
@@ -20,6 +17,7 @@ import { useImagePicker } from '../../hooks/image';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
@@ -64,6 +62,19 @@ export default function ContainerAdd({ navigation }: Props) {
   const toggleImageUpload = () => {
     setImageUploadVisible((visible) => !visible);
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <HeaderCheckmark
+            disabled={!containerName || !location}
+            onPress={handleCreateContainer}
+          />
+        );
+      },
+    });
+  }, [navigation, containerName, location]);
 
   const handleCreateContainer = async () => {
     await insertContainer({
@@ -123,36 +134,21 @@ export default function ContainerAdd({ navigation }: Props) {
             value={containerTags}
           />
 
-        <Text>{t('location')}</Text>
-        <DropDownPicker
-          placeholder={t('select_location') || ''}
-          open={isLocationSelectionOpen}
-          value={location}
-          items={locations.map((location) => ({
-            label: location.name,
-            value: location.id,
-          }))}
-          setOpen={setLocationSelectionOpen}
-          setValue={setLocation}
-          style={styles.dropdown}
-          listMode={"SCROLLVIEW"}
-        />
-      </View>
-      <FAB
-          title=""
-          color="#137b11"
-          placement="right"
-          icon={
-            <Icon
-              name="check"
-              size={24}
-              color="white"
-              tvParallaxProperties={undefined}
-            />
-          }
-          disabled={!containerName || !location}
-          onPress={handleCreateContainer}
-        />
+          <Text>{t('location')}</Text>
+          <DropDownPicker
+            placeholder={t('select_location') || ''}
+            open={isLocationSelectionOpen}
+            value={location}
+            items={locations.map((location) => ({
+              label: location.name,
+              value: location.id,
+            }))}
+            setOpen={setLocationSelectionOpen}
+            setValue={setLocation}
+            style={styles.dropdown}
+            listMode={'SCROLLVIEW'}
+          />
+        </View>
       </View>
     </KeyboardAwareScrollView>
   );

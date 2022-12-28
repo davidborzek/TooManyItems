@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -8,13 +8,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import { insertLocation } from '../../supabase/supabase';
-import { FAB, Icon } from 'react-native-elements';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
 import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
@@ -46,9 +46,23 @@ export default function LocationAdd({ navigation }: Props) {
     navigation.goBack();
   };
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <HeaderCheckmark
+            disabled={!locationName}
+            onPress={handleCreateLocation}
+          />
+        );
+      },
+    });
+  }, [navigation, locationName]);
+
   const styles = StyleSheet.create({
     view: {
-      alignItems: 'center', flex: 1 
+      alignItems: 'center',
+      flex: 1,
     },
     imageContainer: {
       backgroundColor: '#c1c1c1',
@@ -65,7 +79,7 @@ export default function LocationAdd({ navigation }: Props) {
       borderWidth: 1,
       borderRadius: 5,
       padding: 10,
-    }
+    },
   });
 
   return (
@@ -118,21 +132,6 @@ export default function LocationAdd({ navigation }: Props) {
           <Text>{t('zip')}</Text>
           <TextInput style={styles.input} onChangeText={setZip} value={zip} />
         </View>
-        <FAB
-          title=""
-          color="#137b11"
-          placement="right"
-          icon={
-            <Icon
-              name="check"
-              size={24}
-              color="white"
-              tvParallaxProperties={undefined}
-            />
-          }
-          disabled={!locationName}
-          onPress={handleCreateLocation}
-        />
       </View>
     </KeyboardAwareScrollView>
   );
