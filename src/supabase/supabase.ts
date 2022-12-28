@@ -38,7 +38,17 @@ export async function fetchContainers(): Promise<Container[]> {
 }
 
 export async function fetchLocations(): Promise<Location[]> {
-  const result = await supabase.from('location').select('*');
+  const result = await supabase.from('location').select('*').order('name');
+
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data;
+}
+
+export async function fetchContainersForLocation(location_id: number): Promise<Container[]> {
+  const result = await supabase.from('container').select('*').eq('location_id', location_id);
 
   if (result.error != null) {
     throw new Error(result.error.message);
@@ -71,6 +81,15 @@ export async function updateContainer(
   container: ContainerInsert
 ): Promise<void> {
   const result = await supabase.from('container').update(container).eq('id', container.id);
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+}
+
+export async function updateLocation(
+  location: LocationInsert
+): Promise<void> {
+  const result = await supabase.from('location').update(location).eq('id', location.id);
   if (result.error != null) {
     throw new Error(result.error.message);
   }
