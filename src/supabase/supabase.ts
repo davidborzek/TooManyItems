@@ -25,8 +25,10 @@ export type Location = Database['public']['Tables']['location']['Row'];
 
 export type LocationInsert = Database['public']['Tables']['location']['Insert'];
 
+export type Item = Database['public']['Tables']['item']['Row']
+
 export async function fetchContainers(): Promise<Container[]> {
-  const result = await supabase.from('container').select('*');
+  const result = await supabase.from('container').select('*').order('name');
 
   if (result.error != null) {
     throw new Error(result.error.message);
@@ -43,6 +45,35 @@ export async function fetchLocations(): Promise<Location[]> {
   }
 
   return result.data;
+}
+
+export async function fetchItemsForContainer(container_id: number): Promise<Item[]> {
+  const result = await supabase.from('item').select('*').eq('container_id', container_id);
+
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data;
+}
+
+export async function fetchLocation(id: number): Promise<Location> {
+  const result = await supabase.from('location').select('*').eq('id', id).single();
+
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data;
+}
+
+export async function updateContainer(
+  container: ContainerInsert
+): Promise<void> {
+  const result = await supabase.from('container').update(container).eq('id', container.id);
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
 }
 
 export async function insertContainer(

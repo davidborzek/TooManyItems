@@ -15,6 +15,8 @@ export function useImagePicker() {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
+
+    return result;
   };
 
   return { image, pickImage };

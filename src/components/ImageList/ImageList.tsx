@@ -18,7 +18,7 @@ type Props<T extends ImageListItem> = {
   items: T[];
   refreshing?: boolean;
   onRefresh?: () => void;
-  onPress?: (item: ImageListItem) => void;
+  onPress?: (item: T) => void;
 };
 
 const styles = StyleSheet.create({
