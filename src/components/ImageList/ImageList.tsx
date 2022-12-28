@@ -6,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 
 export type ImageListItem = {
@@ -13,10 +14,11 @@ export type ImageListItem = {
   image?: string | null;
 };
 
-type Props = {
-  items: ImageListItem[];
+type Props<T extends ImageListItem> = {
+  items: T[];
   refreshing?: boolean;
   onRefresh?: () => void;
+  onPress?: (item: ImageListItem) => void;
 };
 
 const styles = StyleSheet.create({
@@ -38,20 +40,25 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ImageList({ items, onRefresh, refreshing }: Props) {
+export default function ImageList<T extends ImageListItem>({ items, onRefresh, refreshing, onPress }: Props<T>) {
   return (
     <FlatList
       data={items}
       renderItem={({ item }) => {
+        const callOnPress = () => {
+          if (onPress) {
+            onPress(item)
+          }
+        }
         return (
-          <View style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={callOnPress}>
             {item.image ? (
               <Image source={{ uri: item.image }} style={styles.image} />
             ) : (
               <View style={styles.image}></View>
             )}
             <Text style={styles.containerName}>{item.name}</Text>
-          </View>
+          </TouchableOpacity>
         );
       }}
       refreshControl={
