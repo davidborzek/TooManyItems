@@ -71,7 +71,7 @@ export default function ContainerView({ route, navigation }: Props) {
           <Text onPress={() => {
             if (location)
               navigation.navigate("LocationView", { location: location} )
-          }}>Location: {location?.street}</Text>
+          }}>Location: {location?.name}</Text>
         </View>
       </TouchableOpacity>
       <ImageList
