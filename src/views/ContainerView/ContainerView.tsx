@@ -68,7 +68,10 @@ export default function ContainerView({ route, navigation }: Props) {
           marginBottom: 10
         }}>
           <Text style={{fontSize: 20}} >{container.name}</Text>
-          <Text>Location: {location?.street}</Text>
+          <Text onPress={() => {
+            if (location)
+              navigation.navigate("LocationView", { location: location} )
+          }}>Location: {location?.street}</Text>
         </View>
       </TouchableOpacity>
       <ImageList
