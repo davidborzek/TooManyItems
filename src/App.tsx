@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home, { HomeTabParamList } from './views/Home/Home';
 import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import LocationAdd from './views/LocationAdd/LocationAdd';
+import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
 import ContainerView, { ContainerViewParamList } from './views/ContainerView/ContainerView';
 import { registerRootComponent } from 'expo';
 
@@ -21,6 +22,7 @@ export type AppStackParamList = {
   LocationAdd: undefined;
   ContainerView: ContainerViewParamList;
   LocationView: LocationViewParamList;
+  ItemAdd: ItemAddParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -55,6 +57,11 @@ function App() {
           name="LocationView"
           component={LocationView}
           options={{ title: t('view_location') || '' }}
+        />
+        <Stack.Screen
+          name="ItemAdd"
+          component={ItemAdd}
+          options={{ title: t('new_item') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

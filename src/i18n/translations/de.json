@@ -5,6 +5,8 @@
   "location": "Ort",
   "locations": "Orte",
   "name": "Name",
+  "description": "Beschreibung",
+  "new_item": "Neuer Gegenstand",
   "new_container": "Neuer Behälter",
   "new_location": "Neuer Ort",
   "view_container": "Container Anzeigen",

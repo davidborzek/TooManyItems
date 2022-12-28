@@ -5,6 +5,8 @@
   "location": "Location",
   "locations": "Locations",
   "name": "Name",
+  "description": "Description",
+  "new_item": "New Item",
   "new_container": "New Container",
   "new_location": "New Location",
   "view_container": "View Container",
