@@ -56,16 +56,16 @@ export default function LocationAdd({ navigation }: Props) {
       minWidth: 250,
       maxWidth: 250,
       height: 250,
+      borderRadius: 3,
     },
     image: { width: '100%', height: '100%' },
-    form: { alignItems: 'flex-start', width: 250, marginTop: 10 },
+    form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
     input: {
-      height: 30,
-      marginVertical: 5,
+      marginVertical: 10,
       borderWidth: 1,
+      borderRadius: 5,
       padding: 10,
-      width: '100%',
-    },
+    }
   });
 
   return (
