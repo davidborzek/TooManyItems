@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { TouchableOpacity, View, Image } from "react-native";
-import { Text } from "react-native-elements";
+import { FAB, Icon, Text } from "react-native-elements";
 import { AppStackParamList } from "../../App";
 import { Container, fetchLocation, insertContainer, Item, Location, updateContainer } from "../../supabase/supabase";
 import { useEffect, useState } from 'react';
@@ -78,6 +78,22 @@ export default function ContainerView({ route, navigation }: Props) {
         items={items}
         onRefresh={refresh}
         refreshing={refreshing}
+      />
+      <FAB
+        title=""
+        color="#32afed"
+        placement="right"
+        icon={
+          <Icon
+            name="add"
+            size={24}
+            color="white"
+            tvParallaxProperties={undefined}
+          />
+        }
+        onPress={() => {
+          navigation.navigate('ItemAdd', { container: container});
+        }}
       />
     </View>
   )

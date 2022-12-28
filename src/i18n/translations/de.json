@@ -6,6 +6,8 @@
   "locations": "Orte",
   "scan_container_qr_code": "QR-Code Scanner",
   "name": "Name",
+  "description": "Beschreibung",
+  "new_item": "Neuer Gegenstand",
   "new_container": "Neuer Behälter",
   "new_location": "Neuer Ort",
   "view_container": "Container Anzeigen",
