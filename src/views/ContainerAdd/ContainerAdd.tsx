@@ -7,6 +7,8 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
@@ -16,6 +18,7 @@ import { AppStackParamList } from '../../App';
 import { useLocations } from '../../hooks/location';
 import { useImagePicker } from '../../hooks/image';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
@@ -26,6 +29,7 @@ const styles = StyleSheet.create({
     minWidth: 250,
     maxWidth: 250,
     height: 250,
+    borderRadius: 3,
   },
   image: { width: '100%', height: '100%' },
   form: { alignItems: 'flex-start', width: 250, marginTop: 10 },
@@ -49,7 +53,13 @@ export default function ContainerAdd({ navigation }: Props) {
 
   const { loading, locations } = useLocations();
 
-  const { image, pickImage } = useImagePicker();
+  const { image, pickImage, takeImage, removeImage } = useImagePicker();
+
+  const [imageUploadVisible, setImageUploadVisible] = useState(false);
+
+  const toggleImageUpload = () => {
+    setImageUploadVisible((visible) => !visible);
+  };
 
   const handleCreateContainer = async () => {
     await insertContainer({
@@ -67,7 +77,30 @@ export default function ContainerAdd({ navigation }: Props) {
 
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
+      <BottomSheet
+        items={[
+          {
+            text: 'Pick photo',
+            onPress: pickImage,
+          },
+          {
+            text: 'Take photo',
+            onPress: takeImage,
+          },
+          {
+            text: 'Remove photo',
+            onPress: removeImage,
+            disabled: !image,
+            color: 'red',
+          },
+        ]}
+        visible={imageUploadVisible}
+        onClose={toggleImageUpload}
+      />
+      <TouchableOpacity
+        onPress={toggleImageUpload}
+        style={styles.imageContainer}
+      >
         {image && <Image source={{ uri: image }} style={styles.image} />}
       </TouchableOpacity>
       <View style={styles.form}>
