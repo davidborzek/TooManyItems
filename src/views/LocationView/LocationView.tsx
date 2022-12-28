@@ -6,7 +6,7 @@ import FullSpinner from "../../components/FullSpinner/FullSpinner";
 import ImageList from "../../components/ImageList/ImageList";
 import { useContainersForLocation } from "../../hooks/container";
 import { useImagePicker } from "../../hooks/image";
-import { Location, updateLocation } from "../../supabase/supabase";
+import { Container, Location, updateLocation } from "../../supabase/supabase";
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationView'>;
 
@@ -55,12 +55,16 @@ export default function LocationView({ route, navigation }: Props) {
         }}>
           <Text style={{fontSize: 20}} >{location?.name}</Text>
           <Text>{location.street}</Text>
+          <Text>{location.zip_code} {location.city}</Text>
         </View>
       </TouchableOpacity>
       <ImageList
         items={containers}
         onRefresh={refresh}
         refreshing={refreshing}
+        onPress={(item: Container) => {
+          navigation.navigate("ContainerView", { container: item} )
+        }}
       />
     </View>
   )
