@@ -34,13 +34,15 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   image: { width: '100%', height: '100%' },
-  form: { alignItems: 'flex-start', width: 250, marginTop: 10 },
+  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
   input: {
-    height: 30,
-    marginVertical: 5,
+    marginVertical: 10,
     borderWidth: 1,
+    borderRadius: 5,
     padding: 10,
-    width: '100%',
+  },
+  dropdown: {
+    marginVertical: 10,
   },
 });
 
@@ -121,21 +123,20 @@ export default function ContainerAdd({ navigation }: Props) {
             value={containerTags}
           />
 
-          <Text>{t('location')}</Text>
-          <DropDownPicker
-            placeholder={t('select_location') || ''}
-            open={isLocationSelectionOpen}
-            value={location}
-            items={locations.map((location) => ({
-              label: location.name,
-              value: location.id,
-            }))}
-            setOpen={setLocationSelectionOpen}
-            setValue={setLocation}
-            style={styles.input}
-            listMode={"SCROLLVIEW"}
-          />
-        </View>
+        <Text>{t('location')}</Text>
+        <DropDownPicker
+          placeholder={t('select_location') || ''}
+          open={isLocationSelectionOpen}
+          value={location}
+          items={locations.map((location) => ({
+            label: location.name,
+            value: location.id,
+          }))}
+          setOpen={setLocationSelectionOpen}
+          setValue={setLocation}
+          style={styles.dropdown}
+          listMode={"SCROLLVIEW"}
+        />
       </View>
       <FAB
           title=""
@@ -152,6 +153,7 @@ export default function ContainerAdd({ navigation }: Props) {
           disabled={!containerName || !location}
           onPress={handleCreateContainer}
         />
+      </View>
     </KeyboardAwareScrollView>
   );
 }
