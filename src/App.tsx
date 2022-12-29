@@ -15,6 +15,7 @@ import { registerRootComponent } from 'expo';
 
 import './i18n/i18n';
 import LocationView, { LocationViewParamList } from './views/LocationView/LocationView';
+import ItemView, { ItemViewParamList } from './views/ItemView/ItemView';
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
@@ -23,6 +24,7 @@ export type AppStackParamList = {
   ContainerView: ContainerViewParamList;
   LocationView: LocationViewParamList;
   ItemAdd: ItemAddParamList;
+  ItemView: ItemViewParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -62,6 +64,11 @@ function App() {
           name="ItemAdd"
           component={ItemAdd}
           options={{ title: t('new_item') || '' }}
+        />
+        <Stack.Screen
+          name="ItemView"
+          component={ItemView}
+          options={{ title: t('view_item') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

@@ -10,88 +10,89 @@ import { Container, insertItem } from "../../supabase/supabase";
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemAdd'>;
 
 export type ItemAddParamList = {
-    container: Container;
+  container: Container;
 };
 
 export default function ItemAdd({ route, navigation }: Props) {
-    const { image, pickImage } = useImagePicker();
-    const { t } = useTranslation();
-    const [itemName, setItemName] = useState('');
-    const [description, setDescription] = useState('');
-    const { container } = route.params;
+  const { image, pickImage } = useImagePicker();
+  const { t } = useTranslation();
+  const [itemName, setItemName] = useState('');
+  const [description, setDescription] = useState('');
+  const { container } = route.params;
 
-    const handleCreateItem = async () => {
-        await insertItem({
-            container_id: container.id,
-            name: itemName,
-            description: description,
-            image: image
-        })
-    
-        navigation.goBack();
-      };
+  const handleCreateItem = async () => {
+    await insertItem({
+      container_id: container.id,
+      name: itemName,
+      description: description,
+      image: image
+    })
 
-    return (
-        <View style={{ alignItems: 'center', flex: 1 }}>
-            <TouchableOpacity
-                onPress={pickImage}
-                style={{
-                backgroundColor: '#c1c1c1',
-                marginVertical: 20,
-                minWidth: 250,
-                maxWidth: 250,
-                height: 250,
-                }}
-            >
-                {image && (
-                <Image
-                    source={{ uri: image }}
-                    style={{ width: '100%', height: '100%' }}
-                />
-                )}
-            </TouchableOpacity>
-            <View style={{ alignItems: 'flex-start', width: 250, marginTop: 10 }}>
-                <Text>{t('name')}</Text>
-                <TextInput
-                style={{
-                    height: 30,
-                    marginVertical: 5,
-                    borderWidth: 1,
-                    padding: 10,
-                    width: '100%',
-                }}
-                onChangeText={setItemName}
-                value={itemName}
-                />
+    navigation.goBack();
+  };
 
-                <Text>{t('description')}</Text>
-                <TextInput
-                style={{
-                    height: 30,
-                    marginVertical: 5,
-                    borderWidth: 1,
-                    padding: 10,
-                    width: '100%',
-                }}
-                onChangeText={setDescription}
-                value={description}
-                />
-            </View>
-            <FAB
-                title=""
-                color="#137b11"
-                placement="right"
-                icon={
-                <Icon
-                    name="check"
-                    size={24}
-                    color="white"
-                    tvParallaxProperties={undefined}
-                />
-                }
-                disabled={!itemName}
-                onPress={handleCreateItem}
-            />
-            </View>
-    )
+  return (
+    <View style={{ alignItems: 'center', flex: 1 }}>
+      <TouchableOpacity
+        onPress={pickImage}
+        style={{
+          backgroundColor: '#c1c1c1',
+          marginVertical: 5,
+          minWidth: 300,
+          maxWidth: 300,
+          marginTop: 20,
+          height: 300,
+        }}
+      >
+        {image && (
+          <Image
+            source={{ uri: image }}
+            style={{ width: '100%', height: '100%' }}
+          />
+        )}
+      </TouchableOpacity>
+      <View style={{ alignItems: 'flex-start', width: 300, marginTop: 10 }}>
+        <Text>{t('name')}</Text>
+        <TextInput
+          style={{
+            height: 30,
+            marginVertical: 5,
+            borderWidth: 1,
+            padding: 10,
+            width: '100%',
+          }}
+          onChangeText={setItemName}
+          value={itemName}
+        />
+
+        <Text>{t('description')}</Text>
+        <TextInput
+          style={{
+            height: 30,
+            marginVertical: 5,
+            borderWidth: 1,
+            padding: 10,
+            width: '100%',
+          }}
+          onChangeText={setDescription}
+          value={description}
+        />
+      </View>
+      <FAB
+        title=""
+        color="#137b11"
+        placement="right"
+        icon={
+          <Icon
+            name="check"
+            size={24}
+            color="white"
+            tvParallaxProperties={undefined}
+          />
+        }
+        disabled={!itemName}
+        onPress={handleCreateItem}
+      />
+    </View>
+  )
 }
