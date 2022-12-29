@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { TouchableOpacity, View, Image } from "react-native";
 import { FAB, Icon, Text } from "react-native-elements";
 import { AppStackParamList } from "../../App";
-import { Container, fetchLocation, insertContainer, Item, Location, updateContainer } from "../../supabase/supabase";
+import { Container, fetchLocation, Item, Location, updateContainer } from "../../supabase/supabase";
 import { useEffect, useState } from 'react';
 import { useItemsForContainer } from "../../hooks/item";
 import FullSpinner from "../../components/FullSpinner/FullSpinner";
@@ -78,6 +78,9 @@ export default function ContainerView({ route, navigation }: Props) {
         items={items}
         onRefresh={refresh}
         refreshing={refreshing}
+        onPress={(item: Item) => {
+          navigation.navigate("ItemView", {item: item});
+        }}
       />
       <FAB
         title=""
