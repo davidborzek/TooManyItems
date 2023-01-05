@@ -64,5 +64,5 @@ const styles = StyleSheet.create({
   verticallySpaced: {
     paddingTop: 4,
     paddingBottom: 4,
-  }
+  },
 });

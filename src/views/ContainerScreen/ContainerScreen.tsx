@@ -41,7 +41,9 @@ export default function ContainerScreen({ navigation }: Props) {
         items={containers}
         onRefresh={refresh}
         refreshing={refreshing}
-        onPress={(item: Container) => { navigation.navigate("ContainerView", {container: item})}}
+        onPress={(item: Container) => {
+          navigation.navigate('ContainerView', { container: item });
+        }}
       />
       <FAB
         title=""

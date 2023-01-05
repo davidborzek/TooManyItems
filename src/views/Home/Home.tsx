@@ -22,14 +22,14 @@ const Tab = createBottomTabNavigator<HomeTabParamList>();
 
 function icon(screen: keyof HomeTabParamList, focused: boolean) {
   switch (screen) {
-    case "Container":
-      return "archive"
-    case "Locations":
-      return "location";
-    case "Search":
-      return "search";
-    case "Settings":
-      return "settings"
+    case 'Container':
+      return 'archive';
+    case 'Locations':
+      return 'location';
+    case 'Search':
+      return 'search';
+    case 'Settings':
+      return 'settings';
   }
 }
 
@@ -85,7 +85,7 @@ export default function Home({ navigation }: Props) {
         component={SearchScreen}
         options={{ title: t('search') || '' }}
       />
-       <Tab.Screen
+      <Tab.Screen
         name="Settings"
         component={Settings}
         options={{ title: t('settings') || '' }}

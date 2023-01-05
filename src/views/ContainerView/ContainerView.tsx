@@ -1,13 +1,19 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { TouchableOpacity, View, Image } from "react-native";
-import { FAB, Icon, Text } from "react-native-elements";
-import { AppStackParamList } from "../../App";
-import { Container, fetchLocation, Item, Location, updateContainer } from "../../supabase/supabase";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { TouchableOpacity, View, Image } from 'react-native';
+import { FAB, Icon, Text } from 'react-native-elements';
+import { AppStackParamList } from '../../App';
+import {
+  Container,
+  fetchLocation,
+  Item,
+  Location,
+  updateContainer,
+} from '../../supabase/supabase';
 import { useEffect, useState } from 'react';
-import { useItemsForContainer } from "../../hooks/item";
-import FullSpinner from "../../components/FullSpinner/FullSpinner";
-import ImageList from "../../components/ImageList/ImageList";
-import { useImagePicker } from "../../hooks/image";
+import { useItemsForContainer } from '../../hooks/item';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
+import ImageList from '../../components/ImageList/ImageList';
+import { useImagePicker } from '../../hooks/image';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
 
@@ -16,16 +22,18 @@ export type ContainerViewParamList = {
 };
 
 export default function ContainerView({ route, navigation }: Props) {
-  const [ location, setLocation ] = useState<Location>()
+  const [location, setLocation] = useState<Location>();
   const { container } = route.params;
-  const { loading, items, refreshing, fetch, refresh } = useItemsForContainer(container.id);
+  const { loading, items, refreshing, fetch, refresh } = useItemsForContainer(
+    container.id
+  );
   const { image, pickImage } = useImagePicker();
 
   const fetchContainer = () => {
     if (container && container.location_id != null) {
       fetchLocation(container.location_id).then((location) => {
         setLocation(location);
-      })
+      });
     }
   };
 
@@ -36,8 +44,8 @@ export default function ContainerView({ route, navigation }: Props) {
   useEffect(() => {
     if (container) {
       navigation.setOptions({
-        title: container.name
-      })
+        title: container.name,
+      });
     }
   }, [navigation, container]);
 
@@ -50,36 +58,42 @@ export default function ContainerView({ route, navigation }: Props) {
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity
-        onPress={ () => {
+        onPress={() => {
           pickImage().then((image) => {
             container.image = image.assets![0].uri;
             updateContainer(container);
-          })
+          });
         }}
         style={{
           backgroundColor: '#c1c1c1',
-          minWidth: "100%",
-          maxWidth: "100%",
-          height: "45%",
-          flexDirection: "row"
+          minWidth: '100%',
+          maxWidth: '100%',
+          height: '45%',
+          flexDirection: 'row',
         }}
-      >        
+      >
         {realImage && (
           <Image
             source={{ uri: realImage }}
-            style={{ position: "absolute", width: '100%', height: '100%' }}
+            style={{ position: 'absolute', width: '100%', height: '100%' }}
           />
         )}
-        <View style={{
-          alignSelf: "flex-end",
-          marginLeft: 10,
-          marginBottom: 10
-        }}>
-          <Text style={{fontSize: 20}} >{container.name}</Text>
-          <Text onPress={() => {
-            if (location)
-              navigation.navigate("LocationView", { location: location} )
-          }}>Location: {location?.name}</Text>
+        <View
+          style={{
+            alignSelf: 'flex-end',
+            marginLeft: 10,
+            marginBottom: 10,
+          }}
+        >
+          <Text style={{ fontSize: 20 }}>{container.name}</Text>
+          <Text
+            onPress={() => {
+              if (location)
+                navigation.navigate('LocationView', { location: location });
+            }}
+          >
+            Location: {location?.name}
+          </Text>
         </View>
       </TouchableOpacity>
       <ImageList
@@ -87,7 +101,7 @@ export default function ContainerView({ route, navigation }: Props) {
         onRefresh={refresh}
         refreshing={refreshing}
         onPress={(item: Item) => {
-          navigation.navigate("ItemView", {item: item});
+          navigation.navigate('ItemView', { item: item });
         }}
       />
       <FAB
@@ -103,9 +117,9 @@ export default function ContainerView({ route, navigation }: Props) {
           />
         }
         onPress={() => {
-          navigation.navigate('ItemAdd', { container: container});
+          navigation.navigate('ItemAdd', { container: container });
         }}
       />
     </View>
-  )
+  );
 }

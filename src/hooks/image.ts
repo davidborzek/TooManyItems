@@ -36,7 +36,7 @@ export function useImagePicker() {
 
   const removeImage = () => {
     setImage(undefined);
-  }
+  };
 
   return { image, pickImage, takeImage, removeImage };
 }
