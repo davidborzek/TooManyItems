@@ -16,6 +16,8 @@ export function useImagePicker() {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
+
+    return result;
   };
 
   const takeImage = async () => {
