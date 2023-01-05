@@ -21,18 +21,15 @@ export type HomeTabParamList = {
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
 function icon(screen: keyof HomeTabParamList, focused: boolean) {
-  if (screen === 'Container') {
-    return focused
-      ? 'ios-information-circle'
-      : 'ios-information-circle-outline';
-  } else if (screen === 'Locations') {
-    return focused ? 'ios-list' : 'ios-list-outline';
-  } else if (screen === 'Settings') {
-    return focused ? 'ios-settings' : 'ios-settings-outline';
-  } else {
-    return focused
-      ? 'ios-information-circle'
-      : 'ios-information-circle-outline';
+  switch (screen) {
+    case "Container":
+      return "archive"
+    case "Locations":
+      return "location";
+    case "Search":
+      return "search";
+    case "Settings":
+      return "settings"
   }
 }
 
