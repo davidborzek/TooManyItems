@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useEffect } from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-elements";
 import { AppStackParamList } from "../../App";
@@ -18,6 +19,14 @@ export default function LocationView({ route, navigation }: Props) {
   const { location } = route.params;
   const { containers, fetch, refresh, refreshing, loading } = useContainersForLocation(location.id);
   const { image, pickImage } = useImagePicker();
+
+  useEffect(() => {
+    if (location) {
+      navigation.setOptions({
+        title: location.name
+      })
+    }
+  }, [navigation, location]);
 
   if (loading) {
     return <FullSpinner />;
