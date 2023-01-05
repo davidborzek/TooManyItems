@@ -18,10 +18,8 @@ import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
 import LocationView, { LocationViewParamList } from './views/LocationView/LocationView';
 import ItemView, { ItemViewParamList } from './views/ItemView/ItemView';
 import Login from './views/Login/Login';
-import { View, Text } from 'react-native';
 import { useSession } from './hooks/auth';
-import { supabase } from './supabase/supabase';
-import Settings from './views/Settings/Settings';
+import FullSpinner from './components/FullSpinner/FullSpinner';
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
@@ -40,14 +38,10 @@ function App() {
   const { t } = useTranslation();
   const {session, loading} = useSession();
 
-  // TODO: better loading state
   // TODO: error handling?
   if (loading) {
-    return <View>
-      <Text>Loading...</Text>
-    </View>
+    return <FullSpinner />;
   }
-
   if (!session) {
     return <Login />
   }
