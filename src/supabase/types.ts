@@ -16,6 +16,7 @@ export interface Database {
           location_id: number | null;
           created_at: string | null;
           image: string | null;
+          user_id: string;
         };
         Insert: {
           id?: number;
@@ -23,6 +24,7 @@ export interface Database {
           location_id?: number | null;
           created_at?: string | null;
           image?: string | null;
+          user_id?: string;
         };
         Update: {
           id?: number;
@@ -30,6 +32,7 @@ export interface Database {
           location_id?: number | null;
           created_at?: string | null;
           image?: string | null;
+          user_id?: string;
         };
       };
       container_tag: {
@@ -54,6 +57,7 @@ export interface Database {
           container_id: number;
           created_at: string | null;
           image: string | null;
+          user_id: string;
         };
         Insert: {
           id?: number;
@@ -62,6 +66,7 @@ export interface Database {
           container_id: number;
           created_at?: string | null;
           image?: string | null;
+          user_id?: string;
         };
         Update: {
           id?: number;
@@ -70,6 +75,7 @@ export interface Database {
           container_id?: number;
           created_at?: string | null;
           image?: string | null;
+          user_id?: string;
         };
       };
       location: {
@@ -81,6 +87,7 @@ export interface Database {
           zip_code: string | null;
           created_at: string | null;
           image: string | null;
+          user_id: string;
         };
         Insert: {
           id?: number;
@@ -90,6 +97,7 @@ export interface Database {
           zip_code?: string | null;
           created_at?: string | null;
           image?: string | null;
+          user_id?: string;
         };
         Update: {
           id?: number;
@@ -99,6 +107,7 @@ export interface Database {
           zip_code?: string | null;
           created_at?: string | null;
           image?: string | null;
+          user_id?: string;
         };
       };
       tag: {
