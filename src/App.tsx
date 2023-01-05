@@ -21,6 +21,7 @@ import Login from './views/Login/Login';
 import { View, Text } from 'react-native';
 import { useSession } from './hooks/auth';
 import { supabase } from './supabase/supabase';
+import Settings from './views/Settings/Settings';
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
