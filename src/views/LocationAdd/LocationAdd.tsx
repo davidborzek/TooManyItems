@@ -59,29 +59,6 @@ export default function LocationAdd({ navigation }: Props) {
     });
   }, [navigation, locationName]);
 
-  const styles = StyleSheet.create({
-    view: {
-      alignItems: 'center',
-      flex: 1,
-    },
-    imageContainer: {
-      backgroundColor: '#c1c1c1',
-      marginVertical: 20,
-      minWidth: 250,
-      maxWidth: 250,
-      height: 250,
-      borderRadius: 3,
-    },
-    image: { width: '100%', height: '100%' },
-    form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
-    input: {
-      marginVertical: 10,
-      borderWidth: 1,
-      borderRadius: 5,
-      padding: 10,
-    },
-  });
-
   return (
     <KeyboardAwareScrollView>
       <View style={styles.view}>
@@ -136,3 +113,26 @@ export default function LocationAdd({ navigation }: Props) {
     </KeyboardAwareScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  view: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    marginVertical: 20,
+    minWidth: 250,
+    maxWidth: 250,
+    height: 250,
+    borderRadius: 3,
+  },
+  image: { width: '100%', height: '100%' },
+  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
+  input: {
+    marginVertical: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+  },
+});
