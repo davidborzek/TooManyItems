@@ -42,11 +42,13 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <ImageList 
-        items={locations} 
-        onRefresh={refresh} 
-        refreshing={refreshing} 
-        onPress={(item: Location) => { navigation.navigate("LocationView", {location: item})}}
+      <ImageList
+        items={locations}
+        onRefresh={refresh}
+        refreshing={refreshing}
+        onPress={(item: Location) => {
+          navigation.navigate('LocationView', { location: item });
+        }}
       />
       <FAB
         title=""

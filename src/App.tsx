@@ -10,12 +10,16 @@ import Home, { HomeTabParamList } from './views/Home/Home';
 import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import LocationAdd from './views/LocationAdd/LocationAdd';
 import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
-import ContainerView, { ContainerViewParamList } from './views/ContainerView/ContainerView';
+import ContainerView, {
+  ContainerViewParamList,
+} from './views/ContainerView/ContainerView';
 import { registerRootComponent } from 'expo';
 
 import './i18n/i18n';
 import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
-import LocationView, { LocationViewParamList } from './views/LocationView/LocationView';
+import LocationView, {
+  LocationViewParamList,
+} from './views/LocationView/LocationView';
 import ItemView, { ItemViewParamList } from './views/ItemView/ItemView';
 import Login from './views/Login/Login';
 import { useSession } from './hooks/auth';
@@ -36,14 +40,14 @@ const Stack = createNativeStackNavigator<AppStackParamList>();
 
 function App() {
   const { t } = useTranslation();
-  const {session, loading} = useSession();
+  const { session, loading } = useSession();
 
   // TODO: error handling?
   if (loading) {
     return <FullSpinner />;
   }
   if (!session) {
-    return <Login />
+    return <Login />;
   }
 
   return (

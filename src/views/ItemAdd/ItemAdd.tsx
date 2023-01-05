@@ -8,7 +8,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import {  Text } from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -49,10 +49,7 @@ export default function ItemAdd({ route, navigation }: Props) {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <HeaderCheckmark
-            disabled={!itemName}
-            onPress={handleCreateItem}
-          />
+          <HeaderCheckmark disabled={!itemName} onPress={handleCreateItem} />
         );
       },
     });
@@ -61,7 +58,7 @@ export default function ItemAdd({ route, navigation }: Props) {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.view}>
-      <BottomSheet
+        <BottomSheet
           items={[
             {
               text: 'Pick photo',

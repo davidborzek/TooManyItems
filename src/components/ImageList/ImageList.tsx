@@ -40,16 +40,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ImageList<T extends ImageListItem>({ items, onRefresh, refreshing, onPress }: Props<T>) {
+export default function ImageList<T extends ImageListItem>({
+  items,
+  onRefresh,
+  refreshing,
+  onPress,
+}: Props<T>) {
   return (
     <FlatList
       data={items}
       renderItem={({ item }) => {
         const callOnPress = () => {
           if (onPress) {
-            onPress(item)
+            onPress(item);
           }
-        }
+        };
         return (
           <TouchableOpacity style={styles.item} onPress={callOnPress}>
             {item.image ? (

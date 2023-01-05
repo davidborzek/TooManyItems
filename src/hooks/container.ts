@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Container, fetchContainers, fetchContainersForLocation } from '../supabase/supabase';
+import {
+  Container,
+  fetchContainers,
+  fetchContainersForLocation,
+} from '../supabase/supabase';
 
 export function useContainers() {
   const [loading, setLoading] = useState(false);
@@ -28,7 +32,6 @@ export function useContainers() {
 
   return { containers, fetch, refresh, refreshing, loading };
 }
-
 
 export function useContainersForLocation(location_id: number) {
   const [loading, setLoading] = useState(false);
