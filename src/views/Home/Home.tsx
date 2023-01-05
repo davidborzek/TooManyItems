@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
+import Settings from '../Settings/Settings';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
@@ -14,6 +15,7 @@ export type HomeTabParamList = {
   Container: undefined;
   Locations: undefined;
   Search: undefined;
+  Settings: undefined;
 };
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
@@ -25,6 +27,8 @@ function icon(screen: keyof HomeTabParamList, focused: boolean) {
       : 'ios-information-circle-outline';
   } else if (screen === 'Locations') {
     return focused ? 'ios-list' : 'ios-list-outline';
+  } else if (screen === 'Settings') {
+    return focused ? 'ios-settings' : 'ios-settings-outline';
   } else {
     return focused
       ? 'ios-information-circle'
@@ -83,6 +87,11 @@ export default function Home({ navigation }: Props) {
         name="Search"
         component={SearchScreen}
         options={{ title: t('search') || '' }}
+      />
+       <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{ title: t('settings') || '' }}
       />
     </Tab.Navigator>
   );
