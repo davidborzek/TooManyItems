@@ -8,9 +8,10 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { Text } from 'react-native-elements';
+import {  Text } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AppStackParamList } from '../../App';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { useImagePicker } from '../../hooks/image';
 import { Container, insertItem } from '../../supabase/supabase';
@@ -22,12 +23,16 @@ export type ItemAddParamList = {
 };
 
 export default function ItemAdd({ route, navigation }: Props) {
-  const { image, pickImage } = useImagePicker();
+  const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();
   const [itemName, setItemName] = useState('');
   const [description, setDescription] = useState('');
+  const [imageUploadVisible, setImageUploadVisible] = useState(false);
   const { container } = route.params;
 
+  const toggleImageUpload = () => {
+    setImageUploadVisible((visible) => !visible);
+  };
 
   const handleCreateItem = async () => {
     await insertItem({
@@ -56,23 +61,31 @@ export default function ItemAdd({ route, navigation }: Props) {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.view}>
+      <BottomSheet
+          items={[
+            {
+              text: 'Pick photo',
+              onPress: pickImage,
+            },
+            {
+              text: 'Take photo',
+              onPress: takeImage,
+            },
+            {
+              text: 'Remove photo',
+              onPress: removeImage,
+              disabled: !image,
+              color: 'red',
+            },
+          ]}
+          visible={imageUploadVisible}
+          onClose={toggleImageUpload}
+        />
         <TouchableOpacity
-          onPress={pickImage}
-          style={{
-            backgroundColor: '#c1c1c1',
-            marginVertical: 5,
-            minWidth: 300,
-            maxWidth: 300,
-            marginTop: 20,
-            height: 300,
-          }}
+          onPress={toggleImageUpload}
+          style={styles.imageContainer}
         >
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: '100%', height: '100%' }}
-            />
-          )}
+          {image && <Image source={{ uri: image }} style={styles.image} />}
         </TouchableOpacity>
         <View style={styles.form}>
           <Text>{t('name')}</Text>
@@ -106,4 +119,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
   },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    marginVertical: 20,
+    minWidth: 250,
+    maxWidth: 250,
+    height: 250,
+    borderRadius: 3,
+  },
+  image: { width: '100%', height: '100%' },
 });
