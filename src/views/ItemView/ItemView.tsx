@@ -31,6 +31,13 @@ export default function ItemView({ route, navigation }: Props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (item) {
+      navigation.setOptions({
+        title: item.name
+      })
+    }
+  }, [navigation, item]);
 
   const realImage = image ? image : item.image;
 
