@@ -33,6 +33,14 @@ export default function ContainerView({ route, navigation }: Props) {
     fetchContainer();
   }, []);
 
+  useEffect(() => {
+    if (container) {
+      navigation.setOptions({
+        title: container.name
+      })
+    }
+  }, [navigation, container]);
+
   if (loading) {
     return <FullSpinner />;
   }
