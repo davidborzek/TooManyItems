@@ -16,12 +16,32 @@ import ImageList from '../../components/ImageList/ImageList';
 import { useImagePicker } from '../../hooks/image';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet } from 'react-native';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
 
 export type ContainerViewParamList = {
   container: Container;
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    minWidth: '100%',
+    maxWidth: '100%',
+    height: '45%',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  image: { position: 'absolute', width: '100%', height: '100%' },
+  info: {
+    alignSelf: 'flex-end',
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  title: { fontSize: 20 },
+});
 
 export default function ContainerDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
@@ -61,7 +81,7 @@ export default function ContainerDetailView({ route, navigation }: Props) {
   const realImage = image ? image : container.image;
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
@@ -69,28 +89,13 @@ export default function ContainerDetailView({ route, navigation }: Props) {
             updateContainer(container);
           });
         }}
-        style={{
-          backgroundColor: '#c1c1c1',
-          minWidth: '100%',
-          maxWidth: '100%',
-          height: '45%',
-          flexDirection: 'row',
-        }}
+        style={styles.imageContainer}
       >
         {realImage && (
-          <Image
-            source={{ uri: realImage }}
-            style={{ position: 'absolute', width: '100%', height: '100%' }}
-          />
+          <Image source={{ uri: realImage }} style={styles.image} />
         )}
-        <View
-          style={{
-            alignSelf: 'flex-end',
-            marginLeft: 10,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ fontSize: 20 }}>{container.name}</Text>
+        <View style={styles.info}>
+          <Text style={styles.title}>{container.name}</Text>
           <Text
             onPress={() => {
               if (location)
