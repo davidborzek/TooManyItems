@@ -138,13 +138,4 @@ const styles = StyleSheet.create({
   },
   image: { width: '100%', height: '100%' },
   form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
-  dropdown: {
-    marginVertical: 10,
-    borderWidth: 0,
-    backgroundColor: 'transparent',
-    borderBottomWidth: 1,
-    borderRadius: 0,
-    borderColor: '#86939e',
-    padding: 0,
-  },
 });
