@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { insertContainer } from '../../supabase/supabase';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
@@ -12,6 +11,7 @@ import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { Input } from 'react-native-elements';
+import Selection from '../../components/Selection/Selection';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
@@ -107,19 +107,18 @@ export default function ContainerAdd({ navigation }: Props) {
             autoCompleteType=""
           />
 
-          <Text>{t('location')}</Text>
-          <DropDownPicker
-            placeholder={t('select_location') || ''}
-            open={isLocationSelectionOpen}
+          <Selection
             value={location}
             items={locations.map((location) => ({
               label: location.name,
               value: location.id,
             }))}
+            title={t('location') || ''}
+            label={t('location') || ''}
+            placeholder={t('location') || ''}
+            onChange={setLocation}
+            visible={isLocationSelectionOpen}
             setOpen={setLocationSelectionOpen}
-            setValue={setLocation}
-            style={styles.dropdown}
-            listMode={'SCROLLVIEW'}
           />
         </View>
       </View>
@@ -141,5 +140,11 @@ const styles = StyleSheet.create({
   form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
   dropdown: {
     marginVertical: 10,
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+    borderBottomWidth: 1,
+    borderRadius: 0,
+    borderColor: '#86939e',
+    padding: 0,
   },
 });
