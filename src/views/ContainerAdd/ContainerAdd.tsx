@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  Text,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { insertContainer } from '../../supabase/supabase';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -18,31 +11,9 @@ import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
+import { Input } from 'react-native-elements';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
-
-const styles = StyleSheet.create({
-  view: { alignItems: 'center', flex: 1 },
-  imageContainer: {
-    backgroundColor: '#c1c1c1',
-    marginVertical: 20,
-    minWidth: 250,
-    maxWidth: 250,
-    height: 250,
-    borderRadius: 3,
-  },
-  image: { width: '100%', height: '100%' },
-  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
-  input: {
-    marginVertical: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
-  dropdown: {
-    marginVertical: 10,
-  },
-});
 
 export default function ContainerAdd({ navigation }: Props) {
   const { t } = useTranslation();
@@ -120,18 +91,20 @@ export default function ContainerAdd({ navigation }: Props) {
           {image && <Image source={{ uri: image }} style={styles.image} />}
         </TouchableOpacity>
         <View style={styles.form}>
-          <Text>{t('name')}</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             onChangeText={setContainerName}
             value={containerName}
+            label={t('name')}
+            placeholder={t('name') || ''}
+            autoCompleteType=""
           />
 
-          <Text>{t('tags')}</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             onChangeText={setContainerTags}
             value={containerTags}
+            label={t('tags')}
+            placeholder={t('tags') || ''}
+            autoCompleteType=""
           />
 
           <Text>{t('location')}</Text>
@@ -153,3 +126,20 @@ export default function ContainerAdd({ navigation }: Props) {
     </KeyboardAwareScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  view: { alignItems: 'center', flex: 1 },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    marginVertical: 20,
+    minWidth: 250,
+    maxWidth: 250,
+    height: 250,
+    borderRadius: 3,
+  },
+  image: { width: '100%', height: '100%' },
+  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
+  dropdown: {
+    marginVertical: 10,
+  },
+});
