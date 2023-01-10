@@ -110,5 +110,6 @@ const styles = StyleSheet.create({
   typeFilter: {
     flexDirection: 'row',
     flexGrow: 0,
+    flexShrink: 0,
   },
 });
