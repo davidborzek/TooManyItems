@@ -66,7 +66,7 @@ export default function Home({ navigation }: Props) {
           );
         },
         headerRightContainerStyle: {
-          marginRight: 16,
+          paddingRight: 16,
         },
       })}
     >
