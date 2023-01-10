@@ -53,33 +53,18 @@ export default function LocationScreen({ navigation }: Props) {
     return <FullSpinner />;
   }
 
-  if (locations.length === 0) {
-    return (
-      <EmptyState
-        icon="location-outline"
-        message={t('no_locations')}
-        description={t('no_locations_information')}
-      />
-    );
-  }
+  const renderResults = () => {
+    if (locations.length === 0) {
+      return (
+        <EmptyState
+          icon="location-outline"
+          message={t('no_locations')}
+          description={t('no_locations_information')}
+        />
+      );
+    }
 
-  return (
-    <View style={styles.container}>
-      <BottomSheet
-        items={[
-          {
-            text: 'Delete',
-            color: 'red',
-            onPress: () => {
-              if (selectedLocation) {
-                deleteLocation(selectedLocation.id).then(() => fetch());
-              }
-            },
-          },
-        ]}
-        visible={optionsVisible}
-        onClose={toggleOptionsVisible}
-      />
+    return (
       <ImageList
         items={locations}
         onRefresh={refresh}
@@ -89,6 +74,12 @@ export default function LocationScreen({ navigation }: Props) {
         }}
         onLongPress={toggleOptionsVisible}
       />
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      {renderResults()}
       <FAB
         title=""
         color="#32afed"

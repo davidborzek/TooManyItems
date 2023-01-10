@@ -47,33 +47,18 @@ export default function ContainerScreen({ navigation }: Props) {
     return <FullSpinner />;
   }
 
-  if (containers.length === 0) {
-    return (
-      <EmptyState
-        icon="cube-outline"
-        message={t('no_containers')}
-        description={t('no_containers_information')}
-      />
-    );
-  }
+  const renderResults = () => {
+    if (containers.length === 0) {
+      return (
+        <EmptyState
+          icon="cube-outline"
+          message={t('no_containers')}
+          description={t('no_containers_information')}
+        />
+      );
+    }
 
-  return (
-    <View style={styles.container}>
-      <BottomSheet
-        items={[
-          {
-            text: 'Delete',
-            color: 'red',
-            onPress: () => {
-              if (selectedContainer) {
-                deleteContainer(selectedContainer.id).then(() => fetch());
-              }
-            },
-          },
-        ]}
-        visible={optionsVisible}
-        onClose={toggleOptionsVisible}
-      />
+    return (
       <ImageList
         items={containers}
         onRefresh={refresh}
@@ -83,6 +68,12 @@ export default function ContainerScreen({ navigation }: Props) {
         }}
         onLongPress={toggleOptionsVisible}
       />
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      {renderResults()}
       <FAB
         title=""
         color="#32afed"
