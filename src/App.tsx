@@ -10,17 +10,17 @@ import Home, { HomeTabParamList } from './views/Home/Home';
 import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import LocationAdd from './views/LocationAdd/LocationAdd';
 import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
-import ContainerView, {
+import ContainerDetailView, {
   ContainerViewParamList,
-} from './views/ContainerView/ContainerView';
+} from './views/ContainerDetailView/ContainerDetailView';
 import { registerRootComponent } from 'expo';
 
 import './i18n/i18n';
 import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
-import LocationView, {
+import LocationDetailView, {
   LocationViewParamList,
-} from './views/LocationView/LocationView';
-import ItemView, { ItemViewParamList } from './views/ItemView/ItemView';
+} from './views/LocationDetailView/LocationDetailView';
+import ItemDetailView, { ItemViewParamList } from './views/ItemDetailView/ItemDetailView';
 import Login from './views/Login/Login';
 import { useSession } from './hooks/auth';
 import FullSpinner from './components/FullSpinner/FullSpinner';
@@ -75,12 +75,12 @@ function App() {
         />
         <Stack.Screen
           name="ContainerView"
-          component={ContainerView}
+          component={ContainerDetailView}
           options={{ title: t('view_container') || '' }}
         />
         <Stack.Screen
           name="LocationView"
-          component={LocationView}
+          component={LocationDetailView}
           options={{ title: t('view_location') || '' }}
         />
         <Stack.Screen
@@ -90,7 +90,7 @@ function App() {
         />
         <Stack.Screen
           name="ItemView"
-          component={ItemView}
+          component={ItemDetailView}
           options={{ title: t('view_item') || '' }}
         />
       </Stack.Navigator>

@@ -17,7 +17,7 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
-export default function SearchScreen({ navigation }: Props) {
+export default function Search({ navigation }: Props) {
   const { t } = useTranslation();
   const { result, query, type, setQuery, setType } = useSearch();
 

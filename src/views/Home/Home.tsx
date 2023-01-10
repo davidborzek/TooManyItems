@@ -1,6 +1,6 @@
-import ContainerScreen from '../ContainerScreen/ContainerScreen';
-import LocationScreen from '../LocationScreen/LocationScreen';
-import SearchScreen from '../SearchScreen/SearchScreen';
+import ContainerList from '../ContainerList/ContainerList';
+import LocationList from '../LocationList/LocationList';
+import Search from '../Search/Search';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
@@ -72,17 +72,17 @@ export default function Home({ navigation }: Props) {
     >
       <Tab.Screen
         name="Container"
-        component={ContainerScreen}
+        component={ContainerList}
         options={{ title: t('containers') || '' }}
       />
       <Tab.Screen
         name="Locations"
-        component={LocationScreen}
+        component={LocationList}
         options={{ title: t('locations') || '' }}
       />
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={Search}
         options={{ title: t('search') || '' }}
       />
       <Tab.Screen

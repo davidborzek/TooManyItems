@@ -23,7 +23,7 @@ export type ContainerViewParamList = {
   container: Container;
 };
 
-export default function ContainerView({ route, navigation }: Props) {
+export default function ContainerDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
 
   const [location, setLocation] = useState<Location>();

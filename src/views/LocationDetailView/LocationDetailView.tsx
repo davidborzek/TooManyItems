@@ -17,7 +17,7 @@ export type LocationViewParamList = {
   location: Location;
 };
 
-export default function LocationView({ route, navigation }: Props) {
+export default function LocationDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
   const { location } = route.params;
   const { containers, fetch, refresh, refreshing, loading } =

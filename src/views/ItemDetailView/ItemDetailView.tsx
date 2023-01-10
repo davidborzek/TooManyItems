@@ -19,7 +19,7 @@ export type ItemViewParamList = {
   item: Item;
 };
 
-export default function ItemView({ route, navigation }: Props) {
+export default function ItemDetailView({ route, navigation }: Props) {
   const { image, pickImage } = useImagePicker();
   const { item } = route.params;
   const [location, setLocation] = useState<Location>();

@@ -26,7 +26,7 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
-export default function ContainerScreen({ navigation }: Props) {
+export default function ContainerList({ navigation }: Props) {
   const { t } = useTranslation();
   const { loading, containers, fetch, refresh, refreshing } = useContainers();
 
