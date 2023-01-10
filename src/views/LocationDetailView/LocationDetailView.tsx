@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import EmptyState from '../../components/EmptyState/EmptyState';
@@ -16,6 +16,29 @@ type Props = NativeStackScreenProps<AppStackParamList, 'LocationView'>;
 export type LocationViewParamList = {
   location: Location;
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    minWidth: '100%',
+    maxWidth: '100%',
+    height: '45%',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  image: { position: 'absolute', width: '100%', height: '100%' },
+  info: {
+    alignSelf: 'flex-end',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    marginBottom: 20,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+  title: { fontSize: 20, fontWeight: 'bold' },
+});
 
 export default function LocationDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
@@ -39,40 +62,29 @@ export default function LocationDetailView({ route, navigation }: Props) {
   const realImage = image ? image : location.image;
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
-            location.image = image.assets![0].uri;
-            updateLocation(location);
+            if (!image.canceled) {
+              location.image = image.assets![0].uri;
+              updateLocation(location);
+            }
           });
         }}
-        style={{
-          backgroundColor: '#c1c1c1',
-          minWidth: '100%',
-          maxWidth: '100%',
-          height: '45%',
-          flexDirection: 'row',
-        }}
+        style={styles.imageContainer}
       >
         {realImage && (
-          <Image
-            source={{ uri: realImage }}
-            style={{ position: 'absolute', width: '100%', height: '100%' }}
-          />
+          <Image source={{ uri: realImage }} style={styles.image} />
         )}
-        <View
-          style={{
-            alignSelf: 'flex-end',
-            marginLeft: 10,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ fontSize: 20 }}>{location?.name}</Text>
-          <Text>{location.street}</Text>
-          <Text>
-            {location.zip_code} {location.city}
-          </Text>
+        <View style={styles.info}>
+          <Text style={styles.title}>{location?.name}</Text>
+          {location.street && <Text>{location.street}</Text>}
+          {(location.zip_code || location.city) && (
+            <Text>
+              {location.zip_code} {location.city}
+            </Text>
+          )}
         </View>
       </TouchableOpacity>
       <ImageList

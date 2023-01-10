@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import { useImagePicker } from '../../hooks/image';
@@ -12,12 +12,39 @@ import {
   Location,
   updateItem,
 } from '../../supabase/supabase';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemView'>;
 
 export type ItemViewParamList = {
   item: Item;
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    minWidth: '100%',
+    maxWidth: '100%',
+    height: '45%',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  image: { position: 'absolute', width: '100%', height: '100%' },
+  info: {
+    alignSelf: 'flex-end',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    marginBottom: 20,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+  title: { fontSize: 20, fontWeight: 'bold' },
+  centered: {
+    alignItems: 'center',
+  },
+});
 
 export default function ItemDetailView({ route, navigation }: Props) {
   const { image, pickImage } = useImagePicker();
@@ -48,7 +75,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
   const realImage = image ? image : item.image;
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
@@ -56,41 +83,28 @@ export default function ItemDetailView({ route, navigation }: Props) {
             updateItem(item);
           });
         }}
-        style={{
-          backgroundColor: '#c1c1c1',
-          minWidth: '100%',
-          maxWidth: '100%',
-          height: '45%',
-          flexDirection: 'row',
-        }}
+        style={styles.imageContainer}
       >
         {realImage && (
-          <Image
-            source={{ uri: realImage }}
-            style={{ position: 'absolute', width: '100%', height: '100%' }}
-          />
+          <Image source={{ uri: realImage }} style={styles.image} />
         )}
-        <View
-          style={{
-            alignSelf: 'flex-end',
-            marginLeft: 10,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ fontSize: 20 }}>{item.name}</Text>
+        <View style={styles.info}>
+          <Text style={styles.title}>{item.name}</Text>
           <Text
+            style={styles.centered}
             onPress={() => {
               navigation.navigate('LocationView', { location: location! });
             }}
           >
-            Location: {location?.name}
+            <Ionicons name={'location-outline'} size={16} /> {location?.name}
           </Text>
           <Text
+            style={styles.centered}
             onPress={() => {
               navigation.navigate('ContainerView', { container: container! });
             }}
           >
-            Container: {container?.name}
+            <Ionicons name={'cube-outline'} size={16} /> {container?.name}
           </Text>
         </View>
       </TouchableOpacity>

@@ -17,6 +17,7 @@ import { useImagePicker } from '../../hooks/image';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
 
@@ -37,10 +38,17 @@ const styles = StyleSheet.create({
   image: { position: 'absolute', width: '100%', height: '100%' },
   info: {
     alignSelf: 'flex-end',
-    marginLeft: 10,
-    marginBottom: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    marginBottom: 20,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
   },
-  title: { fontSize: 20 },
+  title: { fontSize: 20, fontWeight: 'bold' },
+  location: {
+    alignItems: 'center',
+  },
 });
 
 export default function ContainerDetailView({ route, navigation }: Props) {
@@ -85,8 +93,10 @@ export default function ContainerDetailView({ route, navigation }: Props) {
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
-            container.image = image.assets![0].uri;
-            updateContainer(container);
+            if (!image.canceled) {
+              container.image = image.assets![0].uri;
+              updateContainer(container);
+            }
           });
         }}
         style={styles.imageContainer}
@@ -97,12 +107,13 @@ export default function ContainerDetailView({ route, navigation }: Props) {
         <View style={styles.info}>
           <Text style={styles.title}>{container.name}</Text>
           <Text
+            style={styles.location}
             onPress={() => {
               if (location)
                 navigation.navigate('LocationView', { location: location });
             }}
           >
-            {t('location')}: {location?.name}
+            <Ionicons name={'location-outline'} size={16} /> {location?.name}
           </Text>
         </View>
       </TouchableOpacity>
