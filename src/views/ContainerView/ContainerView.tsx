@@ -9,11 +9,13 @@ import {
   Location,
   updateContainer,
 } from '../../supabase/supabase';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useItemsForContainer } from '../../hooks/item';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { useImagePicker } from '../../hooks/image';
+import EmptyState from '../../components/EmptyState/EmptyState';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
 
@@ -22,6 +24,8 @@ export type ContainerViewParamList = {
 };
 
 export default function ContainerView({ route, navigation }: Props) {
+  const { t } = useTranslation();
+
   const [location, setLocation] = useState<Location>();
   const { container } = route.params;
   const { loading, items, refreshing, fetch, refresh } = useItemsForContainer(
@@ -92,7 +96,7 @@ export default function ContainerView({ route, navigation }: Props) {
                 navigation.navigate('LocationView', { location: location });
             }}
           >
-            Location: {location?.name}
+            {t('location')}: {location?.name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -103,6 +107,13 @@ export default function ContainerView({ route, navigation }: Props) {
         onPress={(item: Item) => {
           navigation.navigate('ItemView', { item: item });
         }}
+        ListEmptyComponent={
+          <EmptyState
+            icon="shapes-outline"
+            message={t('no_items')}
+            description={t('no_items_information')}
+          />
+        }
       />
       <FAB
         title=""

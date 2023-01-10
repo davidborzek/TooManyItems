@@ -15,6 +15,8 @@
   "no_camera_permission": "No access to camera.",
   "no_containers": "No containers",
   "no_containers_information": "Get started by creating your first container.",
+  "no_items": "No items",
+  "no_items_information": "Get started by creating your first item.",
   "no_locations": "No locations",
   "no_locations_information": "Get started by creating your first location.",
   "no_search_results": "No results",
