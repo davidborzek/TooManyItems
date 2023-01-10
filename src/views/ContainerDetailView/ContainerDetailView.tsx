@@ -4,6 +4,7 @@ import { FAB, Icon, Text } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import {
   Container,
+  deleteItem,
   fetchLocation,
   Item,
   Location,
@@ -18,6 +19,7 @@ import EmptyState from '../../components/EmptyState/EmptyState';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
 
@@ -82,6 +84,15 @@ export default function ContainerDetailView({ route, navigation }: Props) {
     }
   }, [navigation, container]);
 
+  const [selectedItem, setSelectedItem] = useState<Item>();
+
+  const [optionsVisible, setOptionsVisible] = useState(false);
+
+  const toggleOptionsVisible = (item?: Item) => {
+    setOptionsVisible((visible) => !visible);
+    setSelectedItem(item);
+  };
+
   if (loading) {
     return <FullSpinner />;
   }
@@ -90,6 +101,21 @@ export default function ContainerDetailView({ route, navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <BottomSheet
+        items={[
+          {
+            text: 'Delete',
+            color: 'red',
+            onPress: () => {
+              if (selectedItem) {
+                deleteItem(selectedItem.id).then(() => fetch());
+              }
+            },
+          },
+        ]}
+        visible={optionsVisible}
+        onClose={toggleOptionsVisible}
+      />
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
@@ -125,6 +151,7 @@ export default function ContainerDetailView({ route, navigation }: Props) {
           navigation.navigate('ItemView', { item: item });
         }}
         imagePlaceholderIcon="shapes-outline"
+        onLongPress={toggleOptionsVisible}
         ListEmptyComponent={
           <EmptyState
             icon="shapes-outline"

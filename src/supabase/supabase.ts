@@ -216,3 +216,10 @@ export async function deleteLocation(id: number) {
     throw new Error(result.error.message);
   }
 }
+
+export async function deleteItem(id: number) {
+  const result = await supabase.from('item').delete().eq('id', id);
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+}
