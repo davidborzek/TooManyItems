@@ -3,12 +3,7 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  TextInput,
-  View,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import { TextInput, View, StyleSheet, ScrollView } from 'react-native';
 import { AppStackParamList } from '../../App';
 import Badge from '../../components/Badge/Badge';
 import ImageList from '../../components/ImageList/ImageList';
@@ -48,7 +43,7 @@ export default function SearchScreen({ navigation }: Props) {
 
   return (
     <View style={styles.view}>
-      <ScrollView  horizontal style={styles.typeFilter}>
+      <ScrollView horizontal style={styles.typeFilter}>
         <Badge
           title={t('items')}
           onPress={() => setType(SearchType.ITEM)}
@@ -90,5 +85,5 @@ const styles = StyleSheet.create({
   typeFilter: {
     flexDirection: 'row',
     flexGrow: 0,
-  }
+  },
 });
