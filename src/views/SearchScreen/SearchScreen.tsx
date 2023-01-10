@@ -42,6 +42,20 @@ export default function SearchScreen({ navigation }: Props) {
     }
   };
 
+  const getImagePlaceholder = () => {
+    if (type === SearchType.ITEM) {
+      return 'shapes-outline';
+    }
+
+    if (type === SearchType.CONTAINER) {
+      return 'cube';
+    }
+
+    if (type === SearchType.LOCATION) {
+      return 'location-outline';
+    }
+  };
+
   return (
     <View style={styles.view}>
       <ScrollView horizontal style={styles.typeFilter}>
@@ -73,6 +87,7 @@ export default function SearchScreen({ navigation }: Props) {
       <ImageList
         items={result}
         onPress={handleEntryPressed}
+        imagePlaceholderIcon={getImagePlaceholder()}
         ListEmptyComponent={
           <EmptyState
             icon="search-outline"

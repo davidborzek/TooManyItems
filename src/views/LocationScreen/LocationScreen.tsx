@@ -63,6 +63,7 @@ export default function LocationScreen({ navigation }: Props) {
           navigation.navigate('LocationView', { location: item });
         }}
         onLongPress={toggleOptionsVisible}
+        imagePlaceholderIcon="location-outline"
         ListEmptyComponent={
           <EmptyState
             icon="location-outline"

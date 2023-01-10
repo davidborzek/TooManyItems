@@ -82,6 +82,7 @@ export default function LocationView({ route, navigation }: Props) {
         onPress={(item: Container) => {
           navigation.navigate('ContainerView', { container: item });
         }}
+        imagePlaceholderIcon="cube"
         ListEmptyComponent={
           <EmptyState
             icon="cube-outline"

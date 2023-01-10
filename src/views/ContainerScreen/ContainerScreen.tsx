@@ -57,6 +57,7 @@ export default function ContainerScreen({ navigation }: Props) {
           navigation.navigate('ContainerView', { container: item });
         }}
         onLongPress={toggleOptionsVisible}
+        imagePlaceholderIcon="cube"
         ListEmptyComponent={
           <EmptyState
             icon="cube-outline"

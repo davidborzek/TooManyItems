@@ -8,6 +8,7 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export type ImageListItem = {
   name: string;
@@ -25,6 +26,7 @@ type Props<T extends ImageListItem> = {
     | React.ReactElement
     | null
     | undefined;
+  imagePlaceholderIcon?: React.ComponentProps<typeof Ionicons>['name'];
 };
 
 const styles = StyleSheet.create({
@@ -38,7 +40,12 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 2,
-    backgroundColor: '#c1c1c1',
+  },
+  imagePlaceholder: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#c1c1c1',
   },
   containerName: {
     fontSize: 18,
@@ -53,6 +60,7 @@ export default function ImageList<T extends ImageListItem>({
   onPress,
   onLongPress,
   ListEmptyComponent,
+  imagePlaceholderIcon,
 }: Props<T>) {
   return (
     <FlatList
@@ -75,7 +83,13 @@ export default function ImageList<T extends ImageListItem>({
             {item.image ? (
               <Image source={{ uri: item.image }} style={styles.image} />
             ) : (
-              <View style={styles.image}></View>
+              <View style={[styles.image, styles.imagePlaceholder]}>
+                <Ionicons
+                  name={imagePlaceholderIcon || 'cube'}
+                  size={24}
+                  color="#c1c1c1"
+                />
+              </View>
             )}
             <Text style={styles.containerName}>{item.name}</Text>
           </TouchableOpacity>

@@ -107,6 +107,7 @@ export default function ContainerView({ route, navigation }: Props) {
         onPress={(item: Item) => {
           navigation.navigate('ItemView', { item: item });
         }}
+        imagePlaceholderIcon="shapes-outline"
         ListEmptyComponent={
           <EmptyState
             icon="shapes-outline"
