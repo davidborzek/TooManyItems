@@ -101,7 +101,7 @@ export default function ImageList<T extends ImageListItem>({
         ) : undefined
       }
       ListEmptyComponent={ListEmptyComponent}
-      contentContainerStyle={{ flex: 1 }}
+      contentContainerStyle={{ flex: items.length === 0 ? 1 : undefined }}
     />
   );
 }
