@@ -20,6 +20,11 @@ type Props<T extends ImageListItem> = {
   onRefresh?: () => void;
   onPress?: (item: T) => void;
   onLongPress?: (item: T) => void;
+  ListEmptyComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
 };
 
 const styles = StyleSheet.create({
@@ -47,6 +52,7 @@ export default function ImageList<T extends ImageListItem>({
   refreshing,
   onPress,
   onLongPress,
+  ListEmptyComponent,
 }: Props<T>) {
   return (
     <FlatList
@@ -80,6 +86,8 @@ export default function ImageList<T extends ImageListItem>({
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         ) : undefined
       }
+      ListEmptyComponent={ListEmptyComponent}
+      contentContainerStyle={{ flex: 1 }}
     />
   );
 }

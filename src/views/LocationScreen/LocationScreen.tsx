@@ -53,18 +53,8 @@ export default function LocationScreen({ navigation }: Props) {
     return <FullSpinner />;
   }
 
-  const renderResults = () => {
-    if (locations.length === 0) {
-      return (
-        <EmptyState
-          icon="location-outline"
-          message={t('no_locations')}
-          description={t('no_locations_information')}
-        />
-      );
-    }
-
-    return (
+  return (
+    <View style={styles.container}>
       <ImageList
         items={locations}
         onRefresh={refresh}
@@ -73,13 +63,14 @@ export default function LocationScreen({ navigation }: Props) {
           navigation.navigate('LocationView', { location: item });
         }}
         onLongPress={toggleOptionsVisible}
+        ListEmptyComponent={
+          <EmptyState
+            icon="location-outline"
+            message={t('no_locations')}
+            description={t('no_locations_information')}
+          />
+        }
       />
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      {renderResults()}
       <FAB
         title=""
         color="#32afed"

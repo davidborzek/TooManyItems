@@ -42,20 +42,6 @@ export default function SearchScreen({ navigation }: Props) {
     }
   };
 
-  const renderResult = () => {
-    if (result.length === 0) {
-      return (
-        <EmptyState
-          icon="search-outline"
-          message={t('no_search_results')}
-          description={t('no_search_results_information')}
-        />
-      );
-    }
-
-    return <ImageList items={result} onPress={handleEntryPressed} />;
-  };
-
   return (
     <View style={styles.view}>
       <ScrollView horizontal style={styles.typeFilter}>
@@ -84,7 +70,17 @@ export default function SearchScreen({ navigation }: Props) {
         onChangeText={setQuery}
         value={query}
       />
-      {renderResult()}
+      <ImageList
+        items={result}
+        onPress={handleEntryPressed}
+        ListEmptyComponent={
+          <EmptyState
+            icon="search-outline"
+            message={t('no_search_results')}
+            description={t('no_search_results_information')}
+          />
+        }
+      />
     </View>
   );
 }
