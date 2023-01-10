@@ -9,6 +9,7 @@ import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { useImagePicker } from '../../hooks/image';
 import { Container, insertItem } from '../../supabase/supabase';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemAdd'>;
 
@@ -76,7 +77,11 @@ export default function ItemAdd({ route, navigation }: Props) {
           onPress={toggleImageUpload}
           style={styles.imageContainer}
         >
-          {image && <Image source={{ uri: image }} style={styles.image} />}
+          {image ? (
+            <Image source={{ uri: image }} style={styles.image} />
+          ) : (
+            <Ionicons name={'shapes-outline'} size={120} color="white" />
+          )}
         </TouchableOpacity>
         <View style={styles.form}>
           <Input
@@ -109,10 +114,11 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: '#c1c1c1',
     marginVertical: 20,
-    minWidth: 250,
-    maxWidth: 250,
+    width: 250,
     height: 250,
     borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: { width: '100%', height: '100%' },
 });

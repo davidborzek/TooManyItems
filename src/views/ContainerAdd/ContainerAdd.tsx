@@ -12,6 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { Input } from 'react-native-elements';
 import Selection from '../../components/Selection/Selection';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
@@ -88,7 +89,11 @@ export default function ContainerAdd({ navigation }: Props) {
           onPress={toggleImageUpload}
           style={styles.imageContainer}
         >
-          {image && <Image source={{ uri: image }} style={styles.image} />}
+          {image ? (
+            <Image source={{ uri: image }} style={styles.image} />
+          ) : (
+            <Ionicons name={'cube-outline'} size={120} color="white" />
+          )}
         </TouchableOpacity>
         <View style={styles.form}>
           <Input
@@ -131,10 +136,11 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: '#c1c1c1',
     marginVertical: 20,
-    minWidth: 250,
-    maxWidth: 250,
+    width: 250,
     height: 250,
     borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: { width: '100%', height: '100%' },
   form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
