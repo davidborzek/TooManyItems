@@ -1,8 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
+import EmptyState from '../../components/EmptyState/EmptyState';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { useContainersForLocation } from '../../hooks/container';
@@ -16,6 +18,7 @@ export type LocationViewParamList = {
 };
 
 export default function LocationView({ route, navigation }: Props) {
+  const { t } = useTranslation();
   const { location } = route.params;
   const { containers, fetch, refresh, refreshing, loading } =
     useContainersForLocation(location.id);
@@ -79,6 +82,13 @@ export default function LocationView({ route, navigation }: Props) {
         onPress={(item: Container) => {
           navigation.navigate('ContainerView', { container: item });
         }}
+        ListEmptyComponent={
+          <EmptyState
+            icon="cube-outline"
+            message={t('no_containers')}
+            description={t('no_containers_information')}
+          />
+        }
       />
     </View>
   );
