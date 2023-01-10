@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator<HomeTabParamList>();
 function icon(screen: keyof HomeTabParamList, focused: boolean) {
   switch (screen) {
     case 'Container':
-      return 'archive';
+      return 'cube';
     case 'Locations':
       return 'location';
     case 'Search':

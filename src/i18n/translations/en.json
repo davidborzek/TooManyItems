@@ -5,6 +5,7 @@
   "description": "Description",
   "error": "Error",
   "invalid_qr_code": "Invalid QR-Code",
+  "items": "Items",
   "location": "Location",
   "locations": "Locations",
   "name": "Name",
