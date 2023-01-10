@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { FAB } from 'react-native-elements';
-import { Icon } from 'react-native-elements';
+import { View, StyleSheet, Text } from 'react-native';
+import { FAB, Icon } from 'react-native-elements';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -12,6 +11,8 @@ import ImageList from '../../components/ImageList/ImageList';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import { Container, deleteContainer } from '../../supabase/supabase';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import EmptyState from '../../components/EmptyState/EmptyState';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +27,7 @@ type Props = CompositeScreenProps<
 >;
 
 export default function ContainerScreen({ navigation }: Props) {
+  const { t } = useTranslation();
   const { loading, containers, fetch, refresh, refreshing } = useContainers();
 
   useEffect(() => {
@@ -43,6 +45,16 @@ export default function ContainerScreen({ navigation }: Props) {
 
   if (loading) {
     return <FullSpinner />;
+  }
+
+  if (containers.length === 0) {
+    return (
+      <EmptyState
+        icon="cube-outline"
+        message={t('no_containers')}
+        description={t('no_containers_information')}
+      />
+    );
   }
 
   return (

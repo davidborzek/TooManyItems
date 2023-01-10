@@ -2,10 +2,12 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { View, StyleSheet, RefreshControl } from 'react-native';
 import { FAB, Icon } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import EmptyState from '../../components/EmptyState/EmptyState';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { useLocations } from '../../hooks/location';
@@ -31,6 +33,7 @@ type Props = CompositeScreenProps<
 >;
 
 export default function LocationScreen({ navigation }: Props) {
+  const { t } = useTranslation();
   const { loading, locations, fetch, refreshing, refresh } = useLocations();
 
   useEffect(() => {
@@ -48,6 +51,16 @@ export default function LocationScreen({ navigation }: Props) {
 
   if (loading) {
     return <FullSpinner />;
+  }
+
+  if (locations.length === 0) {
+    return (
+      <EmptyState
+        icon="location-outline"
+        message={t('no_locations')}
+        description={t('no_locations_information')}
+      />
+    );
   }
 
   return (

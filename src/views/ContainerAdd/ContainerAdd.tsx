@@ -86,7 +86,6 @@ export default function ContainerAdd({ navigation }: Props) {
     });
   }, [navigation, containerName, location, handleCreateContainer]);
 
-
   if (loading) {
     return <FullSpinner />;
   }
@@ -97,15 +96,15 @@ export default function ContainerAdd({ navigation }: Props) {
         <BottomSheet
           items={[
             {
-              text: t("pick_photo"),
+              text: t('pick_photo'),
               onPress: pickImage,
             },
             {
-              text: t("take_photo"),
+              text: t('take_photo'),
               onPress: takeImage,
             },
             {
-              text: t("remove_photo"),
+              text: t('remove_photo'),
               onPress: removeImage,
               disabled: !image,
               color: 'red',
