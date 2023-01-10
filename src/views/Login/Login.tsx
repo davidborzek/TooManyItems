@@ -15,55 +15,54 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Inventory</Text>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label={t('email')}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder={t('email') || ''}
-          autoCompleteType="username"
-        />
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Inventory</Text>
       </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label={t('password')}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry
-          placeholder={t('password') || ''}
-          autoCompleteType="password"
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title={t('sign_in') || ''}
-          disabled={signUpLoading || loginLoading}
-          onPress={() => login(email, password)}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title={t('sign_up') || ''}
-          disabled={signUpLoading || loginLoading}
-          onPress={() => signUp(email, password)}
-        />
-      </View>
+      <Input
+        label={t('email')}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        placeholder={t('email') || ''}
+        autoCompleteType="username"
+      />
+      <Input
+        label={t('password')}
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        secureTextEntry
+        placeholder={t('password') || ''}
+        autoCompleteType="password"
+      />
+      <Button
+        title={t('sign_in') || ''}
+        disabled={signUpLoading || loginLoading}
+        onPress={() => login(email, password)}
+        buttonStyle={styles.button}
+      />
+      <Button
+        title={t('sign_up') || ''}
+        disabled={signUpLoading || loginLoading}
+        onPress={() => signUp(email, password)}
+        buttonStyle={styles.button}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 50,
-    marginBottom: 20,
-    fontSize: 32,
+    marginVertical: 50,
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: "700",
   },
   container: {
     padding: 20,
   },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
+  button: {
+    backgroundColor: 'black',
+    marginVertical: 15,
   },
 });
