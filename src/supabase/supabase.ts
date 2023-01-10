@@ -158,3 +158,18 @@ export async function insertLocation(location: LocationInsert): Promise<void> {
     throw new Error(result.error.message);
   }
 }
+
+export async function searchItems(q: string): Promise<Item[]> {
+  // TODO: use textSearch maybe
+  const result = await supabase
+    .from('item')
+    .select('*')
+    .ilike('name', `%${q}%`)
+    .limit(20);
+
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data;
+}
