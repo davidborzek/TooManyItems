@@ -65,15 +65,15 @@ export default function LocationAdd({ navigation }: Props) {
         <BottomSheet
           items={[
             {
-              text: 'Pick photo',
+              text: t('pick_photo'),
               onPress: pickImage,
             },
             {
-              text: 'Take photo',
+              text: t('take_photo'),
               onPress: takeImage,
             },
             {
-              text: 'Remove photo',
+              text: t('remove_photo'),
               onPress: removeImage,
               disabled: !image,
               color: 'red',

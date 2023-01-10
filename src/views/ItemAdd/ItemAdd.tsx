@@ -35,8 +35,6 @@ export default function ItemAdd({ route, navigation }: Props) {
   };
 
   const handleCreateItem = async () => {
-    console.log(description);
-    
     await insertItem({
       container_id: container.id,
       name: itemName,
@@ -57,22 +55,21 @@ export default function ItemAdd({ route, navigation }: Props) {
     });
   }, [navigation, itemName, handleCreateItem]);
 
-
   return (
     <KeyboardAwareScrollView>
       <View style={styles.view}>
         <BottomSheet
           items={[
             {
-              text: 'Pick photo',
+              text: t('pick_photo'),
               onPress: pickImage,
             },
             {
-              text: 'Take photo',
+              text: t('take_photo'),
               onPress: takeImage,
             },
             {
-              text: 'Remove photo',
+              text: t('remove_photo'),
               onPress: removeImage,
               disabled: !image,
               color: 'red',
