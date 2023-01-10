@@ -63,6 +63,16 @@ export default function ContainerAdd({ navigation }: Props) {
     setImageUploadVisible((visible) => !visible);
   };
 
+  const handleCreateContainer = async () => {
+    await insertContainer({
+      name: containerName,
+      location_id: location,
+      image: image,
+    });
+
+    navigation.goBack();
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -74,17 +84,8 @@ export default function ContainerAdd({ navigation }: Props) {
         );
       },
     });
-  }, [navigation, containerName, location]);
+  }, [navigation, containerName, location, handleCreateContainer]);
 
-  const handleCreateContainer = async () => {
-    await insertContainer({
-      name: containerName,
-      location_id: location,
-      image: image,
-    });
-
-    navigation.goBack();
-  };
 
   if (loading) {
     return <FullSpinner />;

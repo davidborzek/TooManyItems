@@ -57,7 +57,7 @@ export default function LocationAdd({ navigation }: Props) {
         );
       },
     });
-  }, [navigation, locationName]);
+  }, [navigation, locationName, handleCreateLocation]);
 
   return (
     <KeyboardAwareScrollView>

@@ -35,6 +35,8 @@ export default function ItemAdd({ route, navigation }: Props) {
   };
 
   const handleCreateItem = async () => {
+    console.log(description);
+    
     await insertItem({
       container_id: container.id,
       name: itemName,
@@ -53,7 +55,8 @@ export default function ItemAdd({ route, navigation }: Props) {
         );
       },
     });
-  }, [navigation, itemName]);
+  }, [navigation, itemName, handleCreateItem]);
+
 
   return (
     <KeyboardAwareScrollView>
