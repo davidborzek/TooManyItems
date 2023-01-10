@@ -56,6 +56,7 @@ export default function Home({ navigation }: Props) {
             />
           );
         },
+        tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
         headerRight: () => {
