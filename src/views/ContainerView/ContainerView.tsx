@@ -43,6 +43,7 @@ export default function ContainerView({ route, navigation }: Props) {
 
   useEffect(() => {
     fetchContainer();
+    navigation.addListener('focus', fetch);
   }, []);
 
   useEffect(() => {
