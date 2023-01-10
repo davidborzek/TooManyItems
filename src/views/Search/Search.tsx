@@ -3,7 +3,8 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextInput, View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Input } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import Badge from '../../components/Badge/Badge';
 import EmptyState from '../../components/EmptyState/EmptyState';
@@ -78,11 +79,12 @@ export default function Search({ navigation }: Props) {
           icon="location"
         />
       </ScrollView>
-      <TextInput
-        placeholder={t('search') || ''}
-        style={styles.input}
+      <Input
+        inputContainerStyle={styles.input}
         onChangeText={setQuery}
         value={query}
+        placeholder={t('search') || ''}
+        autoCompleteType=""
       />
       <ImageList
         items={result}
@@ -103,10 +105,7 @@ export default function Search({ navigation }: Props) {
 const styles = StyleSheet.create({
   view: { flex: 1, marginHorizontal: 20, marginTop: 20 },
   input: {
-    marginVertical: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
+    marginTop: 20,
   },
   typeFilter: {
     flexDirection: 'row',
