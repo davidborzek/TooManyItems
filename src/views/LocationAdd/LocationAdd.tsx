@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  Text,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { insertLocation } from '../../supabase/supabase';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
@@ -15,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
+import { Input } from 'react-native-elements';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
@@ -89,25 +83,37 @@ export default function LocationAdd({ navigation }: Props) {
           {image && <Image source={{ uri: image }} style={styles.image} />}
         </TouchableOpacity>
         <View style={styles.form}>
-          <Text>{t('name')}</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             onChangeText={setLocationName}
             value={locationName}
+            label={t('name')}
+            placeholder={t('name') || ''}
+            autoCompleteType=""
           />
 
-          <Text>{t('street')}</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             onChangeText={setStreet}
             value={street}
+            label={t('street')}
+            placeholder={t('street') || ''}
+            autoCompleteType=""
           />
 
-          <Text>{t('city')}</Text>
-          <TextInput style={styles.input} onChangeText={setCity} value={city} />
+          <Input
+            onChangeText={setCity}
+            value={city}
+            label={t('city')}
+            placeholder={t('city') || ''}
+            autoCompleteType=""
+          />
 
-          <Text>{t('zip')}</Text>
-          <TextInput style={styles.input} onChangeText={setZip} value={zip} />
+          <Input
+            onChangeText={setZip}
+            value={zip}
+            label={t('zip')}
+            placeholder={t('zip') || ''}
+            autoCompleteType=""
+          />
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -129,10 +135,4 @@ const styles = StyleSheet.create({
   },
   image: { width: '100%', height: '100%' },
   form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
-  input: {
-    marginVertical: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
 });
