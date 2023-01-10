@@ -172,3 +172,33 @@ export async function searchItems(q: string): Promise<Item[]> {
 
   return result.data;
 }
+
+export async function searchContainers(q: string): Promise<Container[]> {
+  // TODO: use textSearch maybe
+  const result = await supabase
+    .from('container')
+    .select('*')
+    .ilike('name', `%${q}%`)
+    .limit(20);
+
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data;
+}
+
+export async function searchLocations(q: string): Promise<Location[]> {
+  // TODO: use textSearch maybe
+  const result = await supabase
+    .from('location')
+    .select('*')
+    .ilike('name', `%${q}%`)
+    .limit(20);
+
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data;
+}

@@ -5,6 +5,7 @@
   "description": "Beschreibung",
   "error": "Fehler",
   "invalid_qr_code": "Ungültiger QR-Code",
+  "items": "Gegenstände",
   "location": "Ort",
   "locations": "Orte",
   "name": "Name",
