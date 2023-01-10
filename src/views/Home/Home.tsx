@@ -36,7 +36,7 @@ function icon(screen: keyof HomeTabParamList, focused: boolean) {
 function QRCameraButton({ onPress }: { onPress: () => void }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Ionicons name={'camera'} size={24} />
+      <Ionicons name={'qr-code'} size={24} />
     </TouchableOpacity>
   );
 }
