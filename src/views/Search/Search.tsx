@@ -3,7 +3,7 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import Badge from '../../components/Badge/Badge';
@@ -12,6 +12,7 @@ import ImageList from '../../components/ImageList/ImageList';
 import { SearchResultEntry, SearchType, useSearch } from '../../hooks/search';
 import { Container, Item, Location } from '../../supabase/supabase';
 import { HomeTabParamList } from '../Home/Home';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<HomeTabParamList, 'Search'>,
@@ -84,6 +85,11 @@ export default function Search({ navigation }: Props) {
         onChangeText={setQuery}
         value={query}
         placeholder={t('search') || ''}
+        rightIcon={
+          <TouchableOpacity onPress={() => setQuery('')}>
+            <Ionicons name={'close-outline'} size={28} />
+          </TouchableOpacity>
+        }
         autoCompleteType=""
       />
       <ImageList
