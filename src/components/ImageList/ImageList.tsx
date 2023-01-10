@@ -19,6 +19,7 @@ type Props<T extends ImageListItem> = {
   refreshing?: boolean;
   onRefresh?: () => void;
   onPress?: (item: T) => void;
+  onLongPress?: (item: T) => void;
 };
 
 const styles = StyleSheet.create({
@@ -45,6 +46,7 @@ export default function ImageList<T extends ImageListItem>({
   onRefresh,
   refreshing,
   onPress,
+  onLongPress,
 }: Props<T>) {
   return (
     <FlatList
@@ -56,7 +58,14 @@ export default function ImageList<T extends ImageListItem>({
           }
         };
         return (
-          <TouchableOpacity style={styles.item} onPress={callOnPress}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={callOnPress}
+            onLongPress={() => {
+              onLongPress && onLongPress(item);
+            }}
+            delayLongPress={200}
+          >
             {item.image ? (
               <Image source={{ uri: item.image }} style={styles.image} />
             ) : (

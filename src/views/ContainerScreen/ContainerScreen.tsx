@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { FAB } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
@@ -10,7 +10,8 @@ import { AppStackParamList } from '../../App';
 import { useContainers } from '../../hooks/container';
 import ImageList from '../../components/ImageList/ImageList';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
-import { Container } from '../../supabase/supabase';
+import { Container, deleteContainer } from '../../supabase/supabase';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,12 +32,36 @@ export default function ContainerScreen({ navigation }: Props) {
     navigation.addListener('focus', fetch);
   }, []);
 
+  const [selectedContainer, setSelectedContainer] = useState<Container>();
+
+  const [optionsVisible, setOptionsVisible] = useState(false);
+
+  const toggleOptionsVisible = (container?: Container) => {
+    setOptionsVisible((visible) => !visible);
+    setSelectedContainer(container);
+  };
+
   if (loading) {
     return <FullSpinner />;
   }
 
   return (
     <View style={styles.container}>
+      <BottomSheet
+        items={[
+          {
+            text: 'Delete',
+            color: 'red',
+            onPress: () => {
+              if (selectedContainer) {
+                deleteContainer(selectedContainer.id).then(() => fetch());
+              }
+            },
+          },
+        ]}
+        visible={optionsVisible}
+        onClose={toggleOptionsVisible}
+      />
       <ImageList
         items={containers}
         onRefresh={refresh}
@@ -44,6 +69,7 @@ export default function ContainerScreen({ navigation }: Props) {
         onPress={(item: Container) => {
           navigation.navigate('ContainerView', { container: item });
         }}
+        onLongPress={toggleOptionsVisible}
       />
       <FAB
         title=""

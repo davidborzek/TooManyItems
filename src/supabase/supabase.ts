@@ -202,3 +202,17 @@ export async function searchLocations(q: string): Promise<Location[]> {
 
   return result.data;
 }
+
+export async function deleteContainer(id: number) {
+  const result = await supabase.from('container').delete().eq('id', id);
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+}
+
+export async function deleteLocation(id: number) {
+  const result = await supabase.from('location').delete().eq('id', id);
+  if (result.error != null) {
+    throw new Error(result.error.message);
+  }
+}
