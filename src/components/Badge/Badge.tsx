@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#c1c1c1',
     borderRadius: 90,
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   active: {
     backgroundColor: 'rgb(200, 150, 150)',
   },
   icon: {
-    marginRight: 5
-  }
+    marginRight: 5,
+  },
 });
