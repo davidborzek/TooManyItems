@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 30,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   container: {
     padding: 20,

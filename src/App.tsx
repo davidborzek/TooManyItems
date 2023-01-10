@@ -20,7 +20,9 @@ import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
 import LocationDetailView, {
   LocationViewParamList,
 } from './views/LocationDetailView/LocationDetailView';
-import ItemDetailView, { ItemViewParamList } from './views/ItemDetailView/ItemDetailView';
+import ItemDetailView, {
+  ItemViewParamList,
+} from './views/ItemDetailView/ItemDetailView';
 import Login from './views/Login/Login';
 import { useSession } from './hooks/auth';
 import FullSpinner from './components/FullSpinner/FullSpinner';

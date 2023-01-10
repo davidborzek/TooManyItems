@@ -1,14 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Image,
-  TextInput,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from 'react-native';
-import { Text } from 'react-native-elements';
+import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Input } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -85,18 +79,20 @@ export default function ItemAdd({ route, navigation }: Props) {
           {image && <Image source={{ uri: image }} style={styles.image} />}
         </TouchableOpacity>
         <View style={styles.form}>
-          <Text>{t('name')}</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             onChangeText={setItemName}
             value={itemName}
+            label={t('name')}
+            placeholder={t('name') || ''}
+            autoCompleteType=""
           />
-
-          <Text>{t('description')}</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             onChangeText={setDescription}
             value={description}
+            label={t('description')}
+            placeholder={t('description') || ''}
+            autoCompleteType=""
+            multiline
           />
         </View>
       </View>
@@ -110,12 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
-  input: {
-    marginVertical: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
   imageContainer: {
     backgroundColor: '#c1c1c1',
     marginVertical: 20,
