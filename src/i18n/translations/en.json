@@ -17,6 +17,8 @@
   "no_containers_information": "Get started by creating your first container.",
   "no_locations": "No locations",
   "no_locations_information": "Get started by creating your first location.",
+  "no_search_results": "No results",
+  "no_search_results_information": "Search for items, containers or locations.",
   "pick_photo": "Pick photo",
   "remove_photo": "Remove photo",
   "scan_container_qr_code": "QR-Code Scanner",

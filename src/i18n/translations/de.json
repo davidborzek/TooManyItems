@@ -17,6 +17,8 @@
   "no_containers_information": "Beginne mit der Erstellung Deines ersten Behälters.",
   "no_locations": "Keine Orte",
   "no_locations_information": "Beginne mit der Erstellung Deines ersten Standorts.",
+  "no_search_results": "Keine Ergebisse",
+  "no_search_results_information": "Suche nach Gegenständen, Behältern oder Orte.",
   "pick_photo": "Bild auswählen",
   "remove_photo": "Bild entfernen",
   "scan_container_qr_code": "QR-Code Scanner",

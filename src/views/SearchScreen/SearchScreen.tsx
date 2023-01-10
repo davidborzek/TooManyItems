@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { TextInput, View, StyleSheet, ScrollView } from 'react-native';
 import { AppStackParamList } from '../../App';
 import Badge from '../../components/Badge/Badge';
+import EmptyState from '../../components/EmptyState/EmptyState';
 import ImageList from '../../components/ImageList/ImageList';
 import { SearchResultEntry, SearchType, useSearch } from '../../hooks/search';
 import { Container, Item, Location } from '../../supabase/supabase';
@@ -41,6 +42,20 @@ export default function SearchScreen({ navigation }: Props) {
     }
   };
 
+  const renderResult = () => {
+    if (result.length === 0) {
+      return (
+        <EmptyState
+          icon="search-outline"
+          message={t('no_search_results')}
+          description={t('no_search_results_information')}
+        />
+      );
+    }
+
+    return <ImageList items={result} onPress={handleEntryPressed} />;
+  };
+
   return (
     <View style={styles.view}>
       <ScrollView horizontal style={styles.typeFilter}>
@@ -69,7 +84,7 @@ export default function SearchScreen({ navigation }: Props) {
         onChangeText={setQuery}
         value={query}
       />
-      <ImageList items={result} onPress={handleEntryPressed} />
+      {renderResult()}
     </View>
   );
 }
