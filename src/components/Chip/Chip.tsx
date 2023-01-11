@@ -9,7 +9,7 @@ type Props = {
   onPress?: () => void;
 };
 
-export default function Badge({ icon, title, selected, onPress }: Props) {
+export default function Chip({ icon, title, selected, onPress }: Props) {
   return (
     <TouchableOpacity
       onPress={onPress}

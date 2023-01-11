@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
-import Badge from '../../components/Badge/Badge';
+import Chip from '../../components/Chip/Chip';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import ImageList from '../../components/ImageList/ImageList';
 import { SearchResultEntry, SearchType, useSearch } from '../../hooks/search';
@@ -61,19 +61,19 @@ export default function Search({ navigation }: Props) {
   return (
     <View style={styles.view}>
       <ScrollView horizontal style={styles.typeFilter}>
-        <Badge
+        <Chip
           title={t('items')}
           onPress={() => setType(SearchType.ITEM)}
           selected={type === SearchType.ITEM}
           icon="shapes"
         />
-        <Badge
+        <Chip
           title={t('containers')}
           onPress={() => setType(SearchType.CONTAINER)}
           selected={type === SearchType.CONTAINER}
           icon="cube"
         />
-        <Badge
+        <Chip
           title={t('locations')}
           onPress={() => setType(SearchType.LOCATION)}
           selected={type === SearchType.LOCATION}
