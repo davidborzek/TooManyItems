@@ -25,7 +25,7 @@ export default function ContainerAdd({ navigation }: Props) {
   const [isLocationSelectionOpen, setLocationSelectionOpen] = useState(false);
   const [location, setLocation] = useState<number | null>(null);
 
-  const { loading, locations } = useLocations();
+  const { loading, locations, fetch } = useLocations();
 
   const { image, pickImage, takeImage, removeImage } = useImagePicker();
 
@@ -57,6 +57,10 @@ export default function ContainerAdd({ navigation }: Props) {
       },
     });
   }, [navigation, containerName, location, handleCreateContainer]);
+
+  useEffect(() => {
+    navigation.addListener('focus', fetch);
+  }, []);
 
   if (loading) {
     return <FullSpinner />;
