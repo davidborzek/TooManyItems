@@ -21,7 +21,6 @@ export default function ContainerAdd({ navigation }: Props) {
   const { t } = useTranslation();
 
   const [containerName, setContainerName] = useState('');
-  const [containerTags, setContainerTags] = useState('');
 
   const [isLocationSelectionOpen, setLocationSelectionOpen] = useState(false);
   const [location, setLocation] = useState<number | null>(null);
@@ -102,14 +101,6 @@ export default function ContainerAdd({ navigation }: Props) {
             value={containerName}
             label={t('name')}
             placeholder={t('name') || ''}
-            autoCompleteType=""
-          />
-
-          <Input
-            onChangeText={setContainerTags}
-            value={containerTags}
-            label={t('tags')}
-            placeholder={t('tags') || ''}
             autoCompleteType=""
           />
 
