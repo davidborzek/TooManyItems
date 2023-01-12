@@ -81,7 +81,7 @@ export default function ImageList<T extends ImageListItem>({
             delayLongPress={200}
           >
             {item.image ? (
-              <Image source={{ uri: item.image }} style={styles.image} />
+              <Image source={{ uri: "data:image/png;base64," + item.image }} style={styles.image} />
             ) : (
               <View style={[styles.image, styles.imagePlaceholder]}>
                 <Ionicons

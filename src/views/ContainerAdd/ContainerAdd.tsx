@@ -90,7 +90,7 @@ export default function ContainerAdd({ navigation }: Props) {
           style={styles.imageContainer}
         >
           {image ? (
-            <Image source={{ uri: image }} style={styles.image} />
+            <Image source={{ uri: "data:image/png;base64," + image }} style={styles.image} />
           ) : (
             <Ionicons name={'cube-outline'} size={120} color="white" />
           )}

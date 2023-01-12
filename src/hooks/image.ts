@@ -10,11 +10,12 @@ export function useImagePicker() {
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
+      base64: true,
       allowsMultipleSelection: false,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage(result.assets[0].base64!);
     }
 
     return result;
@@ -26,12 +27,15 @@ export function useImagePicker() {
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
+      base64: true,
       allowsMultipleSelection: false,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage(result.assets[0].base64!);
     }
+
+    return result;
   };
 
   const removeImage = () => {

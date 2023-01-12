@@ -67,7 +67,7 @@ export default function LocationDetailView({ route, navigation }: Props) {
         onPress={() => {
           pickImage().then((image) => {
             if (!image.canceled) {
-              location.image = image.assets![0].uri;
+              location.image = image.assets![0].base64!;
               updateLocation(location);
             }
           });
@@ -75,7 +75,7 @@ export default function LocationDetailView({ route, navigation }: Props) {
         style={styles.imageContainer}
       >
         {realImage && (
-          <Image source={{ uri: realImage }} style={styles.image} />
+          <Image source={{ uri: "data:image/png;base64," + realImage }} style={styles.image} />
         )}
         <View style={styles.info}>
           <Text style={styles.title}>{location?.name}</Text>

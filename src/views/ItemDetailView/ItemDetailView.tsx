@@ -82,14 +82,14 @@ export default function ItemDetailView({ route, navigation }: Props) {
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
-            item.image = image.assets![0].uri;
+            item.image = image.assets![0].base64!;
             updateItem(item);
           });
         }}
         style={styles.imageContainer}
       >
         {realImage && (
-          <Image source={{ uri: realImage }} style={styles.image} />
+          <Image source={{ uri: "data:image/png;base64," + realImage }} style={styles.image} />
         )}
         <View style={styles.info}>
           <Text style={styles.title}>{item.name}</Text>
