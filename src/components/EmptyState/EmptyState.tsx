@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { PropsWithChildren } from 'react';
 
 type Props = {
   message: string;
@@ -7,12 +8,18 @@ type Props = {
   icon?: React.ComponentProps<typeof Ionicons>['name'];
 };
 
-export default function EmptyState({ message, description, icon }: Props) {
+export default function EmptyState({
+  message,
+  description,
+  icon,
+  children,
+}: PropsWithChildren<Props>) {
   return (
     <View style={styles.empty}>
       <Ionicons name={icon || 'grid-outline'} size={40} />
       <Text style={styles.message}>{message}</Text>
-      <Text style={styles.description}>{description}</Text>
+      {description && <Text style={styles.description}>{description}</Text>}
+      {children}
     </View>
   );
 }

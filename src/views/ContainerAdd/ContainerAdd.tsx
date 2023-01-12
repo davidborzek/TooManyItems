@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
 import { insertContainer } from '../../supabase/supabase';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../App';
@@ -13,6 +13,7 @@ import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { Input } from 'react-native-elements';
 import Selection from '../../components/Selection/Selection';
 import { Ionicons } from '@expo/vector-icons';
+import EmptyState from '../../components/EmptyState/EmptyState';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
@@ -124,6 +125,18 @@ export default function ContainerAdd({ navigation }: Props) {
             onChange={setLocation}
             visible={isLocationSelectionOpen}
             setOpen={setLocationSelectionOpen}
+            EmptyStateComponent={
+              <EmptyState icon="location-outline" message={t('no_locations')}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setLocationSelectionOpen(false);
+                    navigation.navigate('LocationAdd');
+                  }}
+                >
+                  <Text style={styles.newLocation}>{t('new_location')}</Text>
+                </TouchableOpacity>
+              </EmptyState>
+            }
           />
         </View>
       </View>
@@ -144,4 +157,7 @@ const styles = StyleSheet.create({
   },
   image: { width: '100%', height: '100%' },
   form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
+  newLocation: {
+    fontSize: 18,
+  },
 });

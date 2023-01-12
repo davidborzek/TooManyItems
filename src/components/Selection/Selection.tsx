@@ -25,6 +25,7 @@ type Props<T> = {
   visible?: boolean;
   setOpen: (state: boolean) => void;
   onChange: (value: T) => void;
+  EmptyStateComponent?: React.ReactElement | null;
 };
 
 export default function Selection<T>({
@@ -36,6 +37,7 @@ export default function Selection<T>({
   placeholder,
   setOpen,
   onChange,
+  EmptyStateComponent,
 }: Props<T>) {
   const renderItems = () => {
     return items.map((item, index) => (
@@ -71,7 +73,11 @@ export default function Selection<T>({
                 <Ionicons name={'close-outline'} size={32} />
               </TouchableOpacity>
             </View>
-            <ScrollView>{renderItems()}</ScrollView>
+            {items.length === 0 && EmptyStateComponent ? (
+              EmptyStateComponent
+            ) : (
+              <ScrollView>{renderItems()}</ScrollView>
+            )}
           </View>
         </View>
       </Modal>
