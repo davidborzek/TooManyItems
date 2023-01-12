@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import { FAB, Icon, Text } from 'react-native-elements';
 import { AppStackParamList } from '../../App';
 import { useImagePicker } from '../../hooks/image';
 import {
@@ -13,6 +13,7 @@ import {
   updateItem,
 } from '../../supabase/supabase';
 import { Ionicons } from '@expo/vector-icons';
+import { useDeleteItemWithConfirmation } from '../../hooks/item';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemView'>;
 
@@ -51,6 +52,8 @@ export default function ItemDetailView({ route, navigation }: Props) {
   const { item } = route.params;
   const [location, setLocation] = useState<Location>();
   const [container, setContainer] = useState<Container>();
+
+  const { deleteItem } = useDeleteItemWithConfirmation();
 
   useEffect(() => {
     if (item && item.container_id != null) {
@@ -109,6 +112,23 @@ export default function ItemDetailView({ route, navigation }: Props) {
         </View>
       </TouchableOpacity>
       <Text style={{ margin: 20 }}>{item.description}</Text>
+      <FAB
+        title=""
+        color="red"
+        placement="right"
+        icon={
+          <Icon
+            name="trash"
+            size={24}
+            type="ionicon"
+            color="white"
+            tvParallaxProperties=""
+          />
+        }
+        onPress={() => {
+          deleteItem(item.name, item.id);
+        }}
+      />
     </View>
   );
 }

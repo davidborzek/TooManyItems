@@ -1,7 +1,11 @@
 {
+  "cancel": "Cancel",
   "city": "City",
   "container": "Container",
   "containers": "Containers",
+  "delete": "Delete",
+  "delete_item": "Delete item",
+  "delete_item_message": "Do you really want to delete {{item}}?",
   "description": "Description",
   "email": "Email",
   "error": "Error",

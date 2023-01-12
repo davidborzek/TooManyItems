@@ -1,7 +1,11 @@
 {
+  "cancel": "Abbrechen",
   "city": "Stadt",
   "container": "Behälter",
   "containers": "Behälter",
+  "delete": "Löschen",
+  "delete_item": "Gegenstand löschen",
+  "delete_item_message": "Möchtest {{item}} wirklich löschen?",
   "description": "Beschreibung",
   "email": "E-Mail",
   "error": "Fehler",
