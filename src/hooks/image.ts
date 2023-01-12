@@ -9,7 +9,6 @@ export function useImagePicker() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
       base64: true,
       allowsMultipleSelection: false,
     });
@@ -26,7 +25,6 @@ export function useImagePicker() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
       base64: true,
       allowsMultipleSelection: false,
     });
