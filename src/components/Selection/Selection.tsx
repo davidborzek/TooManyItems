@@ -1,15 +1,16 @@
-import React from 'react';
 import {
   Modal,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+
 import { Input } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
 
 export type SelectionItem<T> = {
   label: string;
@@ -96,26 +97,26 @@ export default function Selection<T>({
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    flex: 1,
-  },
-  modalContent: { height: '50%', backgroundColor: 'white' },
   header: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     padding: 10,
   },
   heading: {
     fontSize: 16,
     fontWeight: '600',
   },
-  overlay: { flex: 1 },
   item: {
-    padding: 16,
     borderBottomColor: '#e1e1e1',
     borderBottomWidth: 1,
+    padding: 16,
   },
+  modal: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  modalContent: { backgroundColor: 'white', height: '50%' },
+  overlay: { flex: 1 },
 });

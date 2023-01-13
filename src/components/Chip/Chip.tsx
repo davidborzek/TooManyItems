@@ -1,6 +1,7 @@
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
 
 type Props = {
   title: string;
@@ -22,16 +23,16 @@ export default function Chip({ icon, title, selected, onPress }: Props) {
 }
 
 const styles = StyleSheet.create({
+  active: {
+    backgroundColor: 'rgb(200, 150, 150)',
+  },
   badge: {
-    marginHorizontal: 5,
-    padding: 10,
+    alignItems: 'center',
     backgroundColor: '#c1c1c1',
     borderRadius: 90,
     flexDirection: 'row',
-    alignItems: 'center',
-  },
-  active: {
-    backgroundColor: 'rgb(200, 150, 150)',
+    marginHorizontal: 5,
+    padding: 10,
   },
   icon: {
     marginRight: 5,

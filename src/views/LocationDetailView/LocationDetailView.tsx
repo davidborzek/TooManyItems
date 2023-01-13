@@ -1,15 +1,16 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Container, Location, updateLocation } from '../../supabase/supabase';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+
 import { AppStackParamList } from '../../App';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Text } from 'react-native-elements';
 import { useContainersForLocation } from '../../hooks/container';
 import { useImagePicker } from '../../hooks/image';
-import { Container, Location, updateLocation } from '../../supabase/supabase';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationView'>;
 
@@ -19,23 +20,25 @@ export type LocationViewParamList = {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  image: { height: '100%' },
   imageContainer: {
     backgroundColor: '#c1c1c1',
-    minWidth: '100%',
-    maxWidth: '100%',
-    height: '45%',
     flexDirection: 'row',
+    height: '45%',
     marginBottom: 20,
+    maxWidth: '100%',
+    minWidth: '100%',
+    position: 'absolute',
+    width: '100%',
   },
-  image: { position: 'absolute', width: '100%', height: '100%' },
   info: {
     alignSelf: 'flex-end',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     backgroundColor: 'rgba(255,255,255,0.6)',
-    marginBottom: 20,
-    borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   title: { fontSize: 20, fontWeight: 'bold' },
 });
@@ -43,8 +46,9 @@ const styles = StyleSheet.create({
 export default function LocationDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
   const { location } = route.params;
-  const { containers, fetch, refresh, refreshing, loading } =
-    useContainersForLocation(location.id);
+  const { containers, refresh, refreshing, loading } = useContainersForLocation(
+    location.id
+  );
   const { image, pickImage } = useImagePicker();
 
   useEffect(() => {
@@ -76,7 +80,7 @@ export default function LocationDetailView({ route, navigation }: Props) {
       >
         {realImage && (
           <Image
-            source={{ uri: 'data:image/png;base64,' + realImage }}
+            source={{ uri: `data:image/png;base64,${realImage}` }}
             style={styles.image}
           />
         )}

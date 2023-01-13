@@ -1,19 +1,20 @@
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
-import { insertContainer } from '../../supabase/supabase';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { AppStackParamList } from '../../App';
-import { useLocations } from '../../hooks/location';
-import { useImagePicker } from '../../hooks/image';
-import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import EmptyState from '../../components/EmptyState/EmptyState';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { Input } from 'react-native-elements';
-import Selection from '../../components/Selection/Selection';
 import { Ionicons } from '@expo/vector-icons';
-import EmptyState from '../../components/EmptyState/EmptyState';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Selection from '../../components/Selection/Selection';
+import { insertContainer } from '../../supabase/supabase';
+import { useImagePicker } from '../../hooks/image';
+import { useLocations } from '../../hooks/location';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
@@ -37,9 +38,9 @@ export default function ContainerAdd({ navigation }: Props) {
 
   const handleCreateContainer = async () => {
     await insertContainer({
-      name: containerName,
-      location_id: location,
       image: image,
+      location_id: location,
+      name: containerName,
     });
 
     navigation.goBack();
@@ -72,18 +73,18 @@ export default function ContainerAdd({ navigation }: Props) {
         <BottomSheet
           items={[
             {
-              text: t('pick_photo'),
               onPress: pickImage,
+              text: t('pick_photo'),
             },
             {
-              text: t('take_photo'),
               onPress: takeImage,
+              text: t('take_photo'),
             },
             {
-              text: t('remove_photo'),
-              onPress: removeImage,
-              disabled: !image,
               color: 'red',
+              disabled: !image,
+              onPress: removeImage,
+              text: t('remove_photo'),
             },
           ]}
           visible={imageUploadVisible}
@@ -95,7 +96,7 @@ export default function ContainerAdd({ navigation }: Props) {
         >
           {image ? (
             <Image
-              source={{ uri: 'data:image/png;base64,' + image }}
+              source={{ uri: `data:image/png;base64,${image}` }}
               style={styles.image}
             />
           ) : (
@@ -143,19 +144,19 @@ export default function ContainerAdd({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  view: { alignItems: 'center', flex: 1 },
+  form: { marginTop: 10, paddingHorizontal: 20, width: '100%' },
+  image: { height: '100%', width: '100%' },
   imageContainer: {
+    alignItems: 'center',
     backgroundColor: '#c1c1c1',
+    borderRadius: 3,
+    height: 250,
+    justifyContent: 'center',
     marginVertical: 20,
     width: 250,
-    height: 250,
-    borderRadius: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  image: { width: '100%', height: '100%' },
-  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
   newLocation: {
     fontSize: 18,
   },
+  view: { alignItems: 'center', flex: 1 },
 });

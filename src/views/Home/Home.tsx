@@ -1,13 +1,13 @@
+import { AppStackParamList } from '../../App';
 import ContainerList from '../ContainerList/ContainerList';
-import LocationList from '../LocationList/LocationList';
-import Search from '../Search/Search';
 import { Ionicons } from '@expo/vector-icons';
+import LocationList from '../LocationList/LocationList';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Search from '../Search/Search';
+import Settings from '../Settings/Settings';
+import { TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList } from '../../App';
-import Settings from '../Settings/Settings';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
@@ -47,18 +47,6 @@ export default function Home({ navigation }: Props) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          return (
-            <Ionicons
-              name={icon(route.name, focused)}
-              size={size}
-              color={color}
-            />
-          );
-        },
-        tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
         headerRight: () => {
           return (
             <QRCameraButton
@@ -69,6 +57,18 @@ export default function Home({ navigation }: Props) {
         headerRightContainerStyle: {
           paddingRight: 16,
         },
+        tabBarActiveTintColor: 'tomato',
+        tabBarHideOnKeyboard: true,
+        tabBarIcon: ({ focused, color, size }) => {
+          return (
+            <Ionicons
+              name={icon(route.name, focused)}
+              size={size}
+              color={color}
+            />
+          );
+        },
+        tabBarInactiveTintColor: 'gray',
       })}
     >
       <Tab.Screen

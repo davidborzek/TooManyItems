@@ -1,25 +1,25 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TouchableOpacity, View, Image } from 'react-native';
-import { FAB, Icon, Text } from 'react-native-elements';
-import { AppStackParamList } from '../../App';
 import {
   Container,
-  deleteItem,
-  fetchLocation,
   Item,
   Location,
+  deleteItem,
+  fetchLocation,
   updateContainer,
 } from '../../supabase/supabase';
+import { FAB, Icon, Text } from 'react-native-elements';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useItemsForContainer } from '../../hooks/item';
+
+import { AppStackParamList } from '../../App';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import EmptyState from '../../components/EmptyState/EmptyState';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
-import { useImagePicker } from '../../hooks/image';
-import EmptyState from '../../components/EmptyState/EmptyState';
-import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useImagePicker } from '../../hooks/image';
+import { useItemsForContainer } from '../../hooks/item';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerView'>;
 
@@ -29,28 +29,28 @@ export type ContainerViewParamList = {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  image: { height: '100%', position: 'absolute', width: '100%' },
   imageContainer: {
     backgroundColor: '#c1c1c1',
-    minWidth: '100%',
-    maxWidth: '100%',
-    height: '45%',
     flexDirection: 'row',
+    height: '45%',
     marginBottom: 20,
+    maxWidth: '100%',
+    minWidth: '100%',
   },
-  image: { position: 'absolute', width: '100%', height: '100%' },
   info: {
     alignSelf: 'flex-end',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     backgroundColor: 'rgba(255,255,255,0.6)',
-    marginBottom: 20,
-    borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
-  title: { fontSize: 20, fontWeight: 'bold' },
   location: {
     alignItems: 'center',
   },
+  title: { fontSize: 20, fontWeight: 'bold' },
 });
 
 export default function ContainerDetailView({ route, navigation }: Props) {
@@ -104,13 +104,13 @@ export default function ContainerDetailView({ route, navigation }: Props) {
       <BottomSheet
         items={[
           {
-            text: 'Delete',
             color: 'red',
             onPress: () => {
               if (selectedItem) {
                 deleteItem(selectedItem.id).then(() => fetch());
               }
             },
+            text: 'Delete',
           },
         ]}
         visible={optionsVisible}
@@ -129,7 +129,7 @@ export default function ContainerDetailView({ route, navigation }: Props) {
       >
         {realImage && (
           <Image
-            source={{ uri: 'data:image/png;base64,' + realImage }}
+            source={{ uri: `data:image/png;base64,${realImage}` }}
             style={styles.image}
           />
         )}

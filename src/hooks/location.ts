@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Location, fetchLocations } from '../supabase/supabase';
+import { useEffect, useState } from 'react';
 
 export function useLocations() {
   const [refreshing, setRefreshing] = useState(false);
@@ -26,5 +26,5 @@ export function useLocations() {
     fetch();
   }, []);
 
-  return { loading, locations, refreshing, fetch, refresh };
+  return { fetch, loading, locations, refresh, refreshing };
 }

@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
 import {
   Container,
   fetchContainers,
   fetchContainersForLocation,
 } from '../supabase/supabase';
+import { useEffect, useState } from 'react';
 
 export function useContainers() {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  let [containers, setContainers] = useState<Container[]>([]);
+  const [containers, setContainers] = useState<Container[]>([]);
 
   const fetch = () => {
     setLoading(true);
@@ -30,17 +30,17 @@ export function useContainers() {
     fetch();
   }, []);
 
-  return { containers, fetch, refresh, refreshing, loading };
+  return { containers, fetch, loading, refresh, refreshing };
 }
 
-export function useContainersForLocation(location_id: number) {
+export function useContainersForLocation(locationId: number) {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  let [containers, setContainers] = useState<Container[]>([]);
+  const [containers, setContainers] = useState<Container[]>([]);
 
   const fetch = () => {
     setLoading(true);
-    fetchContainersForLocation(location_id)
+    fetchContainersForLocation(locationId)
       .then(setContainers)
       .finally(() => setLoading(false));
   };
@@ -58,5 +58,5 @@ export function useContainersForLocation(location_id: number) {
     fetch();
   }, []);
 
-  return { containers, fetch, refresh, refreshing, loading };
+  return { containers, fetch, loading, refresh, refreshing };
 }

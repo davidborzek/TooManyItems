@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
 import {
   Container,
   Item,
+  Location,
   searchContainers,
   searchItems,
   searchLocations,
-  Location,
 } from '../supabase/supabase';
+import { useEffect, useState } from 'react';
 
 export type SearchResultEntry = Container | Location | Item;
 
@@ -30,21 +30,21 @@ export function useSearch() {
 
     setLoading(true);
 
-    if (type == SearchType.ITEM) {
+    if (type === SearchType.ITEM) {
       searchItems(query)
         .then(setResult)
         .finally(() => setLoading(false));
       return;
     }
 
-    if (type == SearchType.LOCATION) {
+    if (type === SearchType.LOCATION) {
       searchLocations(query)
         .then(setResult)
         .finally(() => setLoading(false));
       return;
     }
 
-    if (type == SearchType.CONTAINER) {
+    if (type === SearchType.CONTAINER) {
       searchContainers(query)
         .then(setResult)
         .finally(() => setLoading(false));
@@ -52,5 +52,5 @@ export function useSearch() {
     }
   }, [query, type]);
 
-  return { query, type, result, loading, setQuery, setType };
+  return { loading, query, result, setQuery, setType, type };
 }

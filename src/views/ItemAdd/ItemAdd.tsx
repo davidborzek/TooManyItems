@@ -1,15 +1,16 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Container, insertItem } from '../../supabase/supabase';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { Input } from 'react-native-elements';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
-import { useImagePicker } from '../../hooks/image';
-import { Container, insertItem } from '../../supabase/supabase';
+import { Input } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useImagePicker } from '../../hooks/image';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemAdd'>;
 
@@ -31,10 +32,11 @@ export default function ItemAdd({ route, navigation }: Props) {
 
   const handleCreateItem = async () => {
     await insertItem({
+      // eslint-disable-next-line camelcase
       container_id: container.id,
-      name: itemName,
       description: description,
       image: image,
+      name: itemName,
     });
 
     navigation.goBack();
@@ -56,18 +58,18 @@ export default function ItemAdd({ route, navigation }: Props) {
         <BottomSheet
           items={[
             {
-              text: t('pick_photo'),
               onPress: pickImage,
+              text: t('pick_photo'),
             },
             {
-              text: t('take_photo'),
               onPress: takeImage,
+              text: t('take_photo'),
             },
             {
-              text: t('remove_photo'),
-              onPress: removeImage,
-              disabled: !image,
               color: 'red',
+              disabled: !image,
+              onPress: removeImage,
+              text: t('remove_photo'),
             },
           ]}
           visible={imageUploadVisible}
@@ -79,7 +81,7 @@ export default function ItemAdd({ route, navigation }: Props) {
         >
           {image ? (
             <Image
-              source={{ uri: 'data:image/png;base64,' + image }}
+              source={{ uri: `data:image/png;base64,${image}` }}
               style={styles.image}
             />
           ) : (
@@ -109,19 +111,19 @@ export default function ItemAdd({ route, navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
+  form: { marginTop: 10, paddingHorizontal: 20, width: '100%' },
+  image: { height: '100%', width: '100%' },
+  imageContainer: {
+    alignItems: 'center',
+    backgroundColor: '#c1c1c1',
+    borderRadius: 3,
+    height: 250,
+    justifyContent: 'center',
+    marginVertical: 20,
+    width: 250,
+  },
   view: {
     alignItems: 'center',
     flex: 1,
   },
-  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
-  imageContainer: {
-    backgroundColor: '#c1c1c1',
-    marginVertical: 20,
-    width: 250,
-    height: 250,
-    borderRadius: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: { width: '100%', height: '100%' },
 });

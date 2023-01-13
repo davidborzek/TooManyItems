@@ -1,15 +1,12 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import { LanguageDetectorModule } from 'i18next';
-import { Platform, NativeModules } from 'react-native';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import { NativeModules, Platform } from 'react-native';
+import i18n, { LanguageDetectorModule } from 'i18next';
 
+import LanguageDetector from 'i18next-browser-languagedetector';
 import de from './translations/de.json';
 import en from './translations/en.json';
+import { initReactI18next } from 'react-i18next';
 
 const appLanguageDetector: LanguageDetectorModule = {
-  type: 'languageDetector',
-  init: () => {},
   detect: () => {
     const locale =
       Platform.OS === 'ios'
@@ -18,7 +15,7 @@ const appLanguageDetector: LanguageDetectorModule = {
         : NativeModules.I18nManager.localeIdentifier;
     return locale.split('_')[0];
   },
-  cacheUserLanguage: () => {},
+  type: 'languageDetector',
 };
 
 let instance = i18n;
@@ -31,6 +28,10 @@ if (Platform.OS === 'web') {
 
 instance.use(initReactI18next).init({
   compatibilityJSON: 'v3',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
   resources: {
     de: {
       translation: de,
@@ -38,10 +39,5 @@ instance.use(initReactI18next).init({
     en: {
       translation: en,
     },
-  },
-  fallbackLng: 'en',
-
-  interpolation: {
-    escapeValue: false,
   },
 });

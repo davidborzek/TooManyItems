@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Alert } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList } from '../../App';
-import { fetchContainer } from '../../supabase/supabase';
-import React from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { BarCodeScanningResult, Camera } from 'expo-camera';
+import React, { useEffect, useState } from 'react';
+
+import { AppStackParamList } from '../../App';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { fetchContainer } from '../../supabase/supabase';
 import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import FullSpinner from '../../components/FullSpinner/FullSpinner';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'QRCodeScanner'>;
 

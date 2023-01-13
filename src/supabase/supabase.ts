@@ -1,17 +1,18 @@
 import 'react-native-url-polyfill/auto';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createClient } from '@supabase/supabase-js';
 import { Database } from './types';
+import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = ""
 const supabaseAnonKey = ""
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
-    storage: AsyncStorage as any,
     autoRefreshToken: true,
-    persistSession: true,
     detectSessionInUrl: false,
+    persistSession: true,
+    storage: AsyncStorage as any,
   },
 });
 
@@ -38,11 +39,11 @@ export async function fetchContainers(): Promise<Container[]> {
   return result.data;
 }
 
-export async function fetchContainer(container_id: number): Promise<Container> {
+export async function fetchContainer(containerId: number): Promise<Container> {
   const result = await supabase
     .from('container')
     .select('*')
-    .eq('id', container_id)
+    .eq('id', containerId)
     .single();
 
   if (result.error != null) {
@@ -63,12 +64,12 @@ export async function fetchLocations(): Promise<Location[]> {
 }
 
 export async function fetchContainersForLocation(
-  location_id: number
+  locationId: number
 ): Promise<Container[]> {
   const result = await supabase
     .from('container')
     .select('*')
-    .eq('location_id', location_id);
+    .eq('location_id', locationId);
 
   if (result.error != null) {
     throw new Error(result.error.message);
@@ -78,12 +79,12 @@ export async function fetchContainersForLocation(
 }
 
 export async function fetchItemsForContainer(
-  container_id: number
+  containerId: number
 ): Promise<Item[]> {
   const result = await supabase
     .from('item')
     .select('*')
-    .eq('container_id', container_id);
+    .eq('container_id', containerId);
 
   if (result.error != null) {
     throw new Error(result.error.message);

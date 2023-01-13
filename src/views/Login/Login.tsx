@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useLogin, useSignUp } from '../../hooks/auth';
+
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -50,19 +51,19 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    marginVertical: 50,
-    alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 30,
-    fontWeight: '700',
+  button: {
+    backgroundColor: 'black',
+    marginVertical: 15,
   },
   container: {
     padding: 20,
   },
-  button: {
-    backgroundColor: 'black',
-    marginVertical: 15,
+  header: {
+    alignItems: 'center',
+    marginVertical: 50,
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: '700',
   },
 });

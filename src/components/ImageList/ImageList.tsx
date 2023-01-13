@@ -1,14 +1,15 @@
-import React from 'react';
 import {
-  Image,
-  Text,
-  View,
   FlatList,
-  StyleSheet,
+  Image,
   RefreshControl,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
 
 export type ImageListItem = {
   name: string;
@@ -21,35 +22,31 @@ type Props<T extends ImageListItem> = {
   onRefresh?: () => void;
   onPress?: (item: T) => void;
   onLongPress?: (item: T) => void;
-  ListEmptyComponent?:
-    | React.ComponentType<any>
-    | React.ReactElement
-    | null
-    | undefined;
+  ListEmptyComponent?: React.ReactElement | null | undefined;
   imagePlaceholderIcon?: React.ComponentProps<typeof Ionicons>['name'];
 };
 
 const styles = StyleSheet.create({
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: 'light-gray',
-  },
-  image: {
-    width: 48,
-    height: 48,
-    borderRadius: 2,
-  },
-  imagePlaceholder: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#c1c1c1',
-  },
   containerName: {
     fontSize: 18,
     marginLeft: 16,
+  },
+  image: {
+    borderRadius: 2,
+    height: 48,
+    width: 48,
+  },
+  imagePlaceholder: {
+    alignItems: 'center',
+    borderColor: '#c1c1c1',
+    borderWidth: 2,
+    justifyContent: 'center',
+  },
+  item: {
+    alignItems: 'center',
+    backgroundColor: 'light-gray',
+    flexDirection: 'row',
+    padding: 10,
   },
 });
 
@@ -82,7 +79,7 @@ export default function ImageList<T extends ImageListItem>({
           >
             {item.image ? (
               <Image
-                source={{ uri: 'data:image/png;base64,' + item.image }}
+                source={{ uri: `data:image/png;base64,${item.image}` }}
                 style={styles.image}
               />
             ) : (
@@ -99,7 +96,7 @@ export default function ImageList<T extends ImageListItem>({
         );
       }}
       refreshControl={
-        refreshing != undefined ? (
+        refreshing !== undefined ? (
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         ) : undefined
       }

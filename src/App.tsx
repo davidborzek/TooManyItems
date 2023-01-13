@@ -1,31 +1,33 @@
+import './i18n/i18n';
+
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { useTranslation } from 'react-i18next';
+
+import ContainerDetailView, {
+  ContainerViewParamList,
+} from './views/ContainerDetailView/ContainerDetailView';
+import Home, { HomeTabParamList } from './views/Home/Home';
+import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
+import ItemDetailView, {
+  ItemViewParamList,
+} from './views/ItemDetailView/ItemDetailView';
+import LocationDetailView, {
+  LocationViewParamList,
+} from './views/LocationDetailView/LocationDetailView';
 import {
   NavigationContainer,
   NavigatorScreenParams,
 } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home, { HomeTabParamList } from './views/Home/Home';
-import ContainerAdd from './views/ContainerAdd/ContainerAdd';
-import LocationAdd from './views/LocationAdd/LocationAdd';
-import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
-import ContainerDetailView, {
-  ContainerViewParamList,
-} from './views/ContainerDetailView/ContainerDetailView';
-import { registerRootComponent } from 'expo';
 
-import './i18n/i18n';
-import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
-import LocationDetailView, {
-  LocationViewParamList,
-} from './views/LocationDetailView/LocationDetailView';
-import ItemDetailView, {
-  ItemViewParamList,
-} from './views/ItemDetailView/ItemDetailView';
-import Login from './views/Login/Login';
-import { useSession } from './hooks/auth';
+import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import FullSpinner from './components/FullSpinner/FullSpinner';
+import LocationAdd from './views/LocationAdd/LocationAdd';
+import Login from './views/Login/Login';
+import QRCodeScanner from './views/QRCodeScanner/QRCodeScanner';
+import { StatusBar } from 'expo-status-bar';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { registerRootComponent } from 'expo';
+import { useSession } from './hooks/auth';
+import { useTranslation } from 'react-i18next';
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;

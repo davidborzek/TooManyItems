@@ -1,8 +1,9 @@
-import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { Alert } from 'react-native';
+import { Session } from '@supabase/supabase-js';
 import { supabase } from '../supabase/supabase';
+import { useTranslation } from 'react-i18next';
 
 export function useLogin() {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ export function useLogin() {
       .finally(() => setLoading(false));
   };
 
-  return { login, loading };
+  return { loading, login };
 }
 
 export function useSignUp() {
@@ -47,7 +48,7 @@ export function useSignUp() {
       .finally(() => setLoading(false));
   };
 
-  return { signUp, loading };
+  return { loading, signUp };
 }
 
 export function useSession() {

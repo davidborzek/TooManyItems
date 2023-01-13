@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
+
+import { useState } from 'react';
 
 export function useImagePicker() {
   const [image, setImage] = useState<string>();
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      allowsMultipleSelection: false,
       aspect: [1, 1],
       base64: true,
-      allowsMultipleSelection: false,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
     if (!result.canceled) {
@@ -22,11 +23,11 @@ export function useImagePicker() {
 
   const takeImage = async () => {
     const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      allowsMultipleSelection: false,
       aspect: [1, 1],
       base64: true,
-      allowsMultipleSelection: false,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
 
     if (!result.canceled) {
@@ -40,5 +41,5 @@ export function useImagePicker() {
     setImage(undefined);
   };
 
-  return { image, pickImage, takeImage, removeImage };
+  return { image, pickImage, removeImage, takeImage };
 }

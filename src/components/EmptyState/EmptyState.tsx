@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
 import { PropsWithChildren } from 'react';
 
@@ -25,17 +26,17 @@ export default function EmptyState({
 }
 
 const styles = StyleSheet.create({
+  description: {
+    textAlign: 'center',
+  },
   empty: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
   },
   message: {
     fontSize: 20,
     fontWeight: '600',
     marginVertical: 10,
-  },
-  description: {
-    textAlign: 'center',
   },
 });

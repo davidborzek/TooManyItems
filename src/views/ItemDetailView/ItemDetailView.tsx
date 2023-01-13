@@ -1,19 +1,20 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
-import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { FAB, Icon, Text } from 'react-native-elements';
-import { AppStackParamList } from '../../App';
-import { useImagePicker } from '../../hooks/image';
 import {
   Container,
-  fetchContainer,
-  fetchLocation,
   Item,
   Location,
+  fetchContainer,
+  fetchLocation,
   updateItem,
 } from '../../supabase/supabase';
+import { FAB, Icon, Text } from 'react-native-elements';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+
+import { AppStackParamList } from '../../App';
 import { Ionicons } from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useDeleteItemWithConfirmation } from '../../hooks/item';
+import { useImagePicker } from '../../hooks/image';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemView'>;
 
@@ -22,29 +23,29 @@ export type ItemViewParamList = {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  imageContainer: {
-    backgroundColor: '#c1c1c1',
-    minWidth: '100%',
-    maxWidth: '100%',
-    height: '45%',
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-  image: { position: 'absolute', width: '100%', height: '100%' },
-  info: {
-    alignSelf: 'flex-end',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: 'rgba(255,255,255,0.6)',
-    marginBottom: 20,
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
-  },
-  title: { fontSize: 20, fontWeight: 'bold' },
   centered: {
     alignItems: 'center',
   },
+  container: { flex: 1 },
+  image: { height: '100%', position: 'absolute', width: '100%' },
+  imageContainer: {
+    backgroundColor: '#c1c1c1',
+    flexDirection: 'row',
+    height: '45%',
+    marginBottom: 20,
+    maxWidth: '100%',
+    minWidth: '100%',
+  },
+  info: {
+    alignSelf: 'flex-end',
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  title: { fontSize: 20, fontWeight: 'bold' },
 });
 
 export default function ItemDetailView({ route, navigation }: Props) {
@@ -90,7 +91,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
       >
         {realImage && (
           <Image
-            source={{ uri: 'data:image/png;base64,' + realImage }}
+            source={{ uri: `data:image/png;base64,${realImage}` }}
             style={styles.image}
           />
         )}

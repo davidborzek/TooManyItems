@@ -1,24 +1,25 @@
-import { useNavigation } from '@react-navigation/native';
+import { Item, deleteItem, fetchItemsForContainer } from '../supabase/supabase';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Alert } from 'react-native';
-import { Item, fetchItemsForContainer, deleteItem } from '../supabase/supabase';
 
-export function useItemsForContainer(container_id: number) {
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+
+export function useItemsForContainer(containerId: number) {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
 
   const fetch = () => {
     setLoading(true);
-    fetchItemsForContainer(container_id)
+    fetchItemsForContainer(containerId)
       .then(setItems)
       .finally(() => setLoading(false));
   };
 
   const refresh = () => {
     setRefreshing(true);
-    return fetchItemsForContainer(container_id)
+    return fetchItemsForContainer(containerId)
       .then(setItems)
       .finally(() => {
         setRefreshing(false);
@@ -29,7 +30,7 @@ export function useItemsForContainer(container_id: number) {
     fetch();
   }, []);
 
-  return { loading, items, refreshing, fetch, refresh };
+  return { fetch, items, loading, refresh, refreshing };
 }
 
 export function useDeleteItemWithConfirmation() {
@@ -43,17 +44,17 @@ export function useDeleteItemWithConfirmation() {
       t('delete_item_message', { item: name }) || '',
       [
         {
-          text: t('delete') || '',
           onPress: () => {
             deleteItem(id).then(() => {
               navigation.goBack();
             });
           },
           style: 'default',
+          text: t('delete') || '',
         },
         {
-          text: t('cancel') || '',
           style: 'cancel',
+          text: t('cancel') || '',
         },
       ],
       {

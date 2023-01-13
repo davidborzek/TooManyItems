@@ -1,14 +1,14 @@
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { t } from 'i18next';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+
 import { AppStackParamList } from '../../App';
-import { supabase } from '../../supabase/supabase';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { Button } from 'react-native-elements';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { HomeTabParamList } from '../Home/Home';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { supabase } from '../../supabase/supabase';
+import { useTranslation } from 'react-i18next';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<HomeTabParamList, 'Settings'>,

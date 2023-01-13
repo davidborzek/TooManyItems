@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { FAB, Icon } from 'react-native-elements';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { HomeTabParamList } from '../Home/Home';
-import { AppStackParamList } from '../../App';
-import { useContainers } from '../../hooks/container';
-import ImageList from '../../components/ImageList/ImageList';
-import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import { Container, deleteContainer } from '../../supabase/supabase';
+import { FAB, Icon } from 'react-native-elements';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+
+import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import EmptyState from '../../components/EmptyState/EmptyState';
+import FullSpinner from '../../components/FullSpinner/FullSpinner';
+import { HomeTabParamList } from '../Home/Home';
+import ImageList from '../../components/ImageList/ImageList';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useContainers } from '../../hooks/container';
 import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
@@ -49,6 +50,21 @@ export default function ContainerList({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <BottomSheet
+        items={[
+          {
+            color: 'red',
+            onPress: () => {
+              if (selectedContainer) {
+                deleteContainer(selectedContainer.id).then(() => fetch());
+              }
+            },
+            text: 'Delete',
+          },
+        ]}
+        visible={optionsVisible}
+        onClose={toggleOptionsVisible}
+      />
       <ImageList
         items={containers}
         onRefresh={refresh}

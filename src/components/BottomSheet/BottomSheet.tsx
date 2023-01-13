@@ -1,12 +1,13 @@
-import React from 'react';
 import {
   Modal,
-  View,
-  TouchableWithoutFeedback,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
+
+import React from 'react';
 
 export type BottomSheetItem = {
   text: string;
@@ -23,8 +24,8 @@ type Props = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
     justifyContent: 'flex-end',
   },
   overlay: { flex: 1 },
@@ -50,9 +51,9 @@ export default function BottomSheet({ items, visible, onClose }: Props) {
       >
         <Text
           style={{
-            padding: 16,
-            opacity: item.disabled ? 0.3 : 1,
             color: item.color,
+            opacity: item.disabled ? 0.3 : 1,
+            padding: 16,
           }}
         >
           {item.text}

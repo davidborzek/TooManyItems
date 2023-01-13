@@ -1,18 +1,19 @@
+import { Container, Item, Location } from '../../supabase/supabase';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { SearchResultEntry, SearchType, useSearch } from '../../hooks/search';
+
+import { AppStackParamList } from '../../App';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import Chip from '../../components/Chip/Chip';
 import { CompositeScreenProps } from '@react-navigation/native';
+import EmptyState from '../../components/EmptyState/EmptyState';
+import { HomeTabParamList } from '../Home/Home';
+import ImageList from '../../components/ImageList/ImageList';
+import { Input } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Input } from 'react-native-elements';
-import { AppStackParamList } from '../../App';
-import Chip from '../../components/Chip/Chip';
-import EmptyState from '../../components/EmptyState/EmptyState';
-import ImageList from '../../components/ImageList/ImageList';
-import { SearchResultEntry, SearchType, useSearch } from '../../hooks/search';
-import { Container, Item, Location } from '../../supabase/supabase';
-import { HomeTabParamList } from '../Home/Home';
-import { Ionicons } from '@expo/vector-icons';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<HomeTabParamList, 'Search'>,
@@ -109,7 +110,6 @@ export default function Search({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  view: { flex: 1, marginHorizontal: 20, marginTop: 20 },
   input: {
     marginTop: 20,
   },
@@ -118,4 +118,5 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     flexShrink: 0,
   },
+  view: { flex: 1, marginHorizontal: 20, marginTop: 20 },
 });

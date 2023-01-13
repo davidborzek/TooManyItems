@@ -1,15 +1,16 @@
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { insertLocation } from '../../supabase/supabase';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { AppStackParamList } from '../../App';
-import { useImagePicker } from '../../hooks/image';
-import { useTranslation } from 'react-i18next';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import HeaderCheckmark from '../../components/HeaderCheckmark/HeaderCheckmark';
 import { Input } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { insertLocation } from '../../supabase/supabase';
+import { useImagePicker } from '../../hooks/image';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
@@ -31,10 +32,11 @@ export default function LocationAdd({ navigation }: Props) {
 
   const handleCreateLocation = async () => {
     await insertLocation({
-      name: locationName,
       city: city,
       image: image,
+      name: locationName,
       street: street,
+      // eslint-disable-next-line camelcase
       zip_code: zip,
     });
 
@@ -60,18 +62,18 @@ export default function LocationAdd({ navigation }: Props) {
         <BottomSheet
           items={[
             {
-              text: t('pick_photo'),
               onPress: pickImage,
+              text: t('pick_photo'),
             },
             {
-              text: t('take_photo'),
               onPress: takeImage,
+              text: t('take_photo'),
             },
             {
-              text: t('remove_photo'),
-              onPress: removeImage,
-              disabled: !image,
               color: 'red',
+              disabled: !image,
+              onPress: removeImage,
+              text: t('remove_photo'),
             },
           ]}
           visible={imageUploadVisible}
@@ -83,7 +85,7 @@ export default function LocationAdd({ navigation }: Props) {
         >
           {image ? (
             <Image
-              source={{ uri: 'data:image/png;base64,' + image }}
+              source={{ uri: `data:image/png;base64,${image}` }}
               style={styles.image}
             />
           ) : (
@@ -129,19 +131,19 @@ export default function LocationAdd({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
+  form: { marginTop: 10, paddingHorizontal: 20, width: '100%' },
+  image: { height: '100%', width: '100%' },
+  imageContainer: {
+    alignItems: 'center',
+    backgroundColor: '#c1c1c1',
+    borderRadius: 3,
+    height: 250,
+    justifyContent: 'center',
+    marginVertical: 20,
+    width: 250,
+  },
   view: {
     alignItems: 'center',
     flex: 1,
   },
-  imageContainer: {
-    backgroundColor: '#c1c1c1',
-    marginVertical: 20,
-    width: 250,
-    height: 250,
-    borderRadius: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: { width: '100%', height: '100%' },
-  form: { marginTop: 10, width: '100%', paddingHorizontal: 20 },
 });
