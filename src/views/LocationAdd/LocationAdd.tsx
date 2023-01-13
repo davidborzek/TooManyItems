@@ -82,7 +82,10 @@ export default function LocationAdd({ navigation }: Props) {
           style={styles.imageContainer}
         >
           {image ? (
-            <Image source={{ uri: "data:image/png;base64," + image }} style={styles.image} />
+            <Image
+              source={{ uri: 'data:image/png;base64,' + image }}
+              style={styles.image}
+            />
           ) : (
             <Ionicons name={'location-outline'} size={120} color="white" />
           )}
