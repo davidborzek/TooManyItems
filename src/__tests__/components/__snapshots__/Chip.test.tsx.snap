@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chip renders correctly in selected state 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgb(200, 150, 150)",
+      "borderRadius": 90,
+      "flexDirection": "row",
+      "marginHorizontal": 5,
+      "opacity": 1,
+      "padding": 10,
+    }
+  }
+>
+  <Text>
+    Some Title
+  </Text>
+</View>
+`;
+
+exports[`Chip renders correctly with icon 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#c1c1c1",
+      "borderRadius": 90,
+      "flexDirection": "row",
+      "marginHorizontal": 5,
+      "opacity": 1,
+      "padding": 10,
+    }
+  }
+>
+  <Text />
+  <Text>
+    Some Title
+  </Text>
+</View>
+`;
+
+exports[`Chip renders correctly with onPress 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#c1c1c1",
+      "borderRadius": 90,
+      "flexDirection": "row",
+      "marginHorizontal": 5,
+      "opacity": 1,
+      "padding": 10,
+    }
+  }
+>
+  <Text>
+    Some Title
+  </Text>
+</View>
+`;
+
+exports[`Chip renders correctly with required props 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#c1c1c1",
+      "borderRadius": 90,
+      "flexDirection": "row",
+      "marginHorizontal": 5,
+      "opacity": 1,
+      "padding": 10,
+    }
+  }
+>
+  <Text>
+    Some Title
+  </Text>
+</View>
+`;

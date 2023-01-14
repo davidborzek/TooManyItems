@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyState renders correctly with children 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+        "fontWeight": "600",
+        "marginVertical": 10,
+      }
+    }
+  >
+    Some message
+  </Text>
+  <Text>
+    Custom children
+  </Text>
+</View>
+`;
+
+exports[`EmptyState renders correctly with props 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+        "fontWeight": "600",
+        "marginVertical": 10,
+      }
+    }
+  >
+    Some message
+  </Text>
+  <Text
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
+    Some description
+  </Text>
+</View>
+`;
+
+exports[`EmptyState renders correctly with required props 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+        "fontWeight": "600",
+        "marginVertical": 10,
+      }
+    }
+  >
+    Some message
+  </Text>
+</View>
+`;

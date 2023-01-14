@@ -1,0 +1,301 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageList renders correctly refreshing 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "flex": undefined,
+    }
+  }
+  data={
+    Array [
+      Object {
+        "image": "Some image",
+        "name": "Some name",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  keyExtractor={[Function]}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      refreshing={true}
+    />
+  }
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  viewabilityConfigCallbackPairs={Array []}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "light-gray",
+            "flexDirection": "row",
+            "opacity": 1,
+            "padding": 10,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "uri": "data:image/png;base64,Some image",
+            }
+          }
+          style={
+            Object {
+              "borderRadius": 2,
+              "height": 48,
+              "width": 48,
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "fontSize": 18,
+              "marginLeft": 16,
+            }
+          }
+        >
+          Some name
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`ImageList renders correctly with all props 1`] = `
+<RCTScrollView
+  ListEmptyComponent={
+    <Text>
+      Empty State
+    </Text>
+  }
+  contentContainerStyle={
+    Object {
+      "flex": undefined,
+    }
+  }
+  data={
+    Array [
+      Object {
+        "image": "Some image",
+        "name": "Some name",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  keyExtractor={[Function]}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  viewabilityConfigCallbackPairs={Array []}
+>
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "light-gray",
+            "flexDirection": "row",
+            "opacity": 1,
+            "padding": 10,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "uri": "data:image/png;base64,Some image",
+            }
+          }
+          style={
+            Object {
+              "borderRadius": 2,
+              "height": 48,
+              "width": 48,
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "fontSize": 18,
+              "marginLeft": 16,
+            }
+          }
+        >
+          Some name
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`ImageList renders correctly with required props and items 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "flex": undefined,
+    }
+  }
+  data={
+    Array [
+      Object {
+        "image": "Some image",
+        "name": "Some name",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  keyExtractor={[Function]}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  viewabilityConfigCallbackPairs={Array []}
+>
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "light-gray",
+            "flexDirection": "row",
+            "opacity": 1,
+            "padding": 10,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "uri": "data:image/png;base64,Some image",
+            }
+          }
+          style={
+            Object {
+              "borderRadius": 2,
+              "height": 48,
+              "width": 48,
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "fontSize": 18,
+              "marginLeft": 16,
+            }
+          }
+        >
+          Some name
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`ImageList renders correctly with required props and no items 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "flex": 1,
+    }
+  }
+  data={Array []}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  keyExtractor={[Function]}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  viewabilityConfigCallbackPairs={Array []}
+>
+  <View />
+</RCTScrollView>
+`;
