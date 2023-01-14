@@ -3,7 +3,7 @@ import {
   fetchContainers,
   fetchContainersForLocation,
 } from '../supabase/supabase';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useContainers() {
   const [loading, setLoading] = useState(false);
@@ -38,12 +38,12 @@ export function useContainersForLocation(locationId: number) {
   const [refreshing, setRefreshing] = useState(false);
   const [containers, setContainers] = useState<Container[]>([]);
 
-  const fetch = () => {
+  const fetch = useCallback(() => {
     setLoading(true);
     fetchContainersForLocation(locationId)
       .then(setContainers)
       .finally(() => setLoading(false));
-  };
+  }, [locationId]);
 
   const refresh = () => {
     setRefreshing(true);
@@ -56,7 +56,7 @@ export function useContainersForLocation(locationId: number) {
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   return { containers, fetch, loading, refresh, refreshing };
 }

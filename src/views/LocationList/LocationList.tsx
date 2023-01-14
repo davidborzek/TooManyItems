@@ -39,7 +39,7 @@ export default function LocationList({ navigation }: Props) {
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
-  }, []);
+  }, [fetch, navigation]);
 
   const [selectedLocation, setSelectedLocation] = useState<Location>();
 

@@ -33,7 +33,7 @@ export default function ContainerList({ navigation }: Props) {
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
-  }, []);
+  }, [fetch, navigation]);
 
   const [selectedContainer, setSelectedContainer] = useState<Container>();
 

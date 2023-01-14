@@ -1,6 +1,6 @@
 import { Container, insertItem } from '../../supabase/supabase';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -30,7 +30,7 @@ export default function ItemAdd({ route, navigation }: Props) {
     setImageUploadVisible((visible) => !visible);
   };
 
-  const handleCreateItem = async () => {
+  const handleCreateItem = useCallback(async () => {
     await insertItem({
       // eslint-disable-next-line camelcase
       container_id: container.id,
@@ -40,7 +40,7 @@ export default function ItemAdd({ route, navigation }: Props) {
     });
 
     navigation.goBack();
-  };
+  }, [container, description, image, itemName, navigation]);
 
   useEffect(() => {
     navigation.setOptions({

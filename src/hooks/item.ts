@@ -1,5 +1,5 @@
 import { Item, deleteItem, fetchItemsForContainer } from '../supabase/supabase';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -10,12 +10,12 @@ export function useItemsForContainer(containerId: number) {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
 
-  const fetch = () => {
+  const fetch = useCallback(() => {
     setLoading(true);
     fetchItemsForContainer(containerId)
       .then(setItems)
       .finally(() => setLoading(false));
-  };
+  }, [containerId]);
 
   const refresh = () => {
     setRefreshing(true);
@@ -28,7 +28,7 @@ export function useItemsForContainer(containerId: number) {
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [fetch]);
 
   return { fetch, items, loading, refresh, refreshing };
 }

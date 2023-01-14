@@ -1,5 +1,5 @@
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -30,7 +30,7 @@ export default function LocationAdd({ navigation }: Props) {
     setImageUploadVisible((visible) => !visible);
   };
 
-  const handleCreateLocation = async () => {
+  const handleCreateLocation = useCallback(async () => {
     await insertLocation({
       city: city,
       image: image,
@@ -41,7 +41,7 @@ export default function LocationAdd({ navigation }: Props) {
     });
 
     navigation.goBack();
-  };
+  }, [city, image, locationName, street, zip, navigation]);
 
   useEffect(() => {
     navigation.setOptions({

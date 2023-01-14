@@ -68,8 +68,8 @@ export default function LocationDetailView({ route, navigation }: Props) {
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
-            if (!image.canceled) {
-              location.image = image.assets![0].base64!;
+            if (!image.canceled && image.assets[0].base64) {
+              location.image = image.assets[0].base64;
               updateLocation(location);
             }
           });

@@ -66,7 +66,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
         });
       });
     }
-  }, []);
+  }, [item]);
 
   useEffect(() => {
     if (item) {
@@ -76,6 +76,10 @@ export default function ItemDetailView({ route, navigation }: Props) {
     }
   }, [navigation, item]);
 
+  if (!container || !location) {
+    return <></>;
+  }
+
   const realImage = image ? image : item.image;
 
   return (
@@ -83,8 +87,10 @@ export default function ItemDetailView({ route, navigation }: Props) {
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
-            item.image = image.assets![0].base64!;
-            updateItem(item);
+            if (!image.canceled && image.assets[0].base64) {
+              item.image = image.assets[0].base64;
+              updateItem(item);
+            }
           });
         }}
         style={styles.imageContainer}
@@ -100,7 +106,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
           <Text
             style={styles.centered}
             onPress={() => {
-              navigation.navigate('LocationView', { location: location! });
+              navigation.navigate('LocationView', { location: location });
             }}
           >
             <Ionicons name={'location-outline'} size={16} /> {location?.name}
@@ -108,7 +114,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
           <Text
             style={styles.centered}
             onPress={() => {
-              navigation.navigate('ContainerView', { container: container! });
+              navigation.navigate('ContainerView', { container: container });
             }}
           >
             <Ionicons name={'cube-outline'} size={16} /> {container?.name}

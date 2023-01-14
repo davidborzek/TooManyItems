@@ -8,7 +8,7 @@ import {
 } from '../../supabase/supabase';
 import { FAB, Icon, Text } from 'react-native-elements';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -63,18 +63,18 @@ export default function ContainerDetailView({ route, navigation }: Props) {
   );
   const { image, pickImage } = useImagePicker();
 
-  const fetchContainer = () => {
+  const fetchContainer = useCallback(() => {
     if (container && container.location_id != null) {
       fetchLocation(container.location_id).then((location) => {
         setLocation(location);
       });
     }
-  };
+  }, [container]);
 
   useEffect(() => {
     fetchContainer();
     navigation.addListener('focus', fetch);
-  }, []);
+  }, [fetch, navigation, fetchContainer]);
 
   useEffect(() => {
     if (container) {
@@ -119,8 +119,8 @@ export default function ContainerDetailView({ route, navigation }: Props) {
       <TouchableOpacity
         onPress={() => {
           pickImage().then((image) => {
-            if (!image.canceled) {
-              container.image = image.assets![0].base64!;
+            if (!image.canceled && image.assets[0].base64) {
+              container.image = image.assets[0].base64;
               updateContainer(container);
             }
           });

@@ -11,8 +11,8 @@ const items: BottomSheetItem[] = [
     text: 'Some text',
   },
   {
-    onPress: () => console.log('do something'),
     disabled: true,
+    onPress: () => console.log('do something'),
     text: 'Some disabled text',
   },
   {

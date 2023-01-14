@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -36,15 +36,16 @@ export default function ContainerAdd({ navigation }: Props) {
     setImageUploadVisible((visible) => !visible);
   };
 
-  const handleCreateContainer = async () => {
+  const handleCreateContainer = useCallback(async () => {
     await insertContainer({
       image: image,
+      // eslint-disable-next-line camelcase
       location_id: location,
       name: containerName,
     });
 
     navigation.goBack();
-  };
+  }, [containerName, image, location, navigation]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -61,7 +62,7 @@ export default function ContainerAdd({ navigation }: Props) {
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
-  }, []);
+  }, [fetch, navigation]);
 
   if (loading) {
     return <FullSpinner />;
