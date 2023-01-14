@@ -17,6 +17,9 @@ import {
   NavigationContainer,
   NavigatorScreenParams,
 } from '@react-navigation/native';
+import QRCodePrint, {
+  QRCodePrintParams,
+} from './views/QRCodePrint/QRCodePrint';
 
 import ContainerAdd from './views/ContainerAdd/ContainerAdd';
 import FullSpinner from './components/FullSpinner/FullSpinner';
@@ -34,6 +37,7 @@ export type AppStackParamList = {
   ContainerAdd: undefined;
   LocationAdd: undefined;
   QRCodeScanner: undefined;
+  QRCodePrint: QRCodePrintParams;
   ContainerView: ContainerViewParamList;
   LocationView: LocationViewParamList;
   ItemAdd: ItemAddParamList;
@@ -76,6 +80,11 @@ function App() {
           name="QRCodeScanner"
           component={QRCodeScanner}
           options={{ title: t('scan_container_qr_code') || '' }}
+        />
+        <Stack.Screen
+          name="QRCodePrint"
+          component={QRCodePrint}
+          options={{ title: t('qr_code') || '' }}
         />
         <Stack.Screen
           name="ContainerView"
