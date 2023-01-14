@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "@supabase/supabase-js": "^2.2.0",
+    "dotenv": "^16.0.3",
     "expo": "~47.0.8",
     "expo-camera": "~13.1.0",
     "expo-image-picker": "~14.0.2",
