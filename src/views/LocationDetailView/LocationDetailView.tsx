@@ -20,7 +20,7 @@ export type LocationViewParamList = {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  image: { height: '100%' },
+  image: { height: '100%', position: 'absolute', width: '100%' },
   imageContainer: {
     backgroundColor: '#c1c1c1',
     flexDirection: 'row',
@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     maxWidth: '100%',
     minWidth: '100%',
-    position: 'absolute',
-    width: '100%',
   },
   info: {
     alignSelf: 'flex-end',
