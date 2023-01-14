@@ -10,6 +10,9 @@ import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
 import ItemDetailView, {
   ItemViewParamList,
 } from './views/ItemDetailView/ItemDetailView';
+import ItemModifyView, {
+  ItemModifyViewParamList,
+} from './views/ItemModifyView/ItemModifyView';
 import LocationDetailView, {
   LocationViewParamList,
 } from './views/LocationDetailView/LocationDetailView';
@@ -42,10 +45,15 @@ export type AppStackParamList = {
   LocationView: LocationViewParamList;
   ItemAdd: ItemAddParamList;
   ItemView: ItemViewParamList;
+  ItemModifyView: ItemModifyViewParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
+/**
+ * Haupt React Component unserer App. Beinhaltet einen Stack Navigator mit mehreren Stacks.
+ * @returns
+ */
 function App() {
   const { t } = useTranslation();
   const { session, loading } = useSession();
@@ -105,6 +113,11 @@ function App() {
           name="ItemView"
           component={ItemDetailView}
           options={{ title: t('view_item') || '' }}
+        />
+        <Stack.Screen
+          name="ItemModifyView"
+          component={ItemModifyView}
+          options={{ title: t('modify_item') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

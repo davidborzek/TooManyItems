@@ -47,5 +47,8 @@
   "view_container": "View Container",
   "view_item": "View Item",
   "view_location": "View Location",
+  "modify_item": "Edit Item",
+  "modify_container": "Edit Container",
+  "modify_location": "Edit Location",
   "zip": "ZIP"
 }

@@ -139,6 +139,24 @@ export default function ItemDetailView({ route, navigation }: Props) {
           deleteItem(item.name, item.id);
         }}
       />
+      <FAB
+        title=""
+        color="#32afed"
+        placement="right"
+        style={{ marginBottom: 80 }}
+        icon={
+          <Icon
+            name="trash"
+            size={24}
+            type="ionicon"
+            color="white"
+            tvParallaxProperties=""
+          />
+        }
+        onPress={() => {
+          navigation.navigate('ItemModifyView', { item: item });
+        }}
+      />
     </View>
   );
 }

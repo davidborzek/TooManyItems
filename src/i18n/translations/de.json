@@ -47,5 +47,8 @@
   "view_container": "Container Anzeigen",
   "view_item": "Gegenstand Anzeigen",
   "view_location": "Ort Anzeigen",
+  "modify_item": "Gegenstand Bearbeiten",
+  "modify_container": "Container Bearbeiten",
+  "modify_location": "Ort Bearbeiten",
   "zip": "PLZ"
 }
