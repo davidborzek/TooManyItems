@@ -166,6 +166,23 @@ export default function ContainerDetailView({ route, navigation }: Props) {
       <FAB
         title=""
         color="#32afed"
+        placement="left"
+        icon={
+          <Icon
+            name="qr-code"
+            type="ionicons"
+            size={24}
+            color="white"
+            tvParallaxProperties={undefined}
+          />
+        }
+        onPress={() => {
+          navigation.navigate('QRCodePrint', { content: `${container.id}` });
+        }}
+      />
+      <FAB
+        title=""
+        color="#32afed"
         placement="right"
         icon={
           <Icon
