@@ -1,5 +1,5 @@
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Item, updateItem } from '../../supabase/supabase';
+import { Location, updateLocation } from '../../supabase/supabase';
 import { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
@@ -12,60 +12,72 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
 
-type Props = NativeStackScreenProps<AppStackParamList, 'ItemModifyView'>;
+type Props = NativeStackScreenProps<AppStackParamList, 'LocationModifyView'>;
 
-export type ItemModifyViewParamList = {
-  item: Item;
+export type LocationModifyViewParamList = {
+  location: Location;
 };
 
 /**
- * Die React view welche es einem ermöglicht Items zu bearbeiten
+ * Die React view welche es einem ermöglicht Orte zu bearbeiten
  */
-export default function ItemModifyView({ route, navigation }: Props) {
+export default function LocationModifyView({ route, navigation }: Props) {
   const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();
-  const [itemName, setItemName] = useState('');
-  const [description, setDescription] = useState('');
+  const [locationName, setLocationName] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [zip, setZip] = useState('');
   const [imageUploadVisible, setImageUploadVisible] = useState(false);
-  const { item } = route.params;
+  const { location } = route.params;
 
   const toggleImageUpload = () => {
     setImageUploadVisible((visible) => !visible);
   };
 
-  const handleModifyItem = useCallback(async () => {
-    await updateItem({
-      // eslint-disable-next-line camelcase
-      container_id: item.container_id,
-      description: description,
-      id: item.id,
+  const handleModifyLocation = useCallback(async () => {
+    await updateLocation({
+      id: location.id,
       image: image,
-      name: itemName,
+      street: street,
+      name: locationName,
+      city: city,
+      // eslint-disable-next-line camelcase
+      zip_code: zip,
     });
 
     navigation.goBack();
-  }, [item, description, image, itemName, navigation]);
+  }, [location, city, zip, street, image, locationName, navigation]);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <HeaderCheckmark disabled={!itemName} onPress={handleModifyItem} />
+          <HeaderCheckmark
+            disabled={!locationName}
+            onPress={handleModifyLocation}
+          />
         );
       },
     });
-    if (!itemName) setItemName(item.name);
-    if (!description && item.description) setDescription(item.description);
+    if (!locationName) setLocationName(location.name);
+    if (!city && location.city) setCity(location.city);
+    if (!zip && location.zip_code) setZip(location.zip_code);
+    if (!street && location.street) setZip(location.street);
   }, [
     navigation,
-    item.description,
-    item.name,
-    description,
-    itemName,
-    handleModifyItem,
+    location.name,
+    street,
+    zip,
+    city,
+    location.city,
+    location.zip_code,
+    location.street,
+    locationName,
+    handleModifyLocation,
   ]);
 
-  const realImage = image ? image : item.image;
+  const realImage = image ? image : location.image;
 
   return (
     <KeyboardAwareScrollView>
@@ -92,7 +104,7 @@ export default function ItemModifyView({ route, navigation }: Props) {
         />
         <TouchableOpacity
           onPress={toggleImageUpload}
-          style={styles.imageContainer}
+          style={styles.imageLocation}
         >
           {realImage ? (
             <Image
@@ -105,19 +117,35 @@ export default function ItemModifyView({ route, navigation }: Props) {
         </TouchableOpacity>
         <View style={styles.form}>
           <Input
-            onChangeText={setItemName}
-            value={itemName}
+            onChangeText={setLocationName}
+            value={locationName}
             label={t('name')}
             placeholder={t('name') || ''}
             autoCompleteType=""
           />
+
           <Input
-            onChangeText={setDescription}
-            value={description}
-            label={t('description')}
-            placeholder={t('description') || ''}
+            onChangeText={setStreet}
+            value={street}
+            label={t('street')}
+            placeholder={t('street') || ''}
             autoCompleteType=""
-            multiline
+          />
+
+          <Input
+            onChangeText={setCity}
+            value={city}
+            label={t('city')}
+            placeholder={t('city') || ''}
+            autoCompleteType=""
+          />
+
+          <Input
+            onChangeText={setZip}
+            value={zip}
+            label={t('zip')}
+            placeholder={t('zip') || ''}
+            autoCompleteType=""
           />
         </View>
       </View>
@@ -128,7 +156,7 @@ export default function ItemModifyView({ route, navigation }: Props) {
 const styles = StyleSheet.create({
   form: { marginTop: 10, paddingHorizontal: 20, width: '100%' },
   image: { height: '100%', width: '100%' },
-  imageContainer: {
+  imageLocation: {
     alignItems: 'center',
     backgroundColor: '#c1c1c1',
     borderRadius: 3,

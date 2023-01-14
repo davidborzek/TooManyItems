@@ -19,6 +19,9 @@ import ItemModifyView, {
 import LocationDetailView, {
   LocationViewParamList,
 } from './views/LocationDetailView/LocationDetailView';
+import LocationModifyView, {
+  LocationModifyViewParamList,
+} from './views/LocationModifyView/LocationModifyView';
 import {
   NavigationContainer,
   NavigatorScreenParams,
@@ -50,6 +53,7 @@ export type AppStackParamList = {
   ItemView: ItemViewParamList;
   ItemModifyView: ItemModifyViewParamList;
   ContainerModifyView: ContainerModifyViewParamList;
+  LocationModifyView: LocationModifyViewParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -127,6 +131,11 @@ function App() {
           name="ContainerModifyView"
           component={ContainerModifyView}
           options={{ title: t('modify_container') || '' }}
+        />
+        <Stack.Screen
+          name="LocationModifyView"
+          component={LocationModifyView}
+          options={{ title: t('modify_location') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />
