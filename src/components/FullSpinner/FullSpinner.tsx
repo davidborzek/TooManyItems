@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Ein wiederverwendbarer Component welcher einen Ladespinner bereitstellt.
+ */
 export default function FullSpinner() {
   return (
     <View style={styles.loading}>

@@ -1,3 +1,5 @@
+// Wir verwenden supabase als backend. Hier sind alle Types der Postgres Datenbank festgehalten.
+
 export type Json =
   | string
   | number

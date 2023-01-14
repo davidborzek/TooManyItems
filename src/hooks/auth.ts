@@ -5,6 +5,9 @@ import { Session } from '@supabase/supabase-js';
 import { supabase } from '../supabase/supabase';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * React Hook mit welcher der Nutzer sich Authentifizieren kann.
+ */
 export function useLogin() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -28,6 +31,9 @@ export function useLogin() {
   return { loading, login };
 }
 
+/**
+ * React Hook mit welcher der Nutzer sich Registrieren kann.
+ */
 export function useSignUp() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);

@@ -7,6 +7,9 @@ type Props = {
   onPress?: () => void;
 };
 
+/**
+ * Ein wiederverwendbarer Component welcher ein Anklickbares Checkmark bereitstellt.
+ */
 export default function HeaderCheckmark({ disabled, onPress }: Props) {
   return (
     <TouchableOpacity disabled={disabled} onPress={onPress}>

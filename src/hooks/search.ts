@@ -16,6 +16,9 @@ export enum SearchType {
   CONTAINER = 'CONTAINER',
 }
 
+/**
+ * React Hook welche verschiedene Suchfunktionen für Items, Container und Locations bereitstellt.
+ */
 export function useSearch() {
   const [query, setQuery] = useState('');
   const [type, setType] = useState<SearchType>(SearchType.ITEM);

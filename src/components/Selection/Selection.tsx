@@ -29,6 +29,10 @@ type Props<T> = {
   EmptyStateComponent?: React.ReactElement | null;
 };
 
+/**
+ * Ein wiederverwendbarer Component welcher Ähnlich wie ein Dropdown Menü funktioniert.
+ * Die Auswahlmöglichkeiten werden am unteren Bildschirmrand angezeigt.
+ */
 export default function Selection<T>({
   items,
   visible,

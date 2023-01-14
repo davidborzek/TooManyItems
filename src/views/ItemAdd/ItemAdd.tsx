@@ -18,6 +18,9 @@ export type ItemAddParamList = {
   container: Container;
 };
 
+/**
+ * React view um Items hinzuzufügen.
+ */
 export default function ItemAdd({ route, navigation }: Props) {
   const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();

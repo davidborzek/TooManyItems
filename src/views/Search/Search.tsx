@@ -20,6 +20,9 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
+/**
+ * Der Such Tab auf der Hauptseite.
+ */
 export default function Search({ navigation }: Props) {
   const { t } = useTranslation();
   const { result, query, type, setQuery, setType } = useSearch();

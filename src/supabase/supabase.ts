@@ -30,6 +30,9 @@ export type Item = Database['public']['Tables']['item']['Row'];
 
 export type ItemInsert = Database['public']['Tables']['item']['Insert'];
 
+/**
+ * Hole alle Container aus der Datenbank die für den angemeldeten Benutzer verfügbar sind.
+ */
 export async function fetchContainers(): Promise<Container[]> {
   const result = await supabase.from('container').select('*').order('name');
 
@@ -40,6 +43,9 @@ export async function fetchContainers(): Promise<Container[]> {
   return result.data;
 }
 
+/**
+ * Hole einen bestimmten Container aus der Datenbank.
+ */
 export async function fetchContainer(containerId: number): Promise<Container> {
   const result = await supabase
     .from('container')
@@ -54,6 +60,9 @@ export async function fetchContainer(containerId: number): Promise<Container> {
   return result.data;
 }
 
+/**
+ * Hole alle Orte aus der Datenbank die für den angemeldeten Benutzer verfügbar sind.
+ */
 export async function fetchLocations(): Promise<Location[]> {
   const result = await supabase.from('location').select('*').order('name');
 
@@ -64,6 +73,9 @@ export async function fetchLocations(): Promise<Location[]> {
   return result.data;
 }
 
+/**
+ * Hole alle Container aus der Datenbank welche in einem bestimmten Ort liegen.
+ */
 export async function fetchContainersForLocation(
   locationId: number
 ): Promise<Container[]> {
@@ -79,6 +91,9 @@ export async function fetchContainersForLocation(
   return result.data;
 }
 
+/**
+ * Hole alle Items aus der Datenbank welche in einem bestimmten Container liegen.
+ */
 export async function fetchItemsForContainer(
   containerId: number
 ): Promise<Item[]> {
@@ -94,6 +109,9 @@ export async function fetchItemsForContainer(
   return result.data;
 }
 
+/**
+ * Hole einen bestimmten Ort aus der Datenbank.
+ */
 export async function fetchLocation(id: number): Promise<Location> {
   const result = await supabase
     .from('location')
@@ -108,6 +126,9 @@ export async function fetchLocation(id: number): Promise<Location> {
   return result.data;
 }
 
+/**
+ * Änderung eines bestimmten Containers anhand seiner id.
+ */
 export async function updateContainer(
   container: ContainerInsert
 ): Promise<void> {
@@ -120,6 +141,9 @@ export async function updateContainer(
   }
 }
 
+/**
+ * Änderung eines bestimmten Items anhand seiner id.
+ */
 export async function updateItem(item: ItemInsert): Promise<void> {
   const result = await supabase.from('item').update(item).eq('id', item.id);
   if (result.error != null) {
@@ -127,6 +151,9 @@ export async function updateItem(item: ItemInsert): Promise<void> {
   }
 }
 
+/**
+ * Änderung eines bestimmten Ortes anhand seiner id.
+ */
 export async function updateLocation(location: LocationInsert): Promise<void> {
   const result = await supabase
     .from('location')
@@ -137,6 +164,9 @@ export async function updateLocation(location: LocationInsert): Promise<void> {
   }
 }
 
+/**
+ * Insert Funktion für ein Container.
+ */
 export async function insertContainer(
   container: ContainerInsert
 ): Promise<void> {
@@ -146,6 +176,9 @@ export async function insertContainer(
   }
 }
 
+/**
+ * Insert Funktion für ein Item.
+ */
 export async function insertItem(item: ItemInsert): Promise<void> {
   const result = await supabase.from('item').insert(item);
   if (result.error != null) {
@@ -153,6 +186,9 @@ export async function insertItem(item: ItemInsert): Promise<void> {
   }
 }
 
+/**
+ * Insert Funktion für einen Ort.
+ */
 export async function insertLocation(location: LocationInsert): Promise<void> {
   const result = await supabase.from('location').insert(location);
   if (result.error != null) {
@@ -160,6 +196,9 @@ export async function insertLocation(location: LocationInsert): Promise<void> {
   }
 }
 
+/**
+ * Such Funktion für einen Items auf die der Nutzer Zugriff hat.
+ */
 export async function searchItems(q: string): Promise<Item[]> {
   // TODO: use textSearch maybe
   const result = await supabase
@@ -175,6 +214,9 @@ export async function searchItems(q: string): Promise<Item[]> {
   return result.data;
 }
 
+/**
+ * Such Funktion für einen Container auf die der Nutzer Zugriff hat.
+ */
 export async function searchContainers(q: string): Promise<Container[]> {
   // TODO: use textSearch maybe
   const result = await supabase
@@ -190,6 +232,9 @@ export async function searchContainers(q: string): Promise<Container[]> {
   return result.data;
 }
 
+/**
+ * Such Funktion für einen Orte auf die der Nutzer Zugriff hat.
+ */
 export async function searchLocations(q: string): Promise<Location[]> {
   // TODO: use textSearch maybe
   const result = await supabase
@@ -205,6 +250,9 @@ export async function searchLocations(q: string): Promise<Location[]> {
   return result.data;
 }
 
+/**
+ * Lösch Funktion für einen Container.
+ */
 export async function deleteContainer(id: number) {
   const result = await supabase.from('container').delete().eq('id', id);
   if (result.error != null) {
@@ -212,6 +260,9 @@ export async function deleteContainer(id: number) {
   }
 }
 
+/**
+ * Lösch Funktion für einen Ort.
+ */
 export async function deleteLocation(id: number) {
   const result = await supabase.from('location').delete().eq('id', id);
   if (result.error != null) {
@@ -219,6 +270,9 @@ export async function deleteLocation(id: number) {
   }
 }
 
+/**
+ * Lösch Funktion für ein Item.
+ */
 export async function deleteItem(id: number) {
   const result = await supabase.from('item').delete().eq('id', id);
   if (result.error != null) {

@@ -9,6 +9,10 @@ type Props = {
   icon?: React.ComponentProps<typeof Ionicons>['name'];
 };
 
+/**
+ * Ein wiederverwendbarer Component welcher einen Platzhalter bereitstellt.
+ * Dieser Platzhalter wird beispielsweise in der ImageList oder Selection verwendet wenn keine Items existieren.
+ */
 export default function EmptyState({
   message,
   description,

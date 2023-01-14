@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
   title: { fontSize: 20, fontWeight: 'bold' },
 });
 
+/**
+ * React view für die Detaillierte Container Ansicht.
+ */
 export default function ContainerDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
 

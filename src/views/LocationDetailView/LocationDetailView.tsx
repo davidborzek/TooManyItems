@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
   title: { fontSize: 20, fontWeight: 'bold' },
 });
 
+/**
+ * React view für die Detaillierte Orts Ansicht.
+ */
 export default function LocationDetailView({ route, navigation }: Props) {
   const { t } = useTranslation();
   const { location } = route.params;

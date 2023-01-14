@@ -10,6 +10,10 @@ type Props = {
   onPress?: () => void;
 };
 
+/**
+ * Ein wiederverwendbarer Component welcher Chips bereitstellt.
+ * https://m3.material.io/components/chips
+ */
 export default function Chip({ icon, title, selected, onPress }: Props) {
   return (
     <TouchableOpacity

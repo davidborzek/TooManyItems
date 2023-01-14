@@ -41,6 +41,10 @@ function QRCameraButton({ onPress }: { onPress: () => void }) {
   );
 }
 
+/**
+ * Die Hauptseite. Hier wird der QR-Code button oben rechts angezeigt.
+ * Außerdem ist hier der Tab Navigator eingesetzt.
+ */
 export default function Home({ navigation }: Props) {
   const { t } = useTranslation();
 

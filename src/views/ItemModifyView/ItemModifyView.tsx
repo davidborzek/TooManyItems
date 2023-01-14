@@ -19,7 +19,7 @@ export type ItemModifyViewParamList = {
 };
 
 /**
- * Die React view welche dafür sorgt Items zu bearbeiten
+ * Die React view welche es einem ermöglicht Items zu bearbeiten
  */
 export default function ItemModifyView({ route, navigation }: Props) {
   const { image, pickImage, removeImage, takeImage } = useImagePicker();

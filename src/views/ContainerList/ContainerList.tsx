@@ -27,6 +27,9 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
+/**
+ * React view für die Haupt Container Ansicht auf der Startseite.
+ */
 export default function ContainerList({ navigation }: Props) {
   const { t } = useTranslation();
   const { loading, containers, fetch, refresh, refreshing } = useContainers();

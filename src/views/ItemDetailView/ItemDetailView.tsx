@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
   title: { fontSize: 20, fontWeight: 'bold' },
 });
 
+/**
+ * React view für die Detaillierte Item Ansicht.
+ */
 export default function ItemDetailView({ route, navigation }: Props) {
   const { image, pickImage } = useImagePicker();
   const { item } = route.params;

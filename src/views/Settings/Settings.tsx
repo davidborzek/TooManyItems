@@ -15,6 +15,9 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
+/**
+ * Der Einstellungs Tab auf der Hauptseite. Hier ist eigentlich nur der Ausloggen Knopf
+ */
 export default function Settings(_: Props) {
   const { t } = useTranslation();
 

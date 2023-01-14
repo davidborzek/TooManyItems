@@ -2,6 +2,9 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { useState } from 'react';
 
+/**
+ * React Hook welche einen Image Picker bereitstellt, über den Bilder aus der Bibliothek aber auch mit der Kamera aufgenommen werden können.
+ */
 export function useImagePicker() {
   const [image, setImage] = useState<string | undefined | null>();
 

@@ -5,6 +5,9 @@ import {
 } from '../supabase/supabase';
 import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * React Hook welche alle Container für einen Nutzer bereitstellt.
+ */
 export function useContainers() {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -33,6 +36,9 @@ export function useContainers() {
   return { containers, fetch, loading, refresh, refreshing };
 }
 
+/**
+ * React Hook welche alle Container für einen Ort bereitstellt.
+ */
 export function useContainersForLocation(locationId: number) {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);

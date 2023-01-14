@@ -13,6 +13,9 @@ import QRCode from 'react-native-qrcode-svg';
 import { shareAsync } from 'expo-sharing';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Die React view die aufgerufen wird, wenn ein QR-Code ausgedruckt werden soll.
+ */
 function buildQrCodeHtml(qrCodeDataUrl: string): string {
   return `
     <html>

@@ -18,6 +18,9 @@ import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ContainerAdd'>;
 
+/**
+ * React view um Container hinzuzufügen.
+ */
 export default function ContainerAdd({ navigation }: Props) {
   const { t } = useTranslation();
 

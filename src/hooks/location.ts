@@ -1,6 +1,9 @@
 import { Location, fetchLocations } from '../supabase/supabase';
 import { useEffect, useState } from 'react';
 
+/**
+ * React Hook welche alle Orte für einen Nutzer bereitstellt.
+ */
 export function useLocations() {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);

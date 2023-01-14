@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Ein wiederverwendbarer Component welcher mehrere Auswahlmöglichkeiten am unteren Bildschirmrand bereitstellt.
+ */
 export default function BottomSheet({ items, visible, onClose }: Props) {
   const handleItemClick = (item: BottomSheetItem) => {
     if (onClose) {

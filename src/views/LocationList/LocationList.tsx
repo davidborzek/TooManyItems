@@ -33,6 +33,9 @@ type Props = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
+/**
+ * React view für die Haupt Orts Ansicht auf der Startseite.
+ */
 export default function LocationList({ navigation }: Props) {
   const { t } = useTranslation();
   const { loading, locations, fetch, refreshing, refresh } = useLocations();

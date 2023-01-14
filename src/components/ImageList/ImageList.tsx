@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Ein wiederverwendbarer Component welcher mehrere ListItems in einer Liste darstellen kann.
+ * Zusätzlich wird links neben dem ListItem ein Bild dargestellt.
+ */
 export default function ImageList<T extends ImageListItem>({
   items,
   onRefresh,

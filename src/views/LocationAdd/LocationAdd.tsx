@@ -14,6 +14,9 @@ import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationAdd'>;
 
+/**
+ * React view um Orte hinzuzufügen.
+ */
 export default function LocationAdd({ navigation }: Props) {
   const { t } = useTranslation();
 

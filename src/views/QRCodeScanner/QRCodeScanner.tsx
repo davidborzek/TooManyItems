@@ -11,6 +11,9 @@ import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'QRCodeScanner'>;
 
+/**
+ * Die React view die aufgerufen wird, wenn ein QR-Code gescannt werden soll.
+ */
 export default function QRCodeScanner({ navigation }: Props) {
   const { t } = useTranslation();
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
