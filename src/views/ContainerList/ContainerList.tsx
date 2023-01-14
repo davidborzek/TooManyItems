@@ -59,7 +59,7 @@ export default function ContainerList({ navigation }: Props) {
                 deleteContainer(selectedContainer.id).then(() => fetch());
               }
             },
-            text: 'Delete',
+            text: t('delete'),
           },
         ]}
         visible={optionsVisible}

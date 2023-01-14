@@ -110,7 +110,7 @@ export default function ContainerDetailView({ route, navigation }: Props) {
                 deleteItem(selectedItem.id).then(() => fetch());
               }
             },
-            text: 'Delete',
+            text: t('delete'),
           },
         ]}
         visible={optionsVisible}

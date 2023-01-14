@@ -65,7 +65,7 @@ export default function LocationList({ navigation }: Props) {
                 deleteLocation(selectedLocation.id).then(() => fetch());
               }
             },
-            text: 'Delete',
+            text: t('delete'),
           },
         ]}
         visible={optionsVisible}
