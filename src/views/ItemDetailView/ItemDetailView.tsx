@@ -149,7 +149,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
         style={{ marginBottom: 80 }}
         icon={
           <Icon
-            name="trash"
+            name="pencil"
             size={24}
             type="ionicon"
             color="white"

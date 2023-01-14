@@ -199,6 +199,24 @@ export default function ContainerDetailView({ route, navigation }: Props) {
           navigation.navigate('ItemAdd', { container: container });
         }}
       />
+      <FAB
+        title=""
+        color="#32afed"
+        placement="right"
+        style={{ marginBottom: 80 }}
+        icon={
+          <Icon
+            name="pencil"
+            size={24}
+            type="ionicon"
+            color="white"
+            tvParallaxProperties=""
+          />
+        }
+        onPress={() => {
+          navigation.navigate('ContainerModifyView', { container: container });
+        }}
+      />
     </View>
   );
 }

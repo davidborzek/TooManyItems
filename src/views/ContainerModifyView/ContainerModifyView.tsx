@@ -1,5 +1,5 @@
+import { Container, updateContainer } from '../../supabase/supabase';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Item, updateItem } from '../../supabase/supabase';
 import { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
@@ -12,60 +12,52 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
 
-type Props = NativeStackScreenProps<AppStackParamList, 'ItemModifyView'>;
+type Props = NativeStackScreenProps<AppStackParamList, 'ContainerModifyView'>;
 
-export type ItemModifyViewParamList = {
-  item: Item;
+export type ContainerModifyViewParamList = {
+  container: Container;
 };
 
 /**
- * Die React view welche es einem ermöglicht Items zu bearbeiten
+ * Die React view welche es einem ermöglicht Container zu bearbeiten
  */
-export default function ItemModifyView({ route, navigation }: Props) {
+export default function ContainerModifyView({ route, navigation }: Props) {
   const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();
-  const [itemName, setItemName] = useState('');
-  const [description, setDescription] = useState('');
+  const [containerName, setContainerName] = useState('');
   const [imageUploadVisible, setImageUploadVisible] = useState(false);
-  const { item } = route.params;
+  const { container } = route.params;
 
   const toggleImageUpload = () => {
     setImageUploadVisible((visible) => !visible);
   };
 
-  const handleModifyItem = useCallback(async () => {
-    await updateItem({
+  const handleModifyContainer = useCallback(async () => {
+    await updateContainer({
       // eslint-disable-next-line camelcase
-      container_id: item.container_id,
-      id: item.id,
-      description: description,
+      id: container.id,
       image: image,
-      name: itemName,
+      name: containerName,
     });
 
     navigation.goBack();
-  }, [item, description, image, itemName, navigation]);
+  }, [container, image, containerName, navigation]);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <HeaderCheckmark disabled={!itemName} onPress={handleModifyItem} />
+          <HeaderCheckmark
+            disabled={!containerName}
+            onPress={handleModifyContainer}
+          />
         );
       },
     });
-    if (!itemName) setItemName(item.name);
-    if (!description && item.description) setDescription(item.description);
-  }, [
-    navigation,
-    item.description,
-    item.name,
-    description,
-    itemName,
-    handleModifyItem,
-  ]);
+    if (!containerName) setContainerName(container.name);
+  }, [navigation, container.name, containerName, handleModifyContainer]);
 
-  const realImage = image ? image : item.image;
+  const realImage = image ? image : container.image;
 
   return (
     <KeyboardAwareScrollView>
@@ -105,19 +97,11 @@ export default function ItemModifyView({ route, navigation }: Props) {
         </TouchableOpacity>
         <View style={styles.form}>
           <Input
-            onChangeText={setItemName}
-            value={itemName}
+            onChangeText={setContainerName}
+            value={containerName}
             label={t('name')}
             placeholder={t('name') || ''}
             autoCompleteType=""
-          />
-          <Input
-            onChangeText={setDescription}
-            value={description}
-            label={t('description')}
-            placeholder={t('description') || ''}
-            autoCompleteType=""
-            multiline
           />
         </View>
       </View>

@@ -5,6 +5,9 @@ import * as React from 'react';
 import ContainerDetailView, {
   ContainerViewParamList,
 } from './views/ContainerDetailView/ContainerDetailView';
+import ContainerModifyView, {
+  ContainerModifyViewParamList,
+} from './views/ContainerModifyView/ContainerModifyView';
 import Home, { HomeTabParamList } from './views/Home/Home';
 import ItemAdd, { ItemAddParamList } from './views/ItemAdd/ItemAdd';
 import ItemDetailView, {
@@ -46,6 +49,7 @@ export type AppStackParamList = {
   ItemAdd: ItemAddParamList;
   ItemView: ItemViewParamList;
   ItemModifyView: ItemModifyViewParamList;
+  ContainerModifyView: ContainerModifyViewParamList;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -118,6 +122,11 @@ function App() {
           name="ItemModifyView"
           component={ItemModifyView}
           options={{ title: t('modify_item') || '' }}
+        />
+        <Stack.Screen
+          name="ContainerModifyView"
+          component={ContainerModifyView}
+          options={{ title: t('modify_container') || '' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />
