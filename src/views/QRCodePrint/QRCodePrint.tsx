@@ -72,7 +72,6 @@ function QRCodePrint({ route }: Props) {
       html: buildQrCodeHtml(qrDataUrl),
     });
 
-    console.log(uri);
     await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   };
 
