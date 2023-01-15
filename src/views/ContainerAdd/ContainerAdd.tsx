@@ -65,6 +65,10 @@ export default function ContainerAdd({ navigation }: Props) {
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
+
+    return () => {
+      navigation.removeListener('focus', fetch);
+    };
   }, [fetch, navigation]);
 
   if (loading) {

@@ -36,6 +36,9 @@ export default function ContainerList({ navigation }: Props) {
 
   useEffect(() => {
     navigation.addListener('focus', fetch);
+    return () => {
+      navigation.removeListener('focus', fetch);
+    };
   }, [fetch, navigation]);
 
   const [selectedContainer, setSelectedContainer] = useState<Container>();
