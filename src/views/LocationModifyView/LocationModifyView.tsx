@@ -63,7 +63,7 @@ export default function LocationModifyView({ route, navigation }: Props) {
     if (!locationName) setLocationName(location.name);
     if (!city && location.city) setCity(location.city);
     if (!zip && location.zip_code) setZip(location.zip_code);
-    if (!street && location.street) setZip(location.street);
+    if (!street && location.street) setStreet(location.street);
   }, [
     navigation,
     location.name,

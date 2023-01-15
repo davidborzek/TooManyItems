@@ -1,4 +1,5 @@
 import { Container, Location, updateLocation } from '../../supabase/supabase';
+import { FAB, Icon, Text } from 'react-native-elements';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useEffect } from 'react';
 
@@ -7,7 +8,6 @@ import EmptyState from '../../components/EmptyState/EmptyState';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text } from 'react-native-elements';
 import { useContainersForLocation } from '../../hooks/container';
 import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
@@ -110,6 +110,24 @@ export default function LocationDetailView({ route, navigation }: Props) {
             description={t('no_containers_information')}
           />
         }
+      />
+      <FAB
+        title=""
+        color="#32afed"
+        placement="right"
+        style={{ marginBottom: 80 }}
+        icon={
+          <Icon
+            name="pencil"
+            size={24}
+            type="ionicon"
+            color="white"
+            tvParallaxProperties=""
+          />
+        }
+        onPress={() => {
+          navigation.navigate('LocationModifyView', { location: location });
+        }}
       />
     </View>
   );
