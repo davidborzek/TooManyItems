@@ -1,4 +1,4 @@
-# mobile-computing
+# TooManyItems
 
 ## configure supabase credentials
 

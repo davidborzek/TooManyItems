@@ -17,7 +17,7 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Inventory</Text>
+        <Text style={styles.headerText}>TooManyItems</Text>
       </View>
       <Input
         label={t('email')}
