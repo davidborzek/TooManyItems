@@ -1,15 +1,15 @@
-import { Container, Location, updateLocation } from '../../supabase/supabase';
+import { Container, Location } from '../../supabase/supabase';
 import { FAB, Icon, Text } from 'react-native-elements';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 
 import { AppStackParamList } from '../../App';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
+import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useContainersForLocation } from '../../hooks/container';
-import { useImagePicker } from '../../hooks/image';
 import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'LocationView'>;
@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     maxWidth: '100%',
     minWidth: '100%',
+  },
+  imagePlaceholder: {
+    alignItems: 'center',
+    borderColor: '#c1c1c1',
+    borderWidth: 2,
+    justifyContent: 'center',
   },
   info: {
     alignSelf: 'flex-end',
@@ -50,7 +56,6 @@ export default function LocationDetailView({ route, navigation }: Props) {
   const { containers, refresh, refreshing, loading } = useContainersForLocation(
     location.id
   );
-  const { image, pickImage } = useImagePicker();
 
   useEffect(() => {
     if (location) {
@@ -64,37 +69,31 @@ export default function LocationDetailView({ route, navigation }: Props) {
     return <FullSpinner />;
   }
 
-  const realImage = image ? image : location.image;
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          pickImage().then((image) => {
-            if (!image.canceled && image.assets[0].base64) {
-              location.image = image.assets[0].base64;
-              updateLocation(location);
-            }
-          });
-        }}
-        style={styles.imageContainer}
-      >
-        {realImage && (
+      <View style={styles.imageContainer}>
+        {location.image ? (
           <Image
-            source={{ uri: `data:image/png;base64,${realImage}` }}
+            source={{ uri: `data:image/png;base64,${location.image}` }}
             style={styles.image}
           />
+        ) : (
+          <View style={[styles.image, styles.imagePlaceholder]}>
+            <Ionicons name={'location-outline'} size={120} color="#FFFFFF" />
+          </View>
         )}
         <View style={styles.info}>
           <Text style={styles.title}>{location?.name}</Text>
-          {location.street && <Text>{location.street}</Text>}
-          {(location.zip_code || location.city) && (
+          {location.street ? <Text>{location.street}</Text> : <></>}
+          {location.zip_code || location.city ? (
             <Text>
               {location.zip_code} {location.city}
             </Text>
+          ) : (
+            <></>
           )}
         </View>
-      </TouchableOpacity>
+      </View>
       <ImageList
         items={containers}
         onRefresh={refresh}
@@ -115,7 +114,6 @@ export default function LocationDetailView({ route, navigation }: Props) {
         title=""
         color="#32afed"
         placement="right"
-        style={{ marginBottom: 80 }}
         icon={
           <Icon
             name="pencil"

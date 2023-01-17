@@ -4,10 +4,9 @@ import {
   Location,
   deleteItem,
   fetchLocation,
-  updateContainer,
 } from '../../supabase/supabase';
 import { FAB, Icon, Text } from 'react-native-elements';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
@@ -17,7 +16,6 @@ import FullSpinner from '../../components/FullSpinner/FullSpinner';
 import ImageList from '../../components/ImageList/ImageList';
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useImagePicker } from '../../hooks/image';
 import { useItemsForContainer } from '../../hooks/item';
 import { useTranslation } from 'react-i18next';
 
@@ -37,6 +35,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     maxWidth: '100%',
     minWidth: '100%',
+  },
+  imagePlaceholder: {
+    alignItems: 'center',
+    borderColor: '#c1c1c1',
+    borderWidth: 2,
+    justifyContent: 'center',
   },
   info: {
     alignSelf: 'flex-end',
@@ -64,7 +68,6 @@ export default function ContainerDetailView({ route, navigation }: Props) {
   const { loading, items, refreshing, fetch, refresh } = useItemsForContainer(
     container.id
   );
-  const { image, pickImage } = useImagePicker();
 
   const fetchContainer = useCallback(() => {
     if (container && container.location_id != null) {
@@ -103,8 +106,6 @@ export default function ContainerDetailView({ route, navigation }: Props) {
     return <FullSpinner />;
   }
 
-  const realImage = image ? image : container.image;
-
   return (
     <View style={styles.container}>
       <BottomSheet
@@ -122,22 +123,16 @@ export default function ContainerDetailView({ route, navigation }: Props) {
         visible={optionsVisible}
         onClose={toggleOptionsVisible}
       />
-      <TouchableOpacity
-        onPress={() => {
-          pickImage().then((image) => {
-            if (!image.canceled && image.assets[0].base64) {
-              container.image = image.assets[0].base64;
-              updateContainer(container);
-            }
-          });
-        }}
-        style={styles.imageContainer}
-      >
-        {realImage && (
+      <View style={styles.imageContainer}>
+        {container.image ? (
           <Image
-            source={{ uri: `data:image/png;base64,${realImage}` }}
+            source={{ uri: `data:image/png;base64,${container.image}` }}
             style={styles.image}
           />
+        ) : (
+          <View style={[styles.image, styles.imagePlaceholder]}>
+            <Ionicons name={'cube-outline'} size={120} color="#FFFFFF" />
+          </View>
         )}
         <View style={styles.info}>
           <Text style={styles.title}>{container.name}</Text>
@@ -151,7 +146,7 @@ export default function ContainerDetailView({ route, navigation }: Props) {
             <Ionicons name={'location-outline'} size={16} /> {location?.name}
           </Text>
         </View>
-      </TouchableOpacity>
+      </View>
       <ImageList
         items={items}
         onRefresh={refresh}

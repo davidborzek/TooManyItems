@@ -4,17 +4,15 @@ import {
   Location,
   fetchContainer,
   fetchLocation,
-  updateItem,
 } from '../../supabase/supabase';
 import { FAB, Icon, Text } from 'react-native-elements';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import { AppStackParamList } from '../../App';
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useDeleteItemWithConfirmation } from '../../hooks/item';
-import { useImagePicker } from '../../hooks/image';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ItemView'>;
 
@@ -36,6 +34,12 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     minWidth: '100%',
   },
+  imagePlaceholder: {
+    alignItems: 'center',
+    borderColor: '#c1c1c1',
+    borderWidth: 2,
+    justifyContent: 'center',
+  },
   info: {
     alignSelf: 'flex-end',
     backgroundColor: 'rgba(255,255,255,0.6)',
@@ -52,7 +56,6 @@ const styles = StyleSheet.create({
  * React view für die Detaillierte Item Ansicht.
  */
 export default function ItemDetailView({ route, navigation }: Props) {
-  const { image, pickImage } = useImagePicker();
   const { item } = route.params;
   const [location, setLocation] = useState<Location>();
   const [container, setContainer] = useState<Container>();
@@ -83,26 +86,18 @@ export default function ItemDetailView({ route, navigation }: Props) {
     return <></>;
   }
 
-  const realImage = image ? image : item.image;
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          pickImage().then((image) => {
-            if (!image.canceled && image.assets[0].base64) {
-              item.image = image.assets[0].base64;
-              updateItem(item);
-            }
-          });
-        }}
-        style={styles.imageContainer}
-      >
-        {realImage && (
+      <View style={styles.imageContainer}>
+        {item.image ? (
           <Image
-            source={{ uri: `data:image/png;base64,${realImage}` }}
+            source={{ uri: `data:image/png;base64,${item.image}` }}
             style={styles.image}
           />
+        ) : (
+          <View style={[styles.image, styles.imagePlaceholder]}>
+            <Ionicons name={'shapes-outline'} size={120} color="#FFFFFF" />
+          </View>
         )}
         <View style={styles.info}>
           <Text style={styles.title}>{item.name}</Text>
@@ -123,7 +118,7 @@ export default function ItemDetailView({ route, navigation }: Props) {
             <Ionicons name={'cube-outline'} size={16} /> {container?.name}
           </Text>
         </View>
-      </TouchableOpacity>
+      </View>
       <Text style={{ margin: 20 }}>{item.description}</Text>
       <FAB
         title=""
