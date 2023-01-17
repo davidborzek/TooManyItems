@@ -5,8 +5,8 @@ import { useState } from 'react';
 /**
  * React Hook welche einen Image Picker bereitstellt, über den Bilder aus der Bibliothek aber auch mit der Kamera aufgenommen werden können.
  */
-export function useImagePicker() {
-  const [image, setImage] = useState<string | undefined | null>();
+export function useImagePicker(defaultImage?: string | null) {
+  const [image, setImage] = useState<string | undefined | null>(defaultImage);
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({

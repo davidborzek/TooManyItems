@@ -22,12 +22,14 @@ export type ItemModifyViewParamList = {
  * Die React view welche es einem ermöglicht Items zu bearbeiten
  */
 export default function ItemModifyView({ route, navigation }: Props) {
-  const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();
   const [itemName, setItemName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUploadVisible, setImageUploadVisible] = useState(false);
   const { item } = route.params;
+  const { image, pickImage, removeImage, takeImage } = useImagePicker(
+    item.image
+  );
 
   const toggleImageUpload = () => {
     setImageUploadVisible((visible) => !visible);
@@ -39,7 +41,7 @@ export default function ItemModifyView({ route, navigation }: Props) {
       container_id: item.container_id,
       description: description,
       id: item.id,
-      image: image,
+      image: image || '',
       name: itemName,
     });
 
@@ -64,8 +66,6 @@ export default function ItemModifyView({ route, navigation }: Props) {
     itemName,
     handleModifyItem,
   ]);
-
-  const realImage = image ? image : item.image;
 
   return (
     <KeyboardAwareScrollView>
@@ -94,9 +94,9 @@ export default function ItemModifyView({ route, navigation }: Props) {
           onPress={toggleImageUpload}
           style={styles.imageContainer}
         >
-          {realImage ? (
+          {image ? (
             <Image
-              source={{ uri: `data:image/png;base64,${realImage}` }}
+              source={{ uri: `data:image/png;base64,${image}` }}
               style={styles.image}
             />
           ) : (

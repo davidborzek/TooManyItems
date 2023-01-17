@@ -22,7 +22,6 @@ export type LocationModifyViewParamList = {
  * Die React view welche es einem ermöglicht Orte zu bearbeiten
  */
 export default function LocationModifyView({ route, navigation }: Props) {
-  const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();
   const [locationName, setLocationName] = useState('');
   const [city, setCity] = useState('');
@@ -30,6 +29,9 @@ export default function LocationModifyView({ route, navigation }: Props) {
   const [zip, setZip] = useState('');
   const [imageUploadVisible, setImageUploadVisible] = useState(false);
   const { location } = route.params;
+  const { image, pickImage, removeImage, takeImage } = useImagePicker(
+    location.image
+  );
 
   const toggleImageUpload = () => {
     setImageUploadVisible((visible) => !visible);
@@ -38,7 +40,7 @@ export default function LocationModifyView({ route, navigation }: Props) {
   const handleModifyLocation = useCallback(async () => {
     await updateLocation({
       id: location.id,
-      image: image,
+      image: image || '',
       street: street,
       name: locationName,
       city: city,
@@ -77,8 +79,6 @@ export default function LocationModifyView({ route, navigation }: Props) {
     handleModifyLocation,
   ]);
 
-  const realImage = image ? image : location.image;
-
   return (
     <KeyboardAwareScrollView>
       <View style={styles.view}>
@@ -106,9 +106,9 @@ export default function LocationModifyView({ route, navigation }: Props) {
           onPress={toggleImageUpload}
           style={styles.imageLocation}
         >
-          {realImage ? (
+          {image ? (
             <Image
-              source={{ uri: `data:image/png;base64,${realImage}` }}
+              source={{ uri: `data:image/png;base64,${image}` }}
               style={styles.image}
             />
           ) : (

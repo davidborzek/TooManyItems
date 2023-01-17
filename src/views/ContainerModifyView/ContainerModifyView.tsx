@@ -22,11 +22,13 @@ export type ContainerModifyViewParamList = {
  * Die React view welche es einem ermöglicht Container zu bearbeiten
  */
 export default function ContainerModifyView({ route, navigation }: Props) {
-  const { image, pickImage, removeImage, takeImage } = useImagePicker();
   const { t } = useTranslation();
   const [containerName, setContainerName] = useState('');
   const [imageUploadVisible, setImageUploadVisible] = useState(false);
   const { container } = route.params;
+  const { image, pickImage, removeImage, takeImage } = useImagePicker(
+    container.image
+  );
 
   const toggleImageUpload = () => {
     setImageUploadVisible((visible) => !visible);
@@ -36,7 +38,7 @@ export default function ContainerModifyView({ route, navigation }: Props) {
     await updateContainer({
       // eslint-disable-next-line camelcase
       id: container.id,
-      image: image,
+      image: image || '',
       name: containerName,
     });
 
@@ -56,8 +58,6 @@ export default function ContainerModifyView({ route, navigation }: Props) {
     });
     if (!containerName) setContainerName(container.name);
   }, [navigation, container.name, containerName, handleModifyContainer]);
-
-  const realImage = image ? image : container.image;
 
   return (
     <KeyboardAwareScrollView>
@@ -86,9 +86,9 @@ export default function ContainerModifyView({ route, navigation }: Props) {
           onPress={toggleImageUpload}
           style={styles.imageContainer}
         >
-          {realImage ? (
+          {image ? (
             <Image
-              source={{ uri: `data:image/png;base64,${realImage}` }}
+              source={{ uri: `data:image/png;base64,${image}` }}
               style={styles.image}
             />
           ) : (
